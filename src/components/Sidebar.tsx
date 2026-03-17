@@ -5,6 +5,7 @@ import {
   RiDashboardHorizontalFill,
   RiHome2Line,
   RiMoneyEuroCircleLine,
+  RiSettings3Fill,
   RiUser2Fill,
 } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -22,21 +23,24 @@ const links: Ilink[] = [
 ];
 export default function Sidebar() {
   return (
-    <nav className="bg-neutral w-full max-w-80 shadow-md h-screen">
-      <div className="flex justify-between p-5 gap-2 mb-6">
+    <nav className="flex flex-col bg-neutral w-full max-w-60 shadow-md h-screen">
+      <div className=" flex justify-between p-2 gap-2 mb-6">
         <h2 className="flex gap-2 uppercase ">
           <FcMoneyTransfer size={30} />
           <span className="self-center">e-trosa</span>
         </h2>
         <LuPanelLeftClose size={30} />
       </div>
-      <div className="flex flex-col">
+      <div className=" flex flex-col grow">
         {links.map((link, index) => (
           <Link key={index} to={link.to} className="flex gap-2 m-3">
              <h3 className="flex gap-2 "><span>{link.icon}</span> {link.to}</h3>
           </Link>
         ))}
       </div>
+    <div className="mt-auto p-3">
+        <Link className="flex gap-2 " to={"parametre"}> <span><RiSettings3Fill size={25}/></span><h3>Parametre</h3> </Link>
+    </div>
     </nav>
   );
 }

@@ -8,6 +8,7 @@ import Dettes from './pages/Dettes';
 import Home from './pages/Home';
 import Paiements from './pages/Paiements';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Parametre from './pages/Parametre.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "dettes", element: <Dettes /> },
       { path: "creances", element: <Creances /> },
       { path: "paiements", element: <Paiements /> },
+      { path: "parametre", element: <Parametre /> },
     ],
   },
 ]);
