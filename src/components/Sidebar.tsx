@@ -8,18 +8,18 @@ import {
   RiSettings3Fill,
   RiUser2Fill,
 } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 interface Ilink {
   icon: React.ReactNode;
   to: string;
 }
 const links: Ilink[] = [
-  { icon: <RiHome2Line size={25}/>, to: "accueil" },
-  { icon: <RiDashboardHorizontalFill size={25}/>, to: "dashboard" },
-  { icon: <RiMoneyEuroCircleLine size={25}/>, to: "dettes" },
-  { icon: <RiUser2Fill size={25}/>, to: "creances" },
-  { icon: <RiBankCard2Line size={25}/>, to: "paiements" },
+  { icon: <RiHome2Line size={25} />, to: "accueil" },
+  { icon: <RiDashboardHorizontalFill size={25} />, to: "dashboard" },
+  { icon: <RiMoneyEuroCircleLine size={25} />, to: "dettes" },
+  { icon: <RiUser2Fill size={25} />, to: "creances" },
+  { icon: <RiBankCard2Line size={25} />, to: "paiements" },
 ];
 export default function Sidebar() {
   return (
@@ -31,16 +31,30 @@ export default function Sidebar() {
         </h2>
         <LuPanelLeftClose size={30} />
       </div>
-      <div className=" flex flex-col grow">
+
+      <div className="flex flex-col mt-10 grow">
         {links.map((link, index) => (
-          <Link key={index} to={link.to} className="flex gap-2 m-3">
-             <h3 className="flex gap-2 "><span>{link.icon}</span> {link.to}</h3>
-          </Link>
+          <NavLink
+            key={index}
+            to={link.to}
+            className={({ isActive }) =>
+              `flex gap-2 m-3 ${isActive ? "purple" : "transparent"}`
+            }
+          >
+            <span>{link.icon}</span> <h3 className="capitalize ">{link.to}</h3>
+          </NavLink>
         ))}
       </div>
-    <div className="mt-auto p-3">
-        <Link className="flex gap-2 " to={"parametre"}> <span><RiSettings3Fill size={25}/></span><h3>Parametre</h3> </Link>
-    </div>
+
+      <div className="mt-auto p-3">
+        <Link className="flex gap-2 " to={"parametre"}>
+          {" "}
+          <span>
+            <RiSettings3Fill size={25} />
+          </span>
+          <h3>Parametre</h3>{" "}
+        </Link>
+      </div>
     </nav>
   );
 }
