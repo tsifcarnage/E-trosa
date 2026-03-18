@@ -26,7 +26,7 @@ export default function Sidebar() {
   const [open, setOpen] = useState<boolean>(true);
 
   return (
-    <nav
+    <aside
       className={`flex flex-col bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
     >
       {/* en-tete */}
@@ -72,6 +72,6 @@ export default function Sidebar() {
           </h3>
         </Link>
       </div>
-    </nav>
+    </aside>
   );
 }
