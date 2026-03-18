@@ -20,6 +20,9 @@ export default function DashboardLayout() {
   return (
     <div className="flex">
       <Sidebar links={links} />
+      <div>
+        
+      </div>
       <Outlet />
     </div>
   );
