@@ -39,7 +39,7 @@ export default function Sidebar() {
         <LuPanelLeftClose
           size={30}
           onClick={() => setOpen(!open)}
-          className={`cursor-pointer duration-300 ${open ? "" : "rotate-180 "}`}
+          className={`cursor-pointer duration-300 ${open ? "" : "rotate-180"}`}
         />
       </div>
 
