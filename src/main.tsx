@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Paiements from './pages/Paiements';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Parametre from './pages/Parametre.tsx';
+import Error404 from './pages/Error404.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "creances", element: <Creances /> },
       { path: "paiements", element: <Paiements /> },
       { path: "parametre", element: <Parametre /> },
+      { path: "*", element: <Error404 /> },
     ],
   },
 ]);
