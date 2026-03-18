@@ -8,6 +8,7 @@ import {
   RiUser2Fill,
 } from "react-icons/ri";
 import type { Ilink } from "../models/interfaces";
+import Navbar from "../components/Navbar";
 
 const links: Ilink[] = [
   { icon: <RiHome2Line size={25} />, to: "accueil" },
@@ -21,9 +22,9 @@ export default function DashboardLayout() {
     <div className="flex">
       <Sidebar links={links} />
       <div>
-        
-      </div>
+      <Navbar/>  
       <Outlet />
+      </div>
     </div>
   );
 }

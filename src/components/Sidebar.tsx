@@ -10,7 +10,7 @@ export default function Sidebar({links = []}:SidebarProps) {
 
   return (
     <aside
-      className={`flex flex-col box-shad bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
+      className={`flex text-amber-50 flex-col box-shad bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
     >
       {/* en-tete */}
       <div className=" flex justify-between p-2 gap-2 mb-6">
