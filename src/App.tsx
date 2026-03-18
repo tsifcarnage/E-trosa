@@ -1,14 +1,10 @@
+import DashboardLayout from "./layouts/DashboardLayout"
 
-import { Outlet } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
 
 function App() {
 
   return (
-    <div className='flex'>
-      <Sidebar />
-      <Outlet/>
-    </div>
+    <DashboardLayout/>
   )
 }
 

@@ -34,4 +34,6 @@ h3{
 .purple{
   color:#8A38F5;
 }
-
+.box-shad{
+  box-shadow: -2px 0px 10px 0px #8A38F5;
+}

@@ -1,33 +1,16 @@
 import { useState } from "react";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { LuPanelLeftClose } from "react-icons/lu";
-import {
-  RiBankCard2Line,
-  RiDashboardHorizontalFill,
-  RiHome2Line,
-  RiMoneyEuroCircleLine,
-  RiSettings3Fill,
-  RiUser2Fill,
-} from "react-icons/ri";
+import { RiSettings3Fill } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
+import type { SidebarProps } from "../models/interfaces";
 
-interface Ilink {
-  icon: React.ReactNode;
-  to: string;
-}
-const links: Ilink[] = [
-  { icon: <RiHome2Line size={25} />, to: "accueil" },
-  { icon: <RiDashboardHorizontalFill size={25} />, to: "dashboard" },
-  { icon: <RiMoneyEuroCircleLine size={25} />, to: "dettes" },
-  { icon: <RiUser2Fill size={25} />, to: "creances" },
-  { icon: <RiBankCard2Line size={25} />, to: "paiements" },
-];
-export default function Sidebar() {
+export default function Sidebar({links = []}:SidebarProps) {
   const [open, setOpen] = useState<boolean>(true);
 
   return (
     <aside
-      className={`flex flex-col bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
+      className={`flex flex-col box-shad bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
     >
       {/* en-tete */}
       <div className=" flex justify-between p-2 gap-2 mb-6">
