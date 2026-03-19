@@ -12,7 +12,7 @@ export default function Sidebar({ links = [] }: SidebarProps) {
       className={`flex text-amber-50  flex-col box-shad bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
     >
       {/* en-tete */}
-      <div className=" flex justify-between p-2 pt-4 gap-2 mb-6">
+      <div className=" flex justify-between p-2 pt-7 gap-2 mb-6">
         <Link to={"accueil"} className={`text-xl ${!open ? "hidden" : " flex gap-2 uppercase"}`}>
           <FcMoneyTransfer size={30} />
           <span className="self-center whitespace-nowrap">e-trosa</span>
