@@ -10,7 +10,7 @@ export default function Navbar({ links }: SidebarProps) {
     const currentLink = links.find(link => link.to === currentPath);
 
     return (
-        <nav className="flex justify-between p-4">
+        <nav className="flex justify-between p-4 sticky bg-base-100">
             <h3 className="grow">{currentLink?.label || ""}</h3>
             <section className="ml-auto flex gap-2">
                 <ThemeToggle />
