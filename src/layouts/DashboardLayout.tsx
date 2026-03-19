@@ -17,6 +17,7 @@ const links: Ilink[] = [
   { icon: <RiUser2Fill size={25} />, to: "creances", label: "Gestion des Créances" },
   { icon: <RiBankCard2Line size={25} />, to: "paiements", label: "Historique des paiements" },
 ];
+
 export default function DashboardLayout() {
   return (
     <div className="flex gap-3">
