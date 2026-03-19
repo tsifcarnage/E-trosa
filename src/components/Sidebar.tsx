@@ -1,25 +1,24 @@
 import { useState } from "react";
 import { FcMoneyTransfer } from "react-icons/fc";
-import { LuPanelLeftClose } from "react-icons/lu";
-import { RiSettings3Fill } from "react-icons/ri";
+import { RiSettings3Fill, RiMenuUnfoldLine } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import type { SidebarProps } from "../models/interfaces";
 
-export default function Sidebar({links = []}:SidebarProps) {
+export default function Sidebar({ links = [] }: SidebarProps) {
   const [open, setOpen] = useState<boolean>(true);
 
   return (
     <aside
-      className={`flex text-amber-50 flex-col box-shad bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
+      className={`flex text-amber-50  flex-col box-shad bg-neutral w-full shadow-md h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
     >
       {/* en-tete */}
-      <div className=" flex justify-between p-2 gap-2 mb-6">
+      <div className=" flex justify-between p-2 pt-4 gap-2 mb-6">
         <h2 className={` ${!open ? "hidden" : "flex gap-2 uppercase"}`}>
           <FcMoneyTransfer size={30} />
           <span className="self-center">e-trosa</span>
         </h2>
 
-        <LuPanelLeftClose
+        <RiMenuUnfoldLine
           size={30}
           onClick={() => setOpen(!open)}
           className={`cursor-pointer duration-300 ${open ? "" : "rotate-180"}`}
@@ -27,7 +26,7 @@ export default function Sidebar({links = []}:SidebarProps) {
       </div>
 
       {/* menu */}
-      <div className="flex flex-col mt-10 grow">
+      <div className="flex flex-col gap-10 pt-10 grow text-[clamp(18px,3vw,22px)]">
         {links.map((link, index) => (
           <NavLink
             key={index}

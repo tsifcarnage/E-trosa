@@ -2,6 +2,7 @@
 export interface Ilink {
   icon: React.ReactNode;
   to: string;
+  label: string;
 }
 
 // sidebar
