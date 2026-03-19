@@ -13,10 +13,10 @@ export default function Sidebar({ links = [] }: SidebarProps) {
     >
       {/* en-tete */}
       <div className=" flex justify-between p-2 pt-4 gap-2 mb-6">
-        <h2 className={` ${!open ? "hidden" : "flex gap-2 uppercase"}`}>
+        <Link to={"accueil"} className={`text-xl ${!open ? "hidden" : "flex gap-2 uppercase"}`}>
           <FcMoneyTransfer size={30} />
           <span className="self-center">e-trosa</span>
-        </h2>
+        </Link>
 
         <RiMenuUnfoldLine
           size={30}
