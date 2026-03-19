@@ -10,10 +10,13 @@ export default function Navbar({ links }: SidebarProps) {
 
     return (
         <nav className="flex justify-between p-4">
-            <h3 className="grow">{currentLink?.label || "Accueil"}</h3>
-            <div className="ml-auto">
+            <h3 className="grow">{currentLink?.label || ""}</h3>
+            <section className="ml-auto">
                 <ThemeToggle />
-            </div>
+                <div>
+
+                </div>
+            </section>
         </nav>
     )
 }
