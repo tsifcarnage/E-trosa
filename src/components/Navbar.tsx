@@ -11,7 +11,7 @@ export default function Navbar({ links }: SidebarProps) {
 
     return (
         <nav className="flex justify-between p-4 sticky bg-base-100">
-            <h3 className="grow">{currentLink?.label || ""}</h3>
+            <h3 className="grow self-center">{currentLink?.label || ""}</h3>
             <section className="ml-auto flex gap-2">
                 <ThemeToggle />
                 <div className="flex gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] box-shad-user">
