@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
   themes:
@@ -6,7 +6,7 @@
     winter;
 }
 
-body{
+body {
   font-family: "Inter", sans-serif;
 }
 h1,
@@ -28,12 +28,15 @@ h1 {
 h2 {
   font-size: 22px;
 }
-h3{
+h3 {
   font-size: 18px;
 }
-.purple{
-  color:#8A38F5;
+.purple {
+  color: #8a38f5;
 }
-.box-shad{
-  box-shadow: -2px 0px 10px 0px #8A38F5;
+.box-shad {
+  box-shadow: -2px 0px 10px 0px #8a38f5;
+}
+.box-shad-user {
+  box-shadow: inset -1px -2px 5px 0px #8a38f5;
 }
