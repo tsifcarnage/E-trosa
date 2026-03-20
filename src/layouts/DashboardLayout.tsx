@@ -20,15 +20,12 @@ const links: Ilink[] = [
 
 export default function DashboardLayout() {
   return (
-    <div className="flex">
+    <div className="flex  overflow-y-scroll">
       <Sidebar links={links} />
 
       <div className="flex flex-col flex-1">
         <Navbar links={links} />
-
-        <main className="flex-1">
-          <Outlet />
-        </main>
+        <Outlet />
       </div>
     </div>
   );
