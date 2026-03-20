@@ -20,11 +20,15 @@ const links: Ilink[] = [
 
 export default function DashboardLayout() {
   return (
-    <div className="flex gap-3">
+    <div className="flex">
       <Sidebar links={links} />
-      <div className="flex flex-col w-full">
+
+      <div className="flex flex-col flex-1">
         <Navbar links={links} />
-        <Outlet />
+
+        <main className="flex-1">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
