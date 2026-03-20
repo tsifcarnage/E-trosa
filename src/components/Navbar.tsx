@@ -11,7 +11,7 @@ export default function Navbar({ links }: SidebarProps) {
     const [isSummaryOpen, setIsSummaryOpen] = useState(false);
 
     const handleClick = () => {
-        setIsSummaryOpen(false); // Ferme le menu quand un élément est cliqué
+        setIsSummaryOpen(false);
     };
 
     return (
@@ -20,7 +20,6 @@ export default function Navbar({ links }: SidebarProps) {
             <section className="ml-auto flex gap-2">
                 <ThemeToggle />
 
-                {/* Remplacer le details par un div pour un contrôle total avec React */}
                 <div className="relative">
                     <button
                         className="flex gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] box-shad-user"
@@ -29,12 +28,13 @@ export default function Navbar({ links }: SidebarProps) {
                         <FaRegUserCircle size={40} />
                         <h3 className="self-center">User Name</h3>
                     </button>
+
                     {isSummaryOpen && (
-                        <ul className="dropdown-content btn-neutral box-shad-user w-full rounded-b-2xl text-center p-2 text-[#c9cbd0] absolute top-full left-0">
+                        <ul className="dropdown-content btn-neutral box-shad-user w-full rounded-b-2xl text-center p-2 absolute top-full left-0">
                             <li className="border-b border-b-[#8a38f5c8] py-2 cursor-pointer">
                                 <Link to={"/parametre"} onClick={handleClick}>Voir Profil</Link>
                             </li>
-                            <li className="py-2 cursor-pointer" onClick={handleClick}>Se déconnecter</li>
+                            <li className="py-2 cursor-pointer text-red-500" onClick={handleClick}>Se déconnecter</li>
                         </ul>
                     )}
                 </div>
