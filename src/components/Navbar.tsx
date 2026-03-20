@@ -1,24 +1,44 @@
-
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import type { SidebarProps } from "../models/interfaces";
 import { FaRegUserCircle } from "react-icons/fa";
+import { useState } from "react";
 
 export default function Navbar({ links }: SidebarProps) {
     const location = useLocation();
     const currentPath = location.pathname.split("/").pop();
     const currentLink = links.find(link => link.to === currentPath);
+    const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+
+    const handleClick = () => {
+        setIsSummaryOpen(false); // Ferme le menu quand un élément est cliqué
+    };
 
     return (
         <nav className="flex justify-between p-4 sticky top-0 z-1 bg-base-100">
             <h3 className="grow self-center">{currentLink?.label || ""}</h3>
             <section className="ml-auto flex gap-2">
                 <ThemeToggle />
-                <div className="flex gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] box-shad-user">
-                    <FaRegUserCircle size={40} />
-                    <h3 className="self-center">User Name</h3>
+
+                {/* Remplacer le details par un div pour un contrôle total avec React */}
+                <div className="relative">
+                    <button
+                        className="flex gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] box-shad-user"
+                        onClick={() => setIsSummaryOpen(!isSummaryOpen)}
+                    >
+                        <FaRegUserCircle size={40} />
+                        <h3 className="self-center">User Name</h3>
+                    </button>
+                    {isSummaryOpen && (
+                        <ul className="dropdown-content btn-neutral box-shad-user w-full rounded-b-2xl text-center p-2 text-[#c9cbd0] absolute top-full left-0">
+                            <li className="border-b border-b-[#8a38f5c8] py-2 cursor-pointer">
+                                <Link to={"/parametre"} onClick={handleClick}>Voir Profil</Link>
+                            </li>
+                            <li className="py-2 cursor-pointer" onClick={handleClick}>Se déconnecter</li>
+                        </ul>
+                    )}
                 </div>
             </section>
         </nav>
-    )
+    );
 }
