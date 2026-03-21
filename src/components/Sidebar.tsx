@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { RiSettings3Fill, RiMenuUnfoldLine } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
-import type { SidebarProps } from "../models/interfaces";
+import type { ISidebarProps } from "../models/ui.interfaces";
 
-export default function Sidebar({ links = [] }: SidebarProps) {
+export default function Sidebar({ links = [] }: ISidebarProps) {
   const [open, setOpen] = useState<boolean>(true);
 
   return (

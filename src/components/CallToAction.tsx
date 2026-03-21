@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import type { CallToActionProps } from "../models/interfaces";
+import type { ICallToActionProps } from "../models/ui.interfaces";
 
-export default function CallToAction({ ctActions = [] }: CallToActionProps) {
+export default function CallToAction({ ctActions = [] }: ICallToActionProps) {
     return (
         <section className="flex justify-center gap-5 flex-wrap max-w-300 m-5">
             {ctActions.map((ctAction, index) => (

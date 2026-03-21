@@ -7,7 +7,7 @@ import {
   RiMoneyEuroCircleLine,
   RiUser2Fill,
 } from "react-icons/ri";
-import type { Ilink } from "../models/interfaces";
+import type { Ilink } from "../models/ui.interfaces";
 import Navbar from "../components/Navbar";
 
 const links: Ilink[] = [
