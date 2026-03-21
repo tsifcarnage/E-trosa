@@ -32,7 +32,7 @@ export default function Sidebar({ links = [] }: SidebarProps) {
             key={index}
             to={link.to}
             className={({ isActive }) =>
-              `flex gap-2 m-3 ${isActive ? "purple" : "transparent"}`
+              `flex gap-2 m-3 transition-colors hover:text-[#8a38f5c8] ${isActive ? "purple" : "transparent"}`
             }
           >
             <span>{link.icon}</span>{" "}

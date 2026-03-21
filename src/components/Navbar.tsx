@@ -19,10 +19,11 @@ export default function Navbar({ links }: SidebarProps) {
             <h3 className="grow self-center">{currentLink?.label || ""}</h3>
             <section className="ml-auto flex gap-2">
                 <ThemeToggle />
-
+                
+                {/* user logo */}
                 <div className="relative">
                     <button
-                        className="flex gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] box-shad-user"
+                        className="flex cursor-pointer gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] box-shad-user"
                         onClick={() => setIsSummaryOpen(!isSummaryOpen)}
                     >
                         <FaRegUserCircle size={40} />
@@ -31,7 +32,7 @@ export default function Navbar({ links }: SidebarProps) {
 
                     {isSummaryOpen && (
                         <ul className="dropdown-content btn-neutral box-shad-user w-full rounded-b-2xl text-center p-2 absolute top-full left-0">
-                            <li className="border-b border-b-[#8a38f5c8] py-2 cursor-pointer">
+                            <li className=" hover:text-[#8a38f5c8] border-b border-b-[#8a38f5c8] py-2 cursor-pointer">
                                 <Link to={"/parametre"} onClick={handleClick}>Voir Profil</Link>
                             </li>
                             <li className="py-2 cursor-pointer text-red-500" onClick={handleClick}>Se déconnecter</li>
