@@ -60,3 +60,11 @@ h3 {
   );
   box-shadow: 3px 3px 10px 0px rgba(39, 224, 11, 0.6);
 }
+.orange-card-grad {
+  background: linear-gradient(
+    121deg,
+    rgba(33, 41, 58, 1) 62%,
+    rgba(212, 95, 53) 177%
+  );
+  box-shadow: 3px 3px 10px 0px rgba(212, 95, 53, 0.6);
+}
