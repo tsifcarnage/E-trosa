@@ -29,7 +29,7 @@ h2 {
   font-size: 30px;
 }
 h3 {
-  font-size: 18px;
+  font-size: 20px;
 }
 .purple {
   color: #8a38f5;
@@ -42,4 +42,21 @@ h3 {
 }
 .box-shad-user {
   box-shadow: inset -1px -2px 5px 0px #8a38f5;
+}
+
+.red-card-grad {
+  background: linear-gradient(
+    121deg,
+    rgba(33, 41, 58, 1) 62%,
+    rgba(253, 7, 7, 1) 177%
+  );
+  box-shadow: 3px 3px 10px 0px rgba(255, 0, 0, 0.6);
+}
+.green-card-grad {
+  background: linear-gradient(
+    121deg,
+    rgba(33, 41, 58, 1) 62%,
+    rgba(40, 224, 11) 177%
+  );
+  box-shadow: 3px 3px 10px 0px rgba(39, 224, 11, 0.6);
 }
