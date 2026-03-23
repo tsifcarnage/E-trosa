@@ -24,3 +24,7 @@ export interface ICardGrad {
   color: string;
   grad: string;
 }
+
+export interface ICardGradProps {
+  cards: ICardGrad[];
+}
