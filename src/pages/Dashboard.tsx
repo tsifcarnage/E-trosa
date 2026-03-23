@@ -1,7 +1,7 @@
 import Card from "../components/Card"
 import type { ICardGrad } from "../models/ui.interfaces"
 
-const cardGrad: ICardGrad[] = [
+const cardDash: ICardGrad[] = [
     { title: "Total à payer", label: 9000.00, unit: "€", color: "text-red-500", grad: "red-card-grad" },
     { title: "Total à recevoir", label: 9000.00, unit: "€", color: "text-green-500", grad: "green-card-grad" },
     { title: "Solde net", label: 9000.00, unit: "€", color: "text-orange-500", grad: "orange-card-grad" },
@@ -11,7 +11,7 @@ const cardGrad: ICardGrad[] = [
 function Dashboard() {
     return (
         <div>
-            <Card cards={cardGrad} />
+            <Card cards={cardDash} />
         </div>
     )
 }
