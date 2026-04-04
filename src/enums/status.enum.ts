@@ -1,5 +1,5 @@
 export enum Status {
-  INPROGRESS = "En cours",
+  IN_PROGRESS = "En cours",
   PAID = "Payé",
   LATE = "En retard",
 }

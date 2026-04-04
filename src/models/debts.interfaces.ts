@@ -5,8 +5,9 @@ export interface IDebts {
   creditor: string;
   debtAmount: number;
   paidAmount: number; // NB: ce que j'ai deja rembourser
-  interestAmount: number;
-  remainingAmount: number;
-  status: Status;
-  actions: Actions;
+  interestRate: number;
+  interestAmount?: number;
+  remainingAmount?: number;
+  status?: Status;
+  actions?: Actions;
 }
