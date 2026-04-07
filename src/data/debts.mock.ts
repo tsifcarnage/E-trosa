@@ -27,6 +27,6 @@ const createDebt = (
 export const MOCK_DEBT: IDebts[] = [
   createDebt("Tsifcarnage", 1000, 900, 5, "2026-12-01"),
   createDebt("Paul", 800, 0, 0, "2025-12-31"),
-  createDebt("Kyara", 100, 103, 3, "2026-10-10"),
+  createDebt("Kyara", 100, 103, 3, "2024-10-10"),
   createDebt("kaka", 8000, 0, 5, "2026-04-27"),
 ];
