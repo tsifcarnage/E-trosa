@@ -3,6 +3,7 @@ import Card from "../components/Card"
 import type { ICardGrad } from "../models/ui.interfaces"
 import { MOCK_DEBT } from "../data/debts.mock";
 import type { IDebts } from "../models/debts.interfaces";
+import { statusBadge } from "../utils/debts.logic";
 
 const cardDette: ICardGrad[] = [
     { title: "Total dettes", label: 12450, unit: "€", color: "text-red-500", grad: "red-card-grad" },
@@ -22,7 +23,7 @@ function Dettes() {
             <div>
                 <Card cards={cardDette} />
             </div>
-            <div className="grid gap-6">
+            <div className="grid gap-6 my-3">
                 {debts.map((debt, index) => (
                     <div key={index} className="card bg-base-200 shadow-xl border border-base-300">
                         <div className="card-body flex-row justify-between items-center">
@@ -30,9 +31,11 @@ function Dettes() {
                                 <h3 className="card-title text-xl">{debt.creditor}</h3>
                                 <p className="text-sm opacity-60 font-medium">Échéance : {debt.dueDate}</p>
                                 <div className="mt-2">
-                                    <span className={`badge font-bold`}>
-                                        {debt.status}
-                                    </span>
+                                    {debt.status && (
+                                        <span className={`font-medium ${statusBadge(debt.status)}`}>
+                                            {debt.status}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
 

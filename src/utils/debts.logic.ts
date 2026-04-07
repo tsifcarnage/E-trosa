@@ -22,3 +22,18 @@ export const calcStatus = (
 
   return Status.PENDING;
 };
+
+export const statusBadge = (status: Status) => {
+  switch (status) {
+    case "En cours":
+      return "badge badge-warning";
+    case "Payé":
+      return "badge badge-success";
+    case "En retard":
+      return "badge badge-error";
+    case "En attente":
+      return "badge badge-info";
+    default:
+      return "badge badge-info";
+  }
+};
