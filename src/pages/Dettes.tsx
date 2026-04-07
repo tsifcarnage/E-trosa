@@ -3,7 +3,6 @@ import Card from "../components/Card"
 import type { ICardGrad } from "../models/ui.interfaces"
 import { MOCK_DEBT } from "../data/debts.mock";
 import type { IDebts } from "../models/debts.interfaces";
-import type { Status } from "../enums/status.enum";
 
 const cardDette: ICardGrad[] = [
     { title: "Total dettes", label: 12450, unit: "€", color: "text-red-500", grad: "red-card-grad" },
