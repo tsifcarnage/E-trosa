@@ -76,3 +76,6 @@ h3 {
   );
   box-shadow: 3px 3px 10px 0px rgba(105, 205, 255, 0.6);
 }
+.header-center .ag-header-cell-label {
+  justify-content: center;
+}
