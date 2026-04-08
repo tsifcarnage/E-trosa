@@ -25,6 +25,7 @@ function Dettes() {
         { field: "debtAmount", headerName: "Montant", flex: 1, headerClass: 'header-center' },
         { field: "remainingAmount", headerName: "Restant", flex: 1, headerClass: 'header-center' },
         { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center' },
+        { field: "dueDate", headerName: "Data échéance", flex: 1, headerClass: 'header-center' },
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center' },
     ])
     const themeAgGrid = themeQuartz.withParams({
