@@ -21,16 +21,17 @@ const cardDette: ICardGrad[] = [
 function Dettes() {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [debtsCol] = useState<ColDef<IDebts>[]>([
+        { field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center' },
         { field: "creditor", headerName: "Créancier", flex: 1, headerClass: 'header-center' },
         { field: "debtAmount", headerName: "Montant", flex: 1, headerClass: 'header-center' },
         { field: "remainingAmount", headerName: "Restant", flex: 1, headerClass: 'header-center' },
         { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center' },
-        { field: "dueDate", headerName: "Data échéance", flex: 1, headerClass: 'header-center' },
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center' },
     ])
     const themeAgGrid = themeQuartz.withParams({
         backgroundColor: "#0f172a",
         headerBackgroundColor: "#1e293b",
+        headerTextColor: "#f16900",
         foregroundColor: "white",
         fontSize: 14,
         headerFontSize: 16,
@@ -46,7 +47,7 @@ function Dettes() {
             <div>
                 <Card cards={cardDette} />
             </div>
-            <div className="h-80 text-center w-full max-w-300 m-auto " >
+            <div className="h-70 text-center w-full my-10" >
                 <AgGridReact
                     theme={themeAgGrid}
                     rowData={debtsRow}
