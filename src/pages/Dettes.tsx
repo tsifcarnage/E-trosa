@@ -5,10 +5,11 @@ import { MOCK_DEBT } from "../data/debts.mock";
 import type { IDebts } from "../models/debts.interfaces";
 // import { statusBadge } from "../utils/debts.logic";
 
-
-import { AgGridReact } from "ag-grid-react";
 import type { ColDef } from "ag-grid-community";
-import { ModuleRegistry, AllCommunityModule, themeQuartz } from 'ag-grid-community';
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import TableAggrid from "../components/TableAggrid";
+import { statusBadge } from "../utils/debts.logic";
+import type { CustomCellEditorProps } from "ag-grid-react";
 
 // On enregistre TOUTES les fonctionnalités communautaires d'un coup
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -18,6 +19,14 @@ const cardDette: ICardGrad[] = [
     { title: "Montant restant", label: 7150, unit: "€", color: "text-orange-500", grad: "orange-card-grad" },
     { title: "Créanciers", label: 8, unit: "Créanciers", color: "text-blue-300", grad: "blue-card-grad" },
 ]
+const statusCellRenderer = (params: CustomCellEditorProps) => {
+    const badgeClass = statusBadge(params.value);
+    return (
+        <div className="w-full">
+            <span className={`${badgeClass} w-full max-w-25 font-medium`}>{params.value}</span>
+        </div>
+    );
+};
 function Dettes() {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [debtsCol] = useState<ColDef<IDebts>[]>([
@@ -25,36 +34,19 @@ function Dettes() {
         { field: "creditor", headerName: "Créancier", flex: 1, headerClass: 'header-center' },
         { field: "debtAmount", headerName: "Montant", flex: 1, headerClass: 'header-center' },
         { field: "remainingAmount", headerName: "Restant", flex: 1, headerClass: 'header-center' },
-        { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center' },
+        { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center', cellRenderer: statusCellRenderer },
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center' },
     ])
-    const themeAgGrid = themeQuartz.withParams({
-        backgroundColor: "#0f172a",
-        headerBackgroundColor: "#1e293b",
-        headerTextColor: "#f16900",
-        foregroundColor: "white",
-        fontSize: 14,
-        headerFontSize: 16,
-        fontFamily: "Inter, sans-serif"
-    });
 
     useEffect(() => {
         setDebtsRow(MOCK_DEBT);
     }, []);
 
     return (
-        <>
-            <div>
-                <Card cards={cardDette} />
-            </div>
-            <div className="h-70 text-center w-full my-10" >
-                <AgGridReact
-                    theme={themeAgGrid}
-                    rowData={debtsRow}
-                    columnDefs={debtsCol}
-                />
-            </div>
-        </>
+        <div>
+            <Card cards={cardDette} />
+            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} />
+        </div>
     )
 }
 
