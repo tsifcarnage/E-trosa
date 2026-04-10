@@ -7,7 +7,6 @@ export const calcTotalToPay = (amount: number, rate: number): number => {
 };
 
 //calcule du reste
-
 export const calcRemainingAmount = (
   amount: number,
   rate: number,
