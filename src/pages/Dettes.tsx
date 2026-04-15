@@ -11,8 +11,8 @@ import TableAggrid from "../components/TableAggrid";
 import { statusBadge } from "../utils/debts.logic";
 import type { CustomCellEditorProps } from "ag-grid-react";
 
-// On enregistre TOUTES les fonctionnalités communautaires d'un coup
 ModuleRegistry.registerModules([AllCommunityModule]);
+
 const cardDette: ICardGrad[] = [
     { title: "Total dettes", label: 12450, unit: "€", color: "text-red-500", grad: "red-card-grad" },
     { title: "Montant à payer", label: 5300, unit: "€", color: "text-green-500", grad: "green-card-grad" },
@@ -27,6 +27,7 @@ const statusCellRenderer = (params: CustomCellEditorProps) => {
         </div>
     );
 };
+
 function Dettes() {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [debtsCol] = useState<ColDef<IDebts>[]>([

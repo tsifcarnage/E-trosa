@@ -41,7 +41,8 @@ h3 {
   box-shadow: 1px 3px 10px 0px #8a38f5c8;
 }
 .box-shad-user {
-  box-shadow: inset -1px -2px 5px 0px #8a38f5;
+  box-shadow: 1px 2px 5px 0px #8a38f5;
+  border: 0.5px solid #8a38f5;
 }
 
 .red-card-grad {
