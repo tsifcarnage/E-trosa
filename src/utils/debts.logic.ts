@@ -37,3 +37,12 @@ export const statusBadge = (status: Status) => {
       return "badge badge-info";
   }
 };
+
+export const formatEuro = (value: number | null | undefined): string => {
+  if (value == null) return "";
+
+  return new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  }).format(value);
+};

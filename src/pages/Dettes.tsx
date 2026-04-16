@@ -10,6 +10,7 @@ import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/TableAggrid";
 import { statusCellRenderer } from "../components/StatusCell";
 import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../utils/debts.calculation";
+import { formatEuro } from "../utils/debts.logic";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -30,10 +31,9 @@ function Dettes() {
     const [debtsCol] = useState<ColDef<IDebts>[]>([
         { field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center' },
         { field: "creditor", headerName: "Créancier", flex: 1, headerClass: 'header-center' },
-        { field: "debtAmount", headerName: "Montant", flex: 1, headerClass: 'header-center' },
-        { field: "interestRate", headerName: "Taux d'intérêt", flex: 1, headerClass: 'header-center' },
-        { field: "interestAmount", headerName: "Montant d'intérêt", flex: 1, headerClass: 'header-center' },
-        { field: "remainingAmount", headerName: "Restant", flex: 1, headerClass: 'header-center' },
+        { field: "debtAmount", headerName: "Montant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
+        { field: "interestRate", headerName: "Taux d'intérêt", valueFormatter: p => p.value.toLocaleString() + "%", flex: 1, headerClass: 'header-center' },
+        { field: "remainingAmount", headerName: "Restant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
         { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center', cellRenderer: statusCellRenderer },
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center' },
     ])
