@@ -18,6 +18,7 @@ const totalDebts = totalDebt(MOCK_DEBT);
 const totalAlreadyPaid = totalPaidAmount(MOCK_DEBT);
 const totalRemainAmounts = totalRemainAmount(MOCK_DEBT);
 const totalCreditor = numberCreditor(MOCK_DEBT);
+
 const cardDette: ICardGrad[] = [
     { title: "Total dettes", label: totalDebts, unit: "€", color: "text-red-500", grad: "red-card-grad" },
     { title: "Montant déjà payer", label: totalAlreadyPaid, unit: "€", color: "text-green-500", grad: "green-card-grad" },
