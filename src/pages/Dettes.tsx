@@ -38,7 +38,6 @@ function Dettes() {
         { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center', cellRenderer: statusCellRenderer },
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center' },
     ])
-
     useEffect(() => {
         setDebtsRow(MOCK_DEBT);
     }, []);

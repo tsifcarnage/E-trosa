@@ -1,6 +1,7 @@
 import { themeQuartz } from "ag-grid-community";
 import type { IDataTableProps } from "../models/tableAggrid.interfaces";
 import { AgGridReact } from "ag-grid-react";
+import { useState } from "react";
 
 const themeAgGrid = themeQuartz.withParams({
     backgroundColor: "#0f172a",
@@ -11,14 +12,27 @@ const themeAgGrid = themeQuartz.withParams({
     headerFontSize: 16,
     fontFamily: "Inter, sans-serif"
 });
+
+
 export default function TableAggrid({ rowData, columnDefs, height = "h-70" }: IDataTableProps) {
+    const [searchText, setSearchText] = useState("");
     return (
-        <div className={`${height} text-center w-full my-10`} >
-            <AgGridReact
-                theme={themeAgGrid}
-                rowData={rowData}
-                columnDefs={columnDefs}
+        <>
+            <input
+                className="mx-10 mt-10"
+                type="text"
+                placeholder="Rechercher..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
             />
-        </div>
+            <div className={`${height} text-center w-full my-10`} >
+                <AgGridReact
+                    theme={themeAgGrid}
+                    rowData={rowData}
+                    columnDefs={columnDefs}
+                    quickFilterText={searchText}
+                />
+            </div>
+        </>
     )
 }
