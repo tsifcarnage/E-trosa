@@ -19,7 +19,7 @@ export default function TableAggrid({ rowData, columnDefs, height = "h-70" }: ID
     return (
         <>
             <input
-                className="mx-10 mt-10"
+                className="mx-10 mt-10 p-2"
                 type="text"
                 placeholder="Rechercher..."
                 value={searchText}
