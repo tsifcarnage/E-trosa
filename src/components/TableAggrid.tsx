@@ -15,12 +15,12 @@ const themeAgGrid = themeQuartz.withParams({
 });
 
 
-export default function TableAggrid({ title, children, rowData, columnDefs, height = "h-70" }: IDataTableProps) {
+export default function TableAggrid({ title, rowData, columnDefs, height = "h-70" }: IDataTableProps) {
     const [searchText, setSearchText] = useState("");
     return (
         <>
             <div className="mt-10 mx-6 flex justify-between gap-2">
-                <h2 className=" self-center">{children}</h2>
+                <h2 className=" self-center">Liste des {title}s</h2>
                 <div className="flex justify-center flex-wrap gap-5">
                     <h3 className="flex justify-center self-center cursor-pointer transition-colors duration-300 text-secondary hover:text-warning"><IoIosAddCircleOutline size={25} className="self-center" />Ajouter {title}</h3>
                     <input
