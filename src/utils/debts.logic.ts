@@ -46,3 +46,13 @@ export const formatEuro = (value: number | null | undefined): string => {
     currency: "EUR",
   }).format(value);
 };
+
+export const formatDate = (value: string | Date | null | undefined): string => {
+  if (!value) return "";
+
+  const date = value instanceof Date ? value : new Date(value);
+
+  if (isNaN(date.getTime())) return "";
+
+  return date.toLocaleDateString("fr-BE");
+};

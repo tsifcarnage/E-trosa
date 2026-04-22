@@ -10,7 +10,7 @@ import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/TableAggrid";
 import { statusCellRenderer } from "../components/StatusCell";
 import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../utils/debts.calculation";
-import { formatEuro } from "../utils/debts.logic";
+import { formatDate, formatEuro } from "../utils/debts.logic";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -30,7 +30,9 @@ function Dettes() {
 
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [debtsCol] = useState<ColDef<IDebts>[]>([
-        { field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center' },
+        {
+            field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
+        },
         { field: "creditor", headerName: "Créancier", flex: 1, headerClass: 'header-center' },
         { field: "debtAmount", headerName: "Montant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
         { field: "interestRate", headerName: "Taux d'intérêt", valueFormatter: p => p.value.toLocaleString() + "%", flex: 1, headerClass: 'header-center' },
@@ -45,9 +47,8 @@ function Dettes() {
     return (
         <div>
             <Card cards={cardDette} />
-            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette">
-                <h2>Liste des dettes</h2>
-            </TableAggrid>
+            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" />
+
         </div>
     )
 }
