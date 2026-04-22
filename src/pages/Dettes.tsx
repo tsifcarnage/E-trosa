@@ -45,7 +45,9 @@ function Dettes() {
     return (
         <div>
             <Card cards={cardDette} />
-            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} />
+            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette">
+                <h2>Liste des dettes</h2>
+            </TableAggrid>
         </div>
     )
 }
