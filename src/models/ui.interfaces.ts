@@ -19,8 +19,8 @@ export interface ICallToActionProps {
 //colorCard
 export interface ICardGrad {
   title: string;
-  label: number;
-  unit: string;
+  label: number | string;
+  unit?: string;
   color: string;
   grad: string;
 }

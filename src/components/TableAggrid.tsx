@@ -15,7 +15,7 @@ const themeAgGrid = themeQuartz.withParams({
 });
 
 
-export default function TableAggrid({ title, rowData, columnDefs, height = "h-70" }: IDataTableProps) {
+export default function TableAggrid({ title, rowData, columnDefs, height = "h-100" }: IDataTableProps) {
     const [searchText, setSearchText] = useState("");
     return (
         <>
@@ -39,6 +39,9 @@ export default function TableAggrid({ title, rowData, columnDefs, height = "h-70
                     rowData={rowData}
                     columnDefs={columnDefs}
                     quickFilterText={searchText}
+                    pagination={true}
+                    paginationPageSize={10}
+                    paginationPageSizeSelector={[10, 20]}
                 />
             </div>
         </>

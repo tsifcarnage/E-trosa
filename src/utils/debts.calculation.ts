@@ -28,7 +28,7 @@ export const calcRemainingAmount = (
  * @returns total
  */
 
-export const totalDebt = (debtAmount: IDebts[]) => {
+export const totalDebt = (debtAmount: IDebts[]): number => {
   return debtAmount.reduce(
     (acc, curr) => acc + calcTotalToPay(curr.debtAmount, curr.interestRate),
     0,

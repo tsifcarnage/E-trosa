@@ -14,15 +14,15 @@ import { formatDate, formatEuro } from "../utils/debts.logic";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-const totalDebts = totalDebt(MOCK_DEBT);
-const totalAlreadyPaid = totalPaidAmount(MOCK_DEBT);
-const totalRemainAmounts = totalRemainAmount(MOCK_DEBT);
+const totalDebts = formatEuro(totalDebt(MOCK_DEBT));
+const totalAlreadyPaid = formatEuro(totalPaidAmount(MOCK_DEBT));
+const totalRemainAmounts = formatEuro(totalRemainAmount(MOCK_DEBT));
 const totalCreditor = numberCreditor(MOCK_DEBT);
 
 const cardDette: ICardGrad[] = [
-    { title: "Total dettes", label: totalDebts, unit: "€", color: "text-red-500", grad: "red-card-grad" },
-    { title: "Montant déjà payer", label: totalAlreadyPaid, unit: "€", color: "text-green-500", grad: "green-card-grad" },
-    { title: "Montant restant", label: totalRemainAmounts, unit: "€", color: "text-orange-500", grad: "orange-card-grad" },
+    { title: "Total dettes", label: totalDebts, color: "text-red-500", grad: "red-card-grad" },
+    { title: "Montant déjà payer", label: totalAlreadyPaid, color: "text-green-500", grad: "green-card-grad" },
+    { title: "Montant restant", label: totalRemainAmounts, color: "text-orange-500", grad: "orange-card-grad" },
     { title: "Créanciers", label: totalCreditor, unit: "Créanciers", color: "text-blue-300", grad: "blue-card-grad" },
 ]
 
