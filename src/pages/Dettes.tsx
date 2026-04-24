@@ -29,7 +29,7 @@ const cardDette: ICardGrad[] = [
 function Dettes() {
 
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
-    const [debtsCol] = useState<ColDef<IDebts>[]>([
+    const debtsCol: ColDef<IDebts>[] = ([
         {
             field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
         },
