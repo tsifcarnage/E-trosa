@@ -1,5 +1,5 @@
 import type { CustomCellEditorProps } from "ag-grid-react";
-import { statusBadge } from "../utils/debts.logic";
+import { statusBadge } from "../../utils/debts.logic";
 
 export const statusCellRenderer = (params: CustomCellEditorProps) => {
     const badgeClass = statusBadge(params.value);

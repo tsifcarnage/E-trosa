@@ -8,7 +8,7 @@ import type { IDebts } from "../models/debts.interfaces";
 import type { ColDef } from "ag-grid-community";
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/TableAggrid";
-import { statusCellRenderer } from "../components/StatusCell";
+import { statusCellRenderer } from "../components/cellRenderers/StatusCell";
 import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../utils/debts.calculation";
 import { formatDate, formatEuro } from "../utils/debts.logic";
 
