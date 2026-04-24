@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
-import type { ISidebarProps } from "../models/ui.interfaces";
+import ThemeToggle from "../ThemeToggle";
+import type { ISidebarProps } from "../../models/ui.interfaces";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useState } from "react";
 

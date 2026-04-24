@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/nav/Sidebar";
 import {
   RiBankCard2Line,
   RiDashboardHorizontalFill,
@@ -8,7 +8,7 @@ import {
   RiUser2Fill,
 } from "react-icons/ri";
 import type { Ilink } from "../models/ui.interfaces";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/nav/Navbar";
 
 const links: Ilink[] = [
   { icon: <RiHome2Line size={25} />, to: "accueil", label: "Accueil" },
