@@ -34,6 +34,7 @@ export default function Sidebar({ links = [] }: ISidebarProps) {
             className={({ isActive }) =>
               `flex gap-2 m-3 transition-colors hover:text-[#8a38f5c8] ${isActive ? "purple" : "transparent"}`
             }
+            title={!open ? link.to.toUpperCase() : undefined}
           >
             <span>{link.icon}</span>{" "}
             <h3 className={`capitalize ${!open ? "hidden" : "block "}`}>
