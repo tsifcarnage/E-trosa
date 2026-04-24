@@ -12,6 +12,7 @@ import { statusCellRenderer } from "../components/cellRenderers/StatusCell";
 import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../utils/debts.calculation";
 import { formatDate, formatEuro } from "../utils/debts.logic";
 import { actionsCellRenderer } from "../components/cellRenderers/ActionsCell";
+import DebtStats from "../components/CardMemo";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -20,31 +21,31 @@ function Dettes() {
         setDebtsRow(prev => prev.filter(r => r.id !== row.id));
     };
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
-    const totalDebts = useMemo(
-        () => formatEuro(totalDebt(debtsRow)),
-        [debtsRow]
-    );
+    // const totalDebts = useMemo(
+    //     () => formatEuro(totalDebt(debtsRow)),
+    //     [debtsRow]
+    // );
 
-    const totalAlreadyPaid = useMemo(
-        () => formatEuro(totalPaidAmount(debtsRow)),
-        [debtsRow]
-    );
+    // const totalAlreadyPaid = useMemo(
+    //     () => formatEuro(totalPaidAmount(debtsRow)),
+    //     [debtsRow]
+    // );
 
-    const totalRemainAmounts = useMemo(
-        () => formatEuro(totalRemainAmount(debtsRow)),
-        [debtsRow]
-    );
+    // const totalRemainAmounts = useMemo(
+    //     () => formatEuro(totalRemainAmount(debtsRow)),
+    //     [debtsRow]
+    // );
 
-    const totalCreditor = useMemo(
-        () => numberCreditor(debtsRow),
-        [debtsRow]
-    );
-    const cardDette: ICardGrad[] = [
-        { title: "Total dettes", label: totalDebts, color: "text-red-500", grad: "red-card-grad" },
-        { title: "Montant déjà payer", label: totalAlreadyPaid, color: "text-green-500", grad: "green-card-grad" },
-        { title: "Montant restant", label: totalRemainAmounts, color: "text-orange-500", grad: "orange-card-grad" },
-        { title: "Créanciers", label: totalCreditor, unit: "Créanciers", color: "text-blue-300", grad: "blue-card-grad" },
-    ]
+    // const totalCreditor = useMemo(
+    //     () => numberCreditor(debtsRow),
+    //     [debtsRow]
+    // );
+    // const cardDette: ICardGrad[] = [
+    //     { title: "Total dettes", label: totalDebts, color: "text-red-500", grad: "red-card-grad" },
+    //     { title: "Montant déjà payer", label: totalAlreadyPaid, color: "text-green-500", grad: "green-card-grad" },
+    //     { title: "Montant restant", label: totalRemainAmounts, color: "text-orange-500", grad: "orange-card-grad" },
+    //     { title: "Créanciers", label: totalCreditor, unit: "Créanciers", color: "text-blue-300", grad: "blue-card-grad" },
+    // ]
     const debtsCol: ColDef<IDebts>[] = ([
         {
             field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
@@ -62,7 +63,8 @@ function Dettes() {
 
     return (
         <div>
-            <Card cards={cardDette} />
+            {/* <Card cards={cardDette} /> */}
+            <DebtStats debts={debtsRow} />
             <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" onDelete={handleDelete} />
 
         </div>
