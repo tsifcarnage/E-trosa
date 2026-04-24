@@ -13,6 +13,7 @@ const createDebt = (
   const remaining = calc.calcRemainingAmount(amount, rate, paid);
 
   return {
+    id: crypto.randomUUID(),
     creditor: creditor,
     debtAmount: amount,
     dueDate: dueDate,
