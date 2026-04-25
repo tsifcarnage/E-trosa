@@ -58,7 +58,6 @@ function Dettes() {
 
     return (
         <div>
-            {/* <Card cards={cardDette} /> */}
             <DebtStats debts={debtsRow} />
             <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" onDelete={handleDelete} onOpenModal={handleOpenModal} />
 

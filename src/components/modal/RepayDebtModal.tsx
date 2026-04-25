@@ -33,7 +33,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
     };
 
     return (
-        <dialog ref={dialogRef} className="modal">
+        <dialog ref={dialogRef} className="modal bg-[#00000094]">
             <div className="modal-box">
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
 
@@ -41,7 +41,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
 
                 <div className="py-4 space-y-1">
                     <p>Montant total : <span className="font-semibold">{debt.debtAmount} €</span></p>
-                    <p>Intérêt : <span className="text-success font-medium">{debt.interestRate} %</span></p>
+                    <p>Intérêt : <span className="text-error font-medium">{debt.interestRate} %</span></p>
                     <p>Déjà réglé : <span className="text-success font-medium">{debt.paidAmount} €</span></p>
                 </div>
 
