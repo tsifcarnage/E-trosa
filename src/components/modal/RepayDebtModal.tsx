@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { IDebts } from "../../models/debts.interfaces";
 import { calcStatus } from "../../utils/debts.logic";
 import { Status } from "../../enums/status.enum";
+import { calcTotalToPay } from "../../utils/debts.calculation";
 
 const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () => void, onRepay: (updatedDebt: IDebts) => void }) => {
     const [repaymentAmount, setRepaymentAmount] = useState<number>(0);
@@ -12,13 +13,13 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
     }, []);
 
     // 1. Définition des états de l'interface
-    const remainingToPay = debt.debtAmount - debt.paidAmount;
+    const remainingToPay = calcTotalToPay(debt.debtAmount, debt.interestRate) - debt.paidAmount;
     const isAlreadyPaid = (debt.remainingAmount ?? 0) <= 0 || debt.status === Status.PAID;
     const isAmountTooHigh = repaymentAmount > remainingToPay;
 
     const handleRepayment = () => {
         const newPaidAmount = debt.paidAmount + repaymentAmount;
-        const newRemainingAmount = debt.debtAmount - newPaidAmount;
+        const newRemainingAmount = calcTotalToPay(debt.debtAmount, debt.interestRate) - newPaidAmount;
 
         const updatedDebt = {
             ...debt,
@@ -39,8 +40,9 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                 <h3 className="font-bold text-lg">Détails de la dette : {debt.creditor}</h3>
 
                 <div className="py-4 space-y-1">
-                    <p>Montant total : <span className="font-semibold">{debt.debtAmount}€</span></p>
-                    <p>Déjà réglé : <span className="text-success font-medium">{debt.paidAmount}€</span></p>
+                    <p>Montant total : <span className="font-semibold">{debt.debtAmount} €</span></p>
+                    <p>Intérêt : <span className="text-success font-medium">{debt.interestRate} %</span></p>
+                    <p>Déjà réglé : <span className="text-success font-medium">{debt.paidAmount} €</span></p>
                 </div>
 
                 <hr className="my-2 opacity-20" />
@@ -71,7 +73,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                     <div className="space-y-4">
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text font-medium mb-3">Montant à verser (Reste: {remainingToPay}€)</span>
+                                <span className="label-text font-medium mb-3">Montant à verser, avec intérêt (Reste: {remainingToPay}€)</span>
                             </label>
                             <input
                                 type="number"
