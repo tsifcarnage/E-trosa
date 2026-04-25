@@ -6,11 +6,14 @@ export const actionsCellRenderer = (params: CustomCellEditorProps) => {
     const handleDelete = () => {
         params.context.onDelete(params.data);
     };
+    const handleModal = () => {
+        params.context.onOpenModal(params.data);
+    };
     return (
         <div className="flex justify-center gap-2">
-            <div className="cursor-pointer text-success self-center"><TbMoneybagMoveBack size={20} /></div>{params.value}
+            <div onClick={handleModal} className="cursor-pointer text-success self-center hover:scale-110" title="Rembourser"><TbMoneybagMoveBack size={22} /></div>
             <p>|</p>
-            <div onClick={handleDelete} className="cursor-pointer text-error self-center"><MdDelete size={20} /></div>
+            <div onClick={handleDelete} className="cursor-pointer text-error self-center hover:scale-110" title="Supprimer"><MdDelete size={22} /></div>
         </div>
     )
 }

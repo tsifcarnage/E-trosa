@@ -7,4 +7,5 @@ export interface IDataTableProps {
   columnDefs: ColDef[];
   height?: string;
   onDelete: (row: IDebts) => void;
+  onOpenModal: (debtData: IDebts) => void;
 }

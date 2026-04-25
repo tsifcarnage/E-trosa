@@ -16,7 +16,7 @@ const themeAgGrid = themeQuartz.withParams({
 });
 
 
-export default function TableAggrid({ title, rowData, columnDefs, height = "h-100", onDelete }: IDataTableProps) {
+export default function TableAggrid({ title, rowData, columnDefs, height = "h-100", onDelete, onOpenModal }: IDataTableProps) {
     const [searchText, setSearchText] = useState("");
     return (
         <>
@@ -44,7 +44,7 @@ export default function TableAggrid({ title, rowData, columnDefs, height = "h-10
                     pagination={true}
                     paginationPageSize={10}
                     paginationPageSizeSelector={[10, 20]}
-                    context={{ onDelete }}
+                    context={{ onDelete, onOpenModal }}
                 />
             </div>
         </>

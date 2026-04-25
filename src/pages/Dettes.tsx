@@ -1,6 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
-import Card from "../components/Card"
-import type { ICardGrad } from "../models/ui.interfaces"
+import { useEffect, useState } from "react"
 import { MOCK_DEBT } from "../data/debts.mock";
 import type { IDebts } from "../models/debts.interfaces";
 // import { statusBadge } from "../utils/debts.logic";
@@ -9,43 +7,40 @@ import type { ColDef } from "ag-grid-community";
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/TableAggrid";
 import { statusCellRenderer } from "../components/cellRenderers/StatusCell";
-import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../utils/debts.calculation";
 import { formatDate, formatEuro } from "../utils/debts.logic";
 import { actionsCellRenderer } from "../components/cellRenderers/ActionsCell";
 import DebtStats from "../components/CardMemo";
+import RepayDebtModal from "../components/modal/RepayDebtModal";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 function Dettes() {
+    const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDebt, setSelectedDebt] = useState<IDebts | null>(null);
+
     const handleDelete = (row: IDebts) => {
         setDebtsRow(prev => prev.filter(r => r.id !== row.id));
     };
-    const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
-    // const totalDebts = useMemo(
-    //     () => formatEuro(totalDebt(debtsRow)),
-    //     [debtsRow]
-    // );
 
-    // const totalAlreadyPaid = useMemo(
-    //     () => formatEuro(totalPaidAmount(debtsRow)),
-    //     [debtsRow]
-    // );
+    const handleOpenModal = (debtData: IDebts) => {
+        setSelectedDebt(debtData);
+        setIsModalOpen(true);
+    };
 
-    // const totalRemainAmounts = useMemo(
-    //     () => formatEuro(totalRemainAmount(debtsRow)),
-    //     [debtsRow]
-    // );
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedDebt(null);
+    };
 
-    // const totalCreditor = useMemo(
-    //     () => numberCreditor(debtsRow),
-    //     [debtsRow]
-    // );
-    // const cardDette: ICardGrad[] = [
-    //     { title: "Total dettes", label: totalDebts, color: "text-red-500", grad: "red-card-grad" },
-    //     { title: "Montant déjà payer", label: totalAlreadyPaid, color: "text-green-500", grad: "green-card-grad" },
-    //     { title: "Montant restant", label: totalRemainAmounts, color: "text-orange-500", grad: "orange-card-grad" },
-    //     { title: "Créanciers", label: totalCreditor, unit: "Créanciers", color: "text-blue-300", grad: "blue-card-grad" },
-    // ]
+    // Fonction pour gérer le remboursement (mise à jour de la dette)
+    const handleRepayDebt = (updatedDebt: IDebts) => {
+        // Mettre à jour la dette dans debtsRow
+        const updatedDebts = debtsRow.map(debt =>
+            debt.id === updatedDebt.id ? updatedDebt : debt
+        );
+        setDebtsRow(updatedDebts);  // Mettre à jour l'état des dettes
+    };
     const debtsCol: ColDef<IDebts>[] = ([
         {
             field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
@@ -65,8 +60,15 @@ function Dettes() {
         <div>
             {/* <Card cards={cardDette} /> */}
             <DebtStats debts={debtsRow} />
-            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" onDelete={handleDelete} />
+            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" onDelete={handleDelete} onOpenModal={handleOpenModal} />
 
+            {isModalOpen && selectedDebt && (
+                <RepayDebtModal
+                    debt={selectedDebt}
+                    onClose={handleCloseModal}
+                    onRepay={handleRepayDebt}
+                />
+            )}
         </div>
     )
 }
