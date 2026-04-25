@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { IDebts } from "../../models/debts.interfaces";
-import { calcStatus } from "../../utils/debts.logic";
+import { calcStatus, formatEuro } from "../../utils/debts.logic";
 import { Status } from "../../enums/status.enum";
 import { calcTotalToPay } from "../../utils/debts.calculation";
 
@@ -40,9 +40,9 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                 <h3 className="font-bold text-lg">Détails de la dette : {debt.creditor}</h3>
 
                 <div className="py-4 space-y-1">
-                    <p>Montant total : <span className="font-semibold">{debt.debtAmount} €</span></p>
+                    <p>Montant total : <span className="font-semibold">{formatEuro(debt.debtAmount)} </span></p>
                     <p>Intérêt : <span className="text-error font-medium">{debt.interestRate} %</span></p>
-                    <p>Déjà réglé : <span className="text-success font-medium">{debt.paidAmount} €</span></p>
+                    <p>Déjà réglé : <span className="text-success font-medium">{formatEuro(debt.paidAmount)} </span></p>
                 </div>
 
                 <hr className="my-2 opacity-20" />
@@ -62,7 +62,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                     /* CAS 2 : Le montant saisi est trop grand */
                     <div className="space-y-4">
                         <div className="alert alert-error shadow-sm">
-                            <span>Le montant ({repaymentAmount}€) dépasse le reste à payer ({remainingToPay}€).</span>
+                            <span>Le montant ({formatEuro(repaymentAmount)}) dépasse le reste à payer ({formatEuro(remainingToPay)}).</span>
                         </div>
                         <button className="btn btn-outline btn-error w-full" onClick={() => setRepaymentAmount(0)}>
                             Corriger le montant
@@ -73,7 +73,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                     <div className="space-y-4">
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text font-medium mb-3">Montant à verser, avec intérêt (Reste: {remainingToPay}€)</span>
+                                <span className="label-text font-medium mb-3">Montant à verser, avec intérêt (Reste: {formatEuro(remainingToPay)})</span>
                             </label>
                             <input
                                 type="number"
