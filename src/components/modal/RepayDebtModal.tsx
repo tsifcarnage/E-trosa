@@ -66,7 +66,6 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                     </button>
                 </div>
             )}
-            {/* --- LOGIQUE D'AFFICHAGE --- */}
 
             {isAlreadyPaid ? (
                 /* CAS 1 : La dette est déjà payée */
