@@ -5,9 +5,9 @@ import { Status } from "../../enums/status.enum";
 import { calcTotalToPay } from "../../utils/debts.calculation";
 
 const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () => void, onRepay: (updatedDebt: IDebts) => void }) => {
-    const [repaymentAmount, setRepaymentAmount] = useState<number>(0);
+    const [repaymentAmount, setRepaymentAmount] = useState<number>(0.00);
     const dialogRef = useRef<HTMLDialogElement>(null);
-
+    const suggestions = [0.50, 5, 10, 50];
     useEffect(() => {
         if (dialogRef.current) dialogRef.current.showModal();
     }, []);
@@ -33,7 +33,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
     };
 
     return (
-        <dialog ref={dialogRef} className="modal bg-[#00000094]">
+        <dialog ref={dialogRef} onClose={onClose} className="modal bg-[#00000094]">
             <div className="modal-box">
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
 
@@ -47,6 +47,28 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
 
                 <hr className="my-2 opacity-20" />
 
+                {!isAlreadyPaid && (
+                    <div className="flex justify-center flex-wrap gap-2 my-4">
+                        {suggestions.map((amount) => (
+                            <button
+                                key={amount}
+                                type="button"
+                                className={`btn btn-soft btn-sm ${repaymentAmount === amount ? 'btn-primary' : ''}`}
+                                onClick={() => setRepaymentAmount(amount)}
+                            >
+                                {formatEuro(amount)}
+                            </button>
+                        ))}
+                        {/* Option pour remplir tout le reste d'un coup */}
+                        <button
+                            type="button"
+                            className="btn btn-outline btn-sm btn-secondary"
+                            onClick={() => setRepaymentAmount(Number(remainingToPay.toFixed(2)))}
+                        >
+                            Tout solder
+                        </button>
+                    </div>
+                )}
                 {/* --- LOGIQUE D'AFFICHAGE --- */}
 
                 {isAlreadyPaid ? (
@@ -78,10 +100,10 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                             <input
                                 type="number"
                                 value={repaymentAmount}
+                                step="0.50"
                                 onChange={(e) => setRepaymentAmount(Number(e.target.value))}
-                                className="input input-bordered w-full border-primary focus:border-primary-focus"
+                                className="input input-bordered w-full border-primary"
                                 placeholder="0.00"
-                                autoFocus
                             />
                         </div>
 
