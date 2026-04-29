@@ -4,11 +4,11 @@ import { calcStatus, formatEuro } from "../../utils/debts.logic";
 import { Status } from "../../enums/status.enum";
 import { calcTotalToPay } from "../../utils/debts.calculation";
 import ModalLayout from "../../layouts/ModalLayout";
+import { DebtDetails, PaymentSuggestions } from "./RepayDebtHeader";
+import { RepaymentForm } from "./RepayDebtForm";
 
 const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () => void, onRepay: (updatedDebt: IDebts) => void }) => {
     const [repaymentAmount, setRepaymentAmount] = useState<number>(0.00);
-
-    const suggestions = [0.50, 5, 10, 50];
 
     const remainingToPay = calcTotalToPay(debt.debtAmount, debt.interestRate) - debt.paidAmount;
     const isAlreadyPaid = (debt.remainingAmount ?? 0) <= 0 || debt.status === Status.PAID;
@@ -33,38 +33,13 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
 
         <ModalLayout onClose={onClose}>
 
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
-
-            <h3 className="font-bold text-lg">Détails de la dette : {debt.creditor}</h3>
-
-            <div className="py-4 space-y-1">
-                <p>Montant total : <span className="font-semibold">{formatEuro(debt.debtAmount)} </span></p>
-                <p>Intérêt : <span className="text-error font-medium">{debt.interestRate} %</span></p>
-                <p>Déjà réglé : <span className="text-success font-medium">{formatEuro(debt.paidAmount)} </span></p>
-            </div>
+            <h3 className="font-bold text-lg">Aperçu des dettes envers : {debt.creditor}</h3>
+            <DebtDetails debt={debt} />
 
             <hr className="my-2 opacity-20" />
 
             {!isAlreadyPaid && (
-                <div className="flex justify-center flex-wrap gap-2 my-4">
-                    {suggestions.map((amount) => (
-                        <button
-                            key={amount}
-                            type="button"
-                            className={`btn btn-soft btn-sm ${repaymentAmount === amount ? 'btn-primary' : ''}`}
-                            onClick={() => setRepaymentAmount(amount)}
-                        >
-                            {formatEuro(amount)}
-                        </button>
-                    ))}
-                    <button
-                        type="button"
-                        className="btn btn-outline btn-sm btn-secondary"
-                        onClick={() => setRepaymentAmount(Number(remainingToPay.toFixed(2)))}
-                    >
-                        Tout solder
-                    </button>
-                </div>
+                <PaymentSuggestions remainingToPay={remainingToPay} setRepaymentAmount={setRepaymentAmount} repaymentAmount={repaymentAmount} />
             )}
 
             {isAlreadyPaid ? (
@@ -88,22 +63,9 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
                 </div>
             ) : (
                 /* CAS 3 : Formulaire normal */
-                <div className="space-y-4">
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text font-medium mb-3">Montant à verser, avec intérêt (Reste: {formatEuro(remainingToPay)})</span>
-                        </label>
-                        <input
-                            type="number"
-                            value={repaymentAmount}
-                            step="0.50"
-                            onChange={(e) => setRepaymentAmount(Number(e.target.value))}
-                            className="input input-bordered w-full border-primary"
-                            placeholder="0.00"
-                        />
-                    </div>
-
-                    <div className="modal-action flex-wrap">
+                <div className="modal-action  flex-wrap">
+                    <RepaymentForm remainingToPay={remainingToPay} repaymentAmount={repaymentAmount} setRepaymentAmount={setRepaymentAmount} debt={debt} />
+                    <div className="mt-4 flex gap-2">
                         <button className="btn btn-primary" onClick={handleRepayment}>
                             Confirmer le remboursement
                         </button>

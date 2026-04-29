@@ -10,6 +10,7 @@ export default function ModalLayout({ children, onClose }: { children: React.Rea
     return (
         <dialog ref={dialogRef} onClose={onClose} className="modal bg-[#00000094]">
             <div className="modal-box">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
                 {children}
             </div>
             <form method="dialog" className="modal-backdrop"><button onClick={onClose}>Fermer</button></form>

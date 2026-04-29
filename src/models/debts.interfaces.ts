@@ -13,3 +13,10 @@ export interface IDebts {
   status?: Status;
   actions?: Actions;
 }
+
+export interface IModalFormProps {
+  repaymentAmount: number;
+  setRepaymentAmount: (amount: number) => void;
+  remainingToPay: number;
+  debt?: IDebts;
+}
