@@ -9,15 +9,21 @@ const createDebt = (
   rate: number,
   dueDate: string,
 ): IDebts => {
-  const interest = calc.calcInterestAmount(amount, rate);
-  const remaining = calc.calcRemainingAmount(amount, rate, paid);
-
+  const today = new Date();
+  const deadline = new Date(dueDate);
+  let finalRate = rate;
+  
+  if(today>deadline){
+    finalRate+=2;
+  }
+  const interest = calc.calcInterestAmount(amount, finalRate);
+  const remaining = calc.calcRemainingAmount(amount, finalRate, paid);
   return {
     id: crypto.randomUUID(),
     creditor: creditor,
     debtAmount: amount,
     dueDate: dueDate,
-    interestRate: rate,
+    interestRate: finalRate,
     paidAmount: paid,
     interestAmount: interest,
     remainingAmount: remaining,
