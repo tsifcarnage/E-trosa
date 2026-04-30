@@ -56,3 +56,17 @@ export const formatDate = (value: string | Date | null | undefined): string => {
 
   return date.toLocaleDateString("fr-BE");
 };
+
+export const formatInterestRate = (interestRate: number, dueDate: string) => {
+  const today = new Date();
+  const deadline = new Date(dueDate);
+  const isLate = today > deadline;
+
+  const displayRate = isLate
+    ? `+ ${interestRate.toLocaleString()}%`
+    : `${interestRate.toLocaleString()}%`;
+
+  const style = isLate ? { color: "red" } : undefined;
+
+  return { displayRate, style };
+};
