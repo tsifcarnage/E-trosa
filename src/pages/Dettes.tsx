@@ -47,10 +47,7 @@ function Dettes() {
         { field: "creditor", headerName: "Créancier", flex: 1, headerClass: 'header-center' },
         { field: "debtAmount", headerName: "Montant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
         {
-            field: "interestRate", headerName: "Taux d'intérêt", valueFormatter: (p) => {
-                if (typeof p.value !== "number" || !p.data?.dueDate) return "";
-                return formatInterestRate(p.value, p.data.dueDate).displayRate;
-            },
+            field: "interestRate", headerName: "Taux d'intérêt", valueFormatter: p => p.value + '%',
             cellStyle: (p) => {
                 if (typeof p.value !== "number" || !p.data?.dueDate) return undefined;
                 return formatInterestRate(p.value, p.data.dueDate).style;

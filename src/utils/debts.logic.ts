@@ -63,7 +63,7 @@ export const formatInterestRate = (interestRate: number, dueDate: string) => {
   const isLate = today > deadline;
 
   const displayRate = isLate
-    ? `+ ${interestRate.toLocaleString()}%`
+    ? `${interestRate.toLocaleString()}%(+2 de pénalités)`
     : `${interestRate.toLocaleString()}%`;
 
   const style = isLate ? { color: "red" } : undefined;

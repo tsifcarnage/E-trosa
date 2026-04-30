@@ -1,11 +1,11 @@
 import type { IDebts, IModalFormProps } from "../../models/debts.interfaces";
-import { formatEuro } from "../../utils/debts.logic";
+import { formatEuro, formatInterestRate } from "../../utils/debts.logic";
 
 export const DebtDetails = ({ debt }: { debt: IDebts }) => {
     return (
         <div className="py-4 space-y-1">
             <p>Montant total : <span className="font-semibold">{formatEuro(debt.debtAmount)} </span></p>
-            <p>Intérêt : <span className="text-error font-medium">{debt.interestRate} %</span></p>
+            <p>Intérêt : <span className="text-error font-medium">{formatInterestRate(debt.interestRate, debt.dueDate).displayRate}</span></p>
             <p>Déjà réglé : <span className="text-success font-medium">{formatEuro(debt.paidAmount)} </span></p>
         </div>
     )
