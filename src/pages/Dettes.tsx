@@ -33,7 +33,7 @@ function Dettes() {
         setSelectedDebt(null);
     };
 
-    // Fonction pour gérer le remboursement (mise à jour de la dette)
+    //maj de la dette 
     const handleRepayDebt = (updatedDebt: IDebts) => {
         const updatedDebts = debtsRow.map(debt =>
             debt.id === updatedDebt.id ? updatedDebt : debt
