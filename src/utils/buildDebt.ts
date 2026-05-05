@@ -1,6 +1,7 @@
-import type { IDebts } from "../models/debts.interfaces";
+import type { IDebts, INewDebt } from "../models/debts.interfaces";
 import { calcStatus } from "./debts.logic";
 import * as calc from "../utils/debts.calculation";
+import { MOCK_DEBT } from "../data/debts.mock";
 
 export const createDebt = (
   creditor: string,
@@ -31,3 +32,24 @@ export const createDebt = (
   };
 };
 
+export const addDebt = (
+  e: React.FormEvent,
+  formData:INewDebt,
+  onClose: () => void,
+  onDebtAdded: (d: IDebts) => void
+) => {
+  e.preventDefault();
+
+  const newDebt = createDebt(
+    formData.creditor,
+    Number(formData.debtAmount),0,
+    Number(formData.interestRate),
+    formData.dueDate
+  );
+
+  MOCK_DEBT.push(newDebt);
+  onDebtAdded(newDebt);
+  console.log("Nouvelle dette ajoutée :", newDebt);
+
+  onClose();
+};

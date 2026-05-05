@@ -40,6 +40,11 @@ function Dettes() {
         );
         setDebtsRow(updatedDebts);
     };
+
+    // maj nouvelle dette
+    const handleAddDebt = (newDebt: IDebts) => {
+    setDebtsRow(prev => [...prev, newDebt]);
+};
     const debtsCol: ColDef<IDebts>[] = ([
         {
             field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
@@ -64,7 +69,7 @@ function Dettes() {
     return (
         <div>
             <DebtStats debts={debtsRow} />
-            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" onDelete={handleDelete} onOpenModal={handleOpenModal} />
+            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal

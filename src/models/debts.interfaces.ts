@@ -20,3 +20,10 @@ export interface IModalFormProps {
   remainingToPay: number;
   debt?: IDebts;
 }
+
+export interface INewDebt{
+  creditor: string;
+  debtAmount: number;
+  dueDate: string;
+  interestRate: number;
+}

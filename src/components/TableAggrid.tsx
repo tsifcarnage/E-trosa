@@ -5,6 +5,7 @@ import { useState } from "react";
 import AddData from "./AddData";
 import { ImStatsDots } from "react-icons/im";
 import AddDebtModal from "./modal/AddDebtModal";
+import type { IDebts } from "../models/debts.interfaces";
 
 const themeAgGrid = themeQuartz.withParams({
   backgroundColor: "#0f172a",
@@ -22,8 +23,9 @@ export default function TableAggrid({
   columnDefs,
   height = "h-100",
   onDelete,
-  onOpenModal,
-}: IDataTableProps) {
+  onOpenModal,onAddDebt
+}: IDataTableProps & { onAddDebt: (debt: IDebts) => void }) {
+
   const [searchText, setSearchText] = useState("");
   const [open, setOpen] = useState(false);
   return (
@@ -34,8 +36,9 @@ export default function TableAggrid({
           <h3 className="flex justify-center self-center cursor-pointer transition-colors duration-300 text-success font-medium hover:text-error">
             <ImStatsDots size={25} className="self-center mx-2" /> Graphique
           </h3>
+
           <AddData title={title ?? ""} onClick={() => setOpen(true)} />
-          {open && <AddDebtModal onClose={() => setOpen(false)} />}
+          {open && <AddDebtModal onClose={() => setOpen(false)} onDebtAdded={onAddDebt}/>}
           <input
             className="px-2 box-shad-user rounded-xl"
             type="text"
