@@ -32,6 +32,7 @@ const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded
             value={formData.creditor}
             onChange={handleChange}
             className="input input-sm input-secondary"
+            required
           />
         </div>
 
@@ -44,6 +45,7 @@ const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded
             placeholder="0.00"
             onChange={handleChange}
             className="input input-sm input-secondary"
+            required
           />
         </div>
 
@@ -66,6 +68,7 @@ const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded
             value={formData.dueDate}
             onChange={handleChange}
             className="input input-sm input-secondary"
+            required
           />
         </div>
         <div className="flex justify-end gap-2">
