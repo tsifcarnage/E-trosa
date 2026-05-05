@@ -1,4 +1,4 @@
-import type { ICardGradProps } from "../models/ui.interfaces"
+import type { ICardGradProps } from "../../models/ui.interfaces"
 
 export default function Card({ cards = [] }: ICardGradProps) {
     return (

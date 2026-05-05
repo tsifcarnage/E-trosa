@@ -7,6 +7,7 @@ export default function ModalLayout({ children, onClose }: { children: React.Rea
     useEffect(() => {
         if (dialogRef.current) dialogRef.current.showModal();
     }, []);
+    
     return (
         <dialog ref={dialogRef} onClose={onClose} className="modal bg-[#00000094]">
             <div className="modal-box">

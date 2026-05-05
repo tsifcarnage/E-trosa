@@ -9,7 +9,7 @@ import TableAggrid from "../components/TableAggrid";
 import { statusCellRenderer } from "../components/cellRenderers/StatusCell";
 import { formatDate, formatEuro, formatInterestRate } from "../utils/debts.logic";
 import { actionsCellRenderer } from "../components/cellRenderers/ActionsCell";
-import DebtStats from "../components/CardMemo";
+import DebtStats from "../components/cardHeader/CardMemo";
 import RepayDebtModal from "../components/modal/RepayDebtModal";
 
 ModuleRegistry.registerModules([AllCommunityModule]);

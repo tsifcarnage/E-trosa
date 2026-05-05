@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../utils/debts.calculation";
-import { formatEuro } from "../utils/debts.logic";
-import type { ICardGrad } from "../models/ui.interfaces";
-import type { IDebts } from "../models/debts.interfaces";
+import { numberCreditor, totalDebt, totalPaidAmount, totalRemainAmount } from "../../utils/debts.calculation";
+import { formatEuro } from "../../utils/debts.logic";
+import type { ICardGrad } from "../../models/ui.interfaces";
+import type { IDebts } from "../../models/debts.interfaces";
 import Card from "./Card";
 
 interface Props {

@@ -1,35 +1,5 @@
 import type { IDebts } from "../models/debts.interfaces";
-import * as calc from "../utils/debts.calculation";
-import { calcStatus } from "../utils/debts.logic";
-
-const createDebt = (
-  creditor: string,
-  amount: number,
-  paid: number,
-  rate: number,
-  dueDate: string,
-): IDebts => {
-  const today = new Date();
-  const deadline = new Date(dueDate);
-  let finalRate = rate;
-  
-  if(today>deadline){
-    finalRate+=2;
-  }
-  const interest = calc.calcInterestAmount(amount, finalRate);
-  const remaining = calc.calcRemainingAmount(amount, finalRate, paid);
-  return {
-    id: crypto.randomUUID(),
-    creditor: creditor,
-    debtAmount: amount,
-    dueDate: dueDate,
-    interestRate: finalRate,
-    paidAmount: paid,
-    interestAmount: interest,
-    remainingAmount: remaining,
-    status: calcStatus(remaining, paid, dueDate),
-  };
-};
+import { createDebt } from "../utils/buildDebt";
 
 export const MOCK_DEBT: IDebts[] = [
   createDebt("Tsifcarnage", 1000, 900, 5, "2026-12-01"),

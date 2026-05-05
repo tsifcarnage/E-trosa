@@ -1,4 +1,4 @@
-import Card from "../components/Card"
+import Card from "../components/cardHeader/Card"
 import type { ICardGrad } from "../models/ui.interfaces"
 
 const cardDash: ICardGrad[] = [
