@@ -13,9 +13,9 @@ export const createDebt = (
   const today = new Date();
   const deadline = new Date(dueDate);
   let finalRate = rate;
-  
-  if(today>deadline){
-    finalRate+=2;
+
+  if (today > deadline) {
+    finalRate += 2;
   }
   const interest = calc.calcInterestAmount(amount, finalRate);
   const remaining = calc.calcRemainingAmount(amount, finalRate, paid);
@@ -33,18 +33,19 @@ export const createDebt = (
 };
 
 export const addDebt = (
-  e: React.FormEvent,
-  formData:INewDebt,
+  e: React.SubmitEvent,
+  formData: INewDebt,
   onClose: () => void,
-  onDebtAdded: (d: IDebts) => void
+  onDebtAdded: (d: IDebts) => void,
 ) => {
   e.preventDefault();
 
   const newDebt = createDebt(
     formData.creditor,
-    Number(formData.debtAmount),0,
+    Number(formData.debtAmount),
+    0,
     Number(formData.interestRate),
-    formData.dueDate
+    formData.dueDate,
   );
 
   MOCK_DEBT.push(newDebt);
