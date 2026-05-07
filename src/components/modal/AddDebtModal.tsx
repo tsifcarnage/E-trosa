@@ -3,7 +3,7 @@ import ModalLayout from "../../layouts/ModalLayout";
 import type { IDebts, INewDebt } from "../../models/debts.interfaces";
 import { addDebt } from "../../utils/buildDebt";
 
-const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded: (d: IDebts) => void }) => {
+const AddDebtModal = ({ onClose, onDebtAdded }: { onClose: () => void, onDebtAdded: (d: IDebts) => void }) => {
   const [formData, setFormData] = useState<INewDebt>({
     creditor: "",
     debtAmount: 0,
@@ -27,11 +27,11 @@ const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded
         <div className="flex gap-1">
           <label className="flex-1 self-center">Créancier:</label>
           <input
-          name="creditor"
+            name="creditor"
             type="text"
             value={formData.creditor}
             onChange={handleChange}
-            className="input input-sm input-secondary"
+            className="input input-sm input-primary"
             required
           />
         </div>
@@ -39,12 +39,12 @@ const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded
         <div className="flex gap-1">
           <label className="flex-1 self-center">Montant:</label>
           <input
-          name="debtAmount"
+            name="debtAmount"
             type="text"
-            value={formData.debtAmount=== 0 ?"":formData.debtAmount}
+            value={formData.debtAmount === 0 ? "" : formData.debtAmount}
             placeholder="0.00"
             onChange={handleChange}
-            className="input input-sm input-secondary"
+            className="input input-sm input-primary"
             required
           />
         </div>
@@ -52,27 +52,27 @@ const AddDebtModal = ({ onClose,onDebtAdded }: { onClose: () => void,onDebtAdded
         <div className="flex gap-1">
           <label className="flex-1 self-center">Taux en pourcent:</label>
           <input
-          name="interestRate"
+            name="interestRate"
             type="number"
             value={formData.interestRate}
             onChange={handleChange}
-            className="input input-sm input-secondary"
+            className="input input-sm input-primary"
           />
         </div>
 
         <div className="flex gap-1">
           <label className="flex-1 self-center">Date échéance:</label>
           <input
-          name="dueDate"
+            name="dueDate"
             type="date"
             value={formData.dueDate}
             onChange={handleChange}
-            className="input input-sm input-secondary"
+            className="input input-sm input-primary"
             required
           />
         </div>
         <div className="flex justify-end gap-2">
-          <button type="submit" className="btn btn-secondary">
+          <button type="submit" className="btn btn-primary">
             Ajouter dette
           </button>
           <button className="btn btn-ghost" onClick={onClose}>

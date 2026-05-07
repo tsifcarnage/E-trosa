@@ -31,8 +31,8 @@ h2 {
 h3 {
   font-size: 20px;
 }
-.purple {
-  color: #8a38f5;
+.border-purple {
+  border-color: #8a38f5;
 }
 .box-shad {
   box-shadow: -2px 0px 10px 0px #8a38f5;

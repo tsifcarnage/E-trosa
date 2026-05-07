@@ -23,7 +23,7 @@ export default function TableAggrid({
   columnDefs,
   height = "h-100",
   onDelete,
-  onOpenModal,onAddDebt
+  onOpenModal, onAddDebt
 }: IDataTableProps & { onAddDebt: (debt: IDebts) => void }) {
 
   const [searchText, setSearchText] = useState("");
@@ -33,14 +33,14 @@ export default function TableAggrid({
       <div className="mt-10 mx-6 flex justify-between gap-2">
         <h2 className=" self-center">Liste des {title}s</h2>
         <div className="flex justify-center flex-wrap gap-5">
-          <h3 className="flex justify-center self-center cursor-pointer transition-colors duration-300 text-success font-medium hover:text-error">
+          <h3 className="flex justify-center self-center cursor-pointer transition-colors duration-300 text-primary font-medium hover:text-success">
             <ImStatsDots size={25} className="self-center mx-2" /> Graphique
           </h3>
 
           <AddData title={title ?? ""} onClick={() => setOpen(true)} />
-          {open && <AddDebtModal onClose={() => setOpen(false)} onDebtAdded={onAddDebt}/>}
+          {open && <AddDebtModal onClose={() => setOpen(false)} onDebtAdded={onAddDebt} />}
           <input
-            className="px-2 box-shad-user rounded-xl"
+            className="px-2 border border-purple rounded-xl"
             type="text"
             placeholder="Rechercher..."
             value={searchText}
