@@ -31,9 +31,6 @@ h2 {
 h3 {
   font-size: 20px;
 }
-.border-purple {
-  border-color: #818cf7;
-}
 .box-shad {
   box-shadow: -2px 0px 10px 0px #818cf7;
 }
@@ -41,7 +38,7 @@ h3 {
   box-shadow: 1px 3px 10px 0px #818cf7c8;
 }
 .box-shad-user {
-  box-shadow: 1px 2px 5px 0px #818cf7;
+  /* box-shadow: 1px 2px 5px 0px #818cf7; */
   border: 0.5px solid #818cf7;
 }
 

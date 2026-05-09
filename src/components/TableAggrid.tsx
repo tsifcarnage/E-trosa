@@ -40,7 +40,7 @@ export default function TableAggrid({
           <AddData title={title ?? ""} onClick={() => setOpen(true)} />
           {open && <AddDebtModal onClose={() => setOpen(false)} onDebtAdded={onAddDebt} />}
           <input
-            className="px-2 border border-purple rounded-xl"
+            className="px-2 border border-secondary rounded-xl"
             type="text"
             placeholder="Rechercher..."
             value={searchText}
