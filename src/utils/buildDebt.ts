@@ -48,7 +48,8 @@ export const addDebt = (
     formData.dueDate,
   );
 
-  MOCK_DEBT.push(newDebt);
+  const mutableDebts = [...MOCK_DEBT];
+  mutableDebts.push(newDebt);
   onDebtAdded(newDebt);
   console.log("Nouvelle dette ajoutée :", newDebt);
 
