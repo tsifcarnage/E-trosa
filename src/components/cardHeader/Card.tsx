@@ -1,6 +1,6 @@
 import type { ICardGradProps } from "../../models/ui.interfaces"
 
-export default function Card({ cards = [] }: ICardGradProps) {
+const Card = ({ cards = [] }: ICardGradProps) => {
     return (
         <div className="flex gap-5 justify-center flex-wrap lg:flex-nowrap mx-6">
             {cards.map((c, index) => (<div className={`flex flex-col gap-3 p-6 w-full rounded-[10px] ${c.grad}`} key={index}>
@@ -11,3 +11,5 @@ export default function Card({ cards = [] }: ICardGradProps) {
         </div>
     )
 }
+
+export default Card;

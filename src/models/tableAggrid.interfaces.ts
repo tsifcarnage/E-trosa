@@ -3,7 +3,7 @@ import type { IDebts } from "./debts.interfaces";
 
 export interface IDataTableProps {
   title?: string;
-  rowData: object[];
+  rowData: Object[];
   columnDefs: ColDef[];
   height?: string;
   onDelete: (row: IDebts) => void;

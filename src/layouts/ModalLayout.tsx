@@ -7,10 +7,10 @@ export default function ModalLayout({ children, onClose }: { children: React.Rea
     useEffect(() => {
         if (dialogRef.current) dialogRef.current.showModal();
     }, []);
-    
+
     return (
         <dialog ref={dialogRef} onClose={onClose} className="modal bg-[#00000094]">
-            <div className="modal-box">
+            <div className="modal-box max-w-2xl">
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
                 {children}
             </div>
