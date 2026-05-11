@@ -19,7 +19,7 @@ export const ChartDebtModal = ({ onClose, rowData }: { onClose: () => void, rowD
                             dataKey="debtAmount"
                             stroke="grey"
                             width={80}
-                            tickFormatter={(value) => formatEuro(value)}
+                            tickFormatter={(value:number) => formatEuro(value)}
                         />
 
                         <XAxis
@@ -36,7 +36,7 @@ export const ChartDebtModal = ({ onClose, rowData }: { onClose: () => void, rowD
                             radius: 4,
                             stroke: "#1e293b"
                         }}
-                            content={({ active, payload }) => {
+                            content={({ active, payload }:any) => {
                                 if (!active || !payload || payload.length === 0) {
                                     return null;
                                 }
