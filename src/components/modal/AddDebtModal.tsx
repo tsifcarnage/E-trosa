@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import type { IDebts, INewDebt } from "../../models/debts.interfaces";
-import { addDebt } from "../../utils/buildDebt";
+import { addDebt, addReceive } from "../../utils/buildDebt";
 interface ITitle {
   addTitle: string;
   userTitleForm: string;
@@ -35,7 +35,7 @@ const AddDebtModal = ({
     <ModalLayout onClose={onClose}>
       <form
         className="flex flex-col gap-4"
-        onSubmit={(e) => addDebt(e, formData, onClose, onDebtAdded)}
+        onSubmit={(e) => addTitle === "dette"?addDebt(e, formData, onClose, onDebtAdded):addReceive(e, formData, onClose, onDebtAdded)}
       >
         <h3 className="font-bold text-lg mb-2 ">Ajouter {addTitle}</h3>
         <div className="flex gap-1">

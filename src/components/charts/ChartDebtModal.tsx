@@ -7,7 +7,7 @@ export const ChartDebtModal = ({ onClose, rowData }: { onClose: () => void, rowD
     return (
         <ModalLayout onClose={onClose}>
             <div style={{ width: '100%', height: 350 }}>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height={350}>
                     <AreaChart
                         data={rowData}
                         margin={{ top: 10, right: 30, left: 40, bottom: 0 }}

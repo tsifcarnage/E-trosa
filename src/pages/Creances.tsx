@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { IDebts } from "../models/debts.interfaces";
 import type { ColDef } from "ag-grid-community";
 import { formatDate, formatEuro, formatInterestRate } from "../utils/debts.logic";
-import { MOCK_DEBT } from "../data/debts.mock";
+import { MOCK_DEBT, MOCK_RECEIVABLES } from "../data/debts.mock";
 import DebtStats from "../components/cardHeader/CardMemo";
 import TableAggrid from "../components/TableAggrid";
 import RepayDebtModal from "../components/modal/RepayDebtModal";
@@ -58,7 +58,7 @@ function Creances() {
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center', cellRenderer: actionsCellRenderer },
     ])
     useEffect(() => {
-        setDebtsRow(MOCK_DEBT);
+        setDebtsRow(MOCK_RECEIVABLES);
     }, []);
 
     return (
