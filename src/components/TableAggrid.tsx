@@ -19,6 +19,7 @@ const themeAgGrid = themeQuartz.withParams({
 });
 
 export default function TableAggrid({
+  userTitle,
   title,
   rowData,
   columnDefs,
@@ -41,7 +42,7 @@ export default function TableAggrid({
           {openChart && <ChartDebtModal onClose={() => setOpenChart(false)} rowData={rowData as IDebts[]} />}
 
           <AddData title={title ?? ""} onClick={() => setOpenDebtForm(true)} />
-          {openDebtForm && <AddDebtModal onClose={() => setOpenDebtForm(false)} onDebtAdded={onAddDebt} />}
+          {openDebtForm && <AddDebtModal onClose={() => setOpenDebtForm(false)} onDebtAdded={onAddDebt} addTitle={title??""} userTitleForm={userTitle??""}/>}
           <input
             className="px-2 border border-secondary rounded-xl"
             type="text"

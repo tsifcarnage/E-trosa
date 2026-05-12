@@ -2,8 +2,22 @@ import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import type { IDebts, INewDebt } from "../../models/debts.interfaces";
 import { addDebt } from "../../utils/buildDebt";
+interface ITitle {
+  addTitle: string;
+  userTitleForm: string;
+}
 
-const AddDebtModal = ({ onClose, onDebtAdded }: { onClose: () => void, onDebtAdded: (d: IDebts) => void }) => {
+interface AddDebtModalProps extends ITitle {
+  onClose: () => void;
+  onDebtAdded: (d: IDebts) => void;
+}
+
+const AddDebtModal = ({
+  onClose,
+  onDebtAdded,
+  addTitle,
+  userTitleForm,
+}: AddDebtModalProps) => {
   const [formData, setFormData] = useState<INewDebt>({
     creditor: "",
     debtAmount: 0,
@@ -23,9 +37,9 @@ const AddDebtModal = ({ onClose, onDebtAdded }: { onClose: () => void, onDebtAdd
         className="flex flex-col gap-4"
         onSubmit={(e) => addDebt(e, formData, onClose, onDebtAdded)}
       >
-        <h3 className="font-bold text-lg mb-2 ">Ajouter une dette</h3>
+        <h3 className="font-bold text-lg mb-2 ">Ajouter {addTitle}</h3>
         <div className="flex gap-1">
-          <label className="flex-1 self-center">Créancier:</label>
+          <label className="flex-1 self-center">{userTitleForm}:</label>
           <input
             name="creditor"
             type="text"
@@ -73,7 +87,7 @@ const AddDebtModal = ({ onClose, onDebtAdded }: { onClose: () => void, onDebtAdd
         </div>
         <div className="flex justify-end gap-2">
           <button type="submit" className="btn btn-primary">
-            Ajouter dette
+            Ajouter {addTitle}
           </button>
           <button className="btn btn-ghost" onClick={onClose}>
             Annuler

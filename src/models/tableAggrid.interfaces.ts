@@ -2,6 +2,7 @@ import type { ColDef } from "ag-grid-community";
 import type { IDebts } from "./debts.interfaces";
 
 export interface IDataTableProps {
+  userTitle?:string;
   title?: string;
   rowData: Object[];
   columnDefs: ColDef[];

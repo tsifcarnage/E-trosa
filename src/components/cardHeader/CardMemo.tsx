@@ -5,10 +5,15 @@ import type { ICardGrad } from "../../models/ui.interfaces";
 import type { IDebts } from "../../models/debts.interfaces";
 import Card from "./Card";
 
-interface Props {
-    debts: IDebts[];
+interface TitleProps {
+  totalTitle: string;
+  nbrUsers: string;
 }
-export default function DebtStats({ debts }: Props) {
+
+interface Props extends TitleProps {
+  debts: IDebts[];
+}
+export default function DebtStats({ debts,totalTitle,nbrUsers }: Props) {
 
     const stats = useMemo(() => {
         return {
@@ -20,7 +25,7 @@ export default function DebtStats({ debts }: Props) {
     }, [debts]);
     const cards: ICardGrad[] = useMemo(() => [
         {
-            title: "Total dettes",
+            title: `Total ${totalTitle}`,
             label: stats.totalDebts,
             color: "text-red-500",
             grad: "red-card-grad"
@@ -38,9 +43,9 @@ export default function DebtStats({ debts }: Props) {
             grad: "orange-card-grad"
         },
         {
-            title: "Créanciers",
+            title: nbrUsers,
             label: stats.creditors,
-            unit: "Créanciers",
+            unit: nbrUsers,
             color: "text-blue-300",
             grad: "blue-card-grad"
         }
