@@ -7,7 +7,7 @@ import ModalLayout from "../../layouts/ModalLayout";
 import { DebtDetails, PaymentSuggestions } from "./RepayDebtHeader";
 import { AlreadyPaid, AmountTooHigh, RepaymentForm } from "./RepayDebtForm";
 
-const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () => void, onRepay: (updatedDebt: IDebts) => void }) => {
+const RepayDebtModal = ({ debt, onClose, onRepay,titleUsers }: { debt: IDebts, onClose: () => void, onRepay: (updatedDebt: IDebts) => void,titleUsers:string }) => {
     const [repaymentAmount, setRepaymentAmount] = useState<number>(0);
 
     const remainingToPay = calcTotalToPay(debt.debtAmount, debt.interestRate) - debt.paidAmount;
@@ -33,7 +33,7 @@ const RepayDebtModal = ({ debt, onClose, onRepay }: { debt: IDebts, onClose: () 
 
         <ModalLayout onClose={onClose}>
 
-            <h3 className="font-bold text-lg">Aperçu des dettes envers : {debt.creditor}</h3>
+            <h3 className="font-bold text-lg"> {titleUsers} - {debt.creditor}</h3>
             <DebtDetails debt={debt} />
 
             <hr className="my-2 opacity-20" />

@@ -76,6 +76,7 @@ function Dettes() {
                     debt={selectedDebt}
                     onClose={handleCloseModal}
                     onRepay={handleRepayDebt}
+                    titleUsers="Dettes fournisseurs"
                 />
             )}
         </div>

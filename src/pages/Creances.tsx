@@ -71,6 +71,7 @@ function Creances() {
                     debt={selectedDebt}
                     onClose={handleCloseModal}
                     onRepay={handleRepayDebt}
+                    titleUsers="Créances clients"
                 />
             )}
         </div>
