@@ -28,7 +28,7 @@ function Creances() {
         setSelectedDebt(null);
     };
 
-    //maj de la dette 
+    //maj de la creance 
     const handleRepayDebt = (updatedDebt: IDebts) => {
         const updatedDebts = debtsRow.map(debt =>
             debt.id === updatedDebt.id ? updatedDebt : debt
@@ -36,7 +36,7 @@ function Creances() {
         setDebtsRow(updatedDebts);
     };
 
-    // maj nouvelle dette
+    // maj nouvelle creance
     const handleAddDebt = (newDebt: IDebts) => {
     setDebtsRow(prev => [...prev, newDebt]);
 };
