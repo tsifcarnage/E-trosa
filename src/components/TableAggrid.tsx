@@ -19,6 +19,7 @@ const themeAgGrid = themeQuartz.withParams({
 });
 
 export default function TableAggrid({
+  filter,
   userTitle,
   title,
   rowData,
@@ -27,7 +28,7 @@ export default function TableAggrid({
   onDelete,
   onOpenModal, onAddDebt
 }: IDataTableProps & { onAddDebt: (debt: IDebts) => void }) {
-
+  const statusContent = { filterType: 'text', type: 'equals', filter: 'Payé' }
   const [searchText, setSearchText] = useState("");
   const [openDebtForm, setOpenDebtForm] = useState(false);
   const [openChart, setOpenChart] = useState(false);
@@ -42,7 +43,7 @@ export default function TableAggrid({
           {openChart && <ChartDebtModal onClose={() => setOpenChart(false)} rowData={rowData as IDebts[]} />}
 
           <AddData title={title ?? ""} onClick={() => setOpenDebtForm(true)} />
-          {openDebtForm && <AddDebtModal onClose={() => setOpenDebtForm(false)} onDebtAdded={onAddDebt} addTitle={title??""} userTitleForm={userTitle??""}/>}
+          {openDebtForm && <AddDebtModal onClose={() => setOpenDebtForm(false)} onDebtAdded={onAddDebt} addTitle={title ?? ""} userTitleForm={userTitle ?? ""} />}
           <input
             className="px-2 border border-secondary rounded-xl"
             type="text"
@@ -63,6 +64,13 @@ export default function TableAggrid({
           paginationPageSize={10}
           paginationPageSizeSelector={[10, 20]}
           context={{ onDelete, onOpenModal }}
+          initialState={{
+            filter: {
+              filterModel: {
+                status: filter ? { ...statusContent } : {}
+              }
+            }
+          }}
         />
       </div>
     </>

@@ -43,8 +43,8 @@ function Dettes() {
 
     // maj nouvelle dette
     const handleAddDebt = (newDebt: IDebts) => {
-    setDebtsRow(prev => [...prev, newDebt]);
-};
+        setDebtsRow(prev => [...prev, newDebt]);
+    };
     const debtsCol: ColDef<IDebts>[] = ([
         {
             field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
@@ -59,7 +59,9 @@ function Dettes() {
             }, flex: 1, headerClass: 'header-center'
         },
         { field: "remainingAmount", headerName: "Restant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
-        { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center', cellRenderer: statusCellRenderer },
+        {
+            field: "status", headerName: "Status", flex: 1, headerClass: 'header-center', cellRenderer: statusCellRenderer, filter: true,
+        },
         { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center', cellRenderer: actionsCellRenderer },
     ])
     useEffect(() => {
@@ -68,8 +70,8 @@ function Dettes() {
 
     return (
         <div>
-            <DebtStats debts={debtsRow} nbrUsers="Créanciers" totalTitle="dettes"/>
-            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="dette" userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
+            <DebtStats debts={debtsRow} nbrUsers="Créanciers" totalTitle="dettes" />
+            <TableAggrid filter={true} rowData={debtsRow} columnDefs={debtsCol} title="dette" userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal

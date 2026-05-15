@@ -2,7 +2,7 @@ import type { IDebts } from "../models/debts.interfaces";
 import { createDebt } from "../utils/buildDebt";
 
 export const MOCK_DEBT: IDebts[] = [
-  createDebt("Tsifcarnage", 1000, 900, 5, "2026-12-01"),
+  createDebt("Tsifcarnage", 1000, 1050, 5, "2026-12-01"),
   createDebt("Paul", 800, 0, 0, "2026-12-31"),
   createDebt("Kyara", 100, 103, 3, "2024-10-10"),
   createDebt("Kaka", 7000, 0, 5, "2026-07-27"),

@@ -69,3 +69,10 @@ h3 {
 .ag-root-wrapper {
   margin: 24px;
 }
+
+.ag-icon.ag-icon-filter {
+  display: none !important;
+}
+.ag-filter-active {
+  display: none !important;
+}
