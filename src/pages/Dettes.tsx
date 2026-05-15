@@ -71,7 +71,7 @@ function Dettes() {
     return (
         <div>
             <DebtStats debts={debtsRow} nbrUsers="Créanciers" totalTitle="dettes" />
-            <TableAggrid filter={true} rowData={debtsRow} columnDefs={debtsCol} title="dette" userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
+            <TableAggrid filter={false} rowData={debtsRow} columnDefs={debtsCol} title="dette" userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal
