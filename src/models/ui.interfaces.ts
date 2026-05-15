@@ -28,3 +28,9 @@ export interface ICardGrad {
 export interface ICardGradProps {
   cards: ICardGrad[];
 }
+
+export interface IfilterProps {
+  filterTitle: string;
+  filterStatus: boolean;
+  filterCard: boolean;
+}

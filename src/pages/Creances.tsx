@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import type { IDebts } from "../models/debts.interfaces";
-import type { ColDef } from "ag-grid-community";
-import { formatDate, formatEuro, formatInterestRate } from "../utils/debts.logic";
 import { MOCK_RECEIVABLES } from "../data/debts.mock";
 import DebtStats from "../components/cardHeader/CardMemo";
-import TableAggrid from "../components/TableAggrid";
+import TableAggrid from "../components/agGrid/TableAggrid";
 import RepayDebtModal from "../components/modal/RepayDebtModal";
-import { statusCellRenderer } from "../components/cellRenderers/StatusCell";
-import { actionsCellRenderer } from "../components/cellRenderers/ActionsCell";
+import { creditCol } from "../utils/aggridData";
+import type { IfilterProps } from "../models/ui.interfaces";
 
-function Creances() {
+function Creances({ filterStatus, filterCard, filterTitle }: IfilterProps) {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDebt, setSelectedDebt] = useState<IDebts | null>(null);
@@ -38,33 +36,16 @@ function Creances() {
 
     // maj nouvelle creance
     const handleAddDebt = (newDebt: IDebts) => {
-    setDebtsRow(prev => [...prev, newDebt]);
-};
-    const debtsCol: ColDef<IDebts>[] = ([
-        {
-            field: "dueDate", headerName: "Date échéance", flex: 1, headerClass: 'header-center', valueFormatter: p => formatDate(p.value)
-        },
-        { field: "creditor", headerName: "Débiteur", flex: 1, headerClass: 'header-center' },
-        { field: "debtAmount", headerName: "Montant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
-        {
-            field: "interestRate", headerName: "Taux d'intérêt", valueFormatter: p => p.value + '%',
-            cellStyle: (p) => {
-                if (typeof p.value !== "number" || !p.data?.dueDate) return undefined;
-                return formatInterestRate(p.value, p.data.dueDate).style;
-            }, flex: 1, headerClass: 'header-center'
-        },
-        { field: "remainingAmount", headerName: "Restant", valueFormatter: p => formatEuro(p.value), flex: 1, headerClass: 'header-center' },
-        { field: "status", headerName: "Status", flex: 1, headerClass: 'header-center', cellRenderer: statusCellRenderer },
-        { field: "actions", headerName: "Actions", flex: 1, headerClass: 'header-center', cellRenderer: actionsCellRenderer },
-    ])
+        setDebtsRow(prev => [...prev, newDebt]);
+    };
     useEffect(() => {
         setDebtsRow(MOCK_RECEIVABLES);
     }, []);
 
     return (
         <div>
-            <DebtStats debts={debtsRow} nbrUsers="Débiteurs" totalTitle="créances"/>
-            <TableAggrid rowData={debtsRow} columnDefs={debtsCol} title="créance" userTitle="Débiteur" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
+            {!filterCard && <DebtStats debts={debtsRow} nbrUsers="Débiteurs" totalTitle="créances" />}
+            <TableAggrid rowData={debtsRow} filter={filterStatus} columnDefs={creditCol} title={filterTitle ?? "créance"} userTitle="Débiteur" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal
