@@ -18,7 +18,7 @@ export const MOCK_DEBT: IDebts[] = [
 export const MOCK_RECEIVABLES: IDebts[] = [
   createDebt("Tamour", 1000, 900, 5, "2026-12-01"),
   createDebt("Fatima", 800, 800, 0, "2026-12-31"),
-  createDebt("Popo", 200, 103, 3, "2024-10-10"),
+  createDebt("Popo", 200, 210, 3, "2024-10-10"),
   createDebt("Pipi", 6000, 0, 5, "2026-07-27"),
   createDebt("Bismillah", 500, 400, 5, "2026-04-27"),
   createDebt("Ingrid", 8000, 1000, 5, "2026-04-27"),
