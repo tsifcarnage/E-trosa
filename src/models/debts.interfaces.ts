@@ -21,9 +21,17 @@ export interface IModalFormProps {
   debt?: IDebts;
 }
 
-export interface INewDebt{
+export interface INewDebt {
   creditor: string;
   debtAmount: number;
   dueDate: string;
   interestRate: number;
+}
+
+export interface IChartRow {
+  date: string;
+  debtAmount: number;
+  creditAmount: number;
+  debtNames: string[];
+  creditNames: string[];
 }

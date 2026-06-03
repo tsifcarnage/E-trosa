@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { IDebts } from "../models/debts.interfaces";
 import { AllStats } from "../components/cardHeader/CardMemo";
 import { MOCK_DEBT, MOCK_RECEIVABLES } from "../data/debts.mock";
+import { BuildChartData } from "../components/charts/BuildChartData";
+import { ChartAllAmount } from "../components/charts/ChartAllAmount";
 
 function Dashboard() {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [creditRow, setCreditRow] = useState<IDebts[]>([]);
+    const chartData = useMemo(() => BuildChartData(debtsRow, creditRow), [debtsRow, creditRow])
     useEffect(() => {
         setDebtsRow(MOCK_DEBT);
         setCreditRow(MOCK_RECEIVABLES);
@@ -13,6 +16,7 @@ function Dashboard() {
     return (
         <div>
             <AllStats debts={debtsRow} receivables={creditRow} />
+            <ChartAllAmount chartData={chartData} />
         </div>
     )
 }
