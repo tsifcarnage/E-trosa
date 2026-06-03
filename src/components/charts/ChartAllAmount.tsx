@@ -5,8 +5,8 @@ import type { IChartRow } from "../../models/debts.interfaces"
 export const ChartAllAmount = ({ chartData }: { chartData: IChartRow[] }) => {
     return (
         <div style={{ width: "100%", padding: "2rem", height: 450 }}>
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={chartData} margin={{ top: 40, right: 30, left: 40, bottom: 0 }}>
+            <ResponsiveContainer width="100%" height={450}>
+                <LineChart data={chartData} margin={{ top: 40, right: 30, left: 40, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#1e293b" />
                     <YAxis
                         stroke="grey"

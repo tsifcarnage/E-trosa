@@ -16,7 +16,9 @@ function Dashboard() {
     return (
         <div>
             <AllStats debts={debtsRow} receivables={creditRow} />
-            <ChartAllAmount chartData={chartData} />
+            <div>
+                <ChartAllAmount chartData={chartData} />
+            </div>
         </div>
     )
 }
