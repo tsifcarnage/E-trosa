@@ -10,7 +10,7 @@ import type { IfilterProps } from "../models/ui.interfaces";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-function Dettes({ filterStatus, filterCard, filterTitle }: IfilterProps) {
+function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: IfilterProps) {
 
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,7 +49,7 @@ function Dettes({ filterStatus, filterCard, filterTitle }: IfilterProps) {
     return (
         <div>
             {!filterCard && <DebtStats debts={debtsRow} nbrUsers="Créanciers" totalTitle="dettes" />}
-            <TableAggrid filter={filterStatus} rowData={debtsRow} columnDefs={debtsCol} title={filterTitle ?? "dette"} userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
+            <TableAggrid sortDate={sortDescDate} filterAll={filterStatus} rowData={debtsRow} columnDefs={debtsCol} title={filterTitle ?? "dette"} userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal

@@ -11,6 +11,7 @@ export const debtsCol: ColDef<IDebts>[] = [
     flex: 1,
     headerClass: "header-center",
     valueFormatter: (p) => formatDate(p.value),
+    sortable: true,
   },
   {
     field: "creditor",
@@ -67,6 +68,7 @@ export const creditCol: ColDef<IDebts>[] = [
     flex: 1,
     headerClass: "header-center",
     valueFormatter: (p) => formatDate(p.value),
+    sortable: true,
   },
   {
     field: "creditor",

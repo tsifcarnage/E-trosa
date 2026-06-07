@@ -19,7 +19,8 @@ const themeAgGrid = themeQuartz.withParams({
 });
 
 export default function TableAggrid({
-  filter,
+  sortDate,
+  filterAll,
   userTitle,
   title,
   rowData,
@@ -29,6 +30,10 @@ export default function TableAggrid({
   onOpenModal, onAddDebt
 }: IDataTableProps & { onAddDebt: (debt: IDebts) => void }) {
   const statusContent = { filterType: 'text', type: 'equals', filter: 'Payé' }
+  const dateFilterContent = {
+    colId: 'dueDate',
+    sort: 'desc'
+  } as const;
   const [searchText, setSearchText] = useState("");
   const [openDebtForm, setOpenDebtForm] = useState(false);
   const [openChart, setOpenChart] = useState(false);
@@ -39,7 +44,7 @@ export default function TableAggrid({
         <div className="flex justify-center flex-wrap gap-5">
 
           {/* filter for Graphique and add data */}
-          {!filter && (
+          {(!filterAll || !sortDate) && (
             <>
               <h3
                 onClick={() => setOpenChart(true)}
@@ -86,9 +91,14 @@ export default function TableAggrid({
           initialState={{
             filter: {
               filterModel: {
-                status: filter ? { ...statusContent } : {}
+                status: filterAll ? { ...statusContent } : undefined,
               }
-            }
+            },
+            sort: sortDate
+              ? {
+                sortModel: [dateFilterContent],
+              }
+              : undefined,
           }}
         />
       </div>

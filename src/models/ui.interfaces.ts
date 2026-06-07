@@ -30,6 +30,7 @@ export interface ICardGradProps {
 }
 
 export interface IfilterProps {
+  sortDescDate?: boolean;
   filterTitle: string;
   filterStatus: boolean;
   filterCard: boolean;

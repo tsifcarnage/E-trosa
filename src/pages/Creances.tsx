@@ -7,7 +7,7 @@ import RepayDebtModal from "../components/modal/RepayDebtModal";
 import { creditCol } from "../utils/aggridData";
 import type { IfilterProps } from "../models/ui.interfaces";
 
-function Creances({ filterStatus, filterCard, filterTitle }: IfilterProps) {
+function Creances({ sortDescDate, filterStatus, filterCard, filterTitle }: IfilterProps) {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDebt, setSelectedDebt] = useState<IDebts | null>(null);
@@ -45,7 +45,7 @@ function Creances({ filterStatus, filterCard, filterTitle }: IfilterProps) {
     return (
         <div>
             {!filterCard && <DebtStats debts={debtsRow} nbrUsers="Débiteurs" totalTitle="créances" />}
-            <TableAggrid rowData={debtsRow} filter={filterStatus} columnDefs={creditCol} title={filterTitle ?? "créance"} userTitle="Débiteur" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
+            <TableAggrid sortDate={sortDescDate} rowData={debtsRow} filterAll={filterStatus} columnDefs={creditCol} title={filterTitle ?? "créance"} userTitle="Débiteur" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal

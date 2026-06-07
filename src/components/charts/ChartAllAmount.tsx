@@ -2,6 +2,7 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 import { formatEuro } from "../../utils/debts.logic"
 import type { IChartRow } from "../../models/debts.interfaces"
 
+// Chart graphique qui compose les dettes et creances
 export const ChartAllAmount = ({ chartData }: { chartData: IChartRow[] }) => {
     return (
         <div style={{ width: "100%", padding: "2rem", height: 450 }}>

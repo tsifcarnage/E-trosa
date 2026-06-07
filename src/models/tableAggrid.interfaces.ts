@@ -2,7 +2,8 @@ import type { ColDef } from "ag-grid-community";
 import type { IDebts } from "./debts.interfaces";
 
 export interface IDataTableProps {
-  filter?: boolean;
+  sortDate?: boolean;
+  filterAll?: boolean;
   userTitle?: string;
   title?: string;
   rowData: Object[];
