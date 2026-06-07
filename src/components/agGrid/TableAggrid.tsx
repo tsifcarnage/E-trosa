@@ -100,6 +100,11 @@ export default function TableAggrid({
               }
               : undefined,
           }}
+          defaultColDef={{
+            sortable: true,
+            filter: true,
+            resizable: true
+          }}
         />
       </div>
     </>
