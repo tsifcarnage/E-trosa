@@ -5,6 +5,7 @@ import { MOCK_DEBT, MOCK_RECEIVABLES } from "../data/debts.mock";
 import { BuildChartData } from "../components/charts/BuildChartData";
 import { ChartAllAmount } from "../components/charts/ChartAllAmount";
 import Dettes from "./Dettes";
+import Creances from "./Creances";
 
 function Dashboard() {
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
@@ -21,6 +22,7 @@ function Dashboard() {
                 <ChartAllAmount chartData={chartData} />
             </div>
             <Dettes filterTitle="dettes proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
+            <Creances filterTitle="créances proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
         </div>
     )
 }

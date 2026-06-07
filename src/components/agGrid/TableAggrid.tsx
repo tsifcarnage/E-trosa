@@ -44,7 +44,7 @@ export default function TableAggrid({
         <div className="flex justify-center flex-wrap gap-5">
 
           {/* filter for Graphique and add data */}
-          {!filterAll || !sortDate && (
+          {!filterAll && !sortDate && (
             <>
               <h3
                 onClick={() => setOpenChart(true)}
