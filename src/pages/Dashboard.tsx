@@ -18,8 +18,18 @@ function Dashboard() {
     return (
         <div>
             <AllStats debts={debtsRow} receivables={creditRow} />
-            <div>
+            <div >
                 <ChartAllAmount chartData={chartData} />
+            </div>
+            <div className=" m-6 p-6">
+                <div className="flex gap-2">
+                    <span className="status status-error self-center"></span>
+                    <p className="text-error"> Dettes à payer</p>
+                </div>
+                <div className="flex gap-2">
+                    <span className="status status-success self-center"></span>
+                    <p className="text-success"> Créances à recevoir</p>
+                </div>
             </div>
             <Dettes filterTitle="dettes proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
             <Creances filterTitle="créances proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
