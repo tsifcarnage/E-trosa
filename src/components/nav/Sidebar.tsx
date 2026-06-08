@@ -9,7 +9,7 @@ export default function Sidebar({ links = [] }: ISidebarProps) {
 
   return (
     <aside
-      className={`flex self-start text-amber-50 sticky z-2 top-0 flex-col  bg-neutral w-full shadow-md shadow-secondary h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
+      className={`flex self-start text-amber-50 sticky z-21 top-0 flex-col  bg-neutral w-full shadow-md shadow-secondary h-screen duration-300 ${open ? " max-w-60" : "max-w-13"}`}
     >
       {/* en-tete */}
       <div className=" flex justify-between p-2 pt-7 gap-2 mb-6">

@@ -15,7 +15,7 @@ export default function Navbar({ links }: ISidebarProps) {
     };
 
     return (
-        <nav className="flex justify-between p-4 sticky top-0 z-100 bg-base-100">
+        <nav className="flex justify-between p-4 sticky top-0 z-20 bg-base-100">
             <h3 className="grow self-center">{currentLink?.label || ""}</h3>
             <section className="ml-auto flex gap-2">
                 <ThemeToggle />
