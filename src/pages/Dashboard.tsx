@@ -16,7 +16,7 @@ function Dashboard() {
         setCreditRow(MOCK_RECEIVABLES);
     }, [])
     return (
-        <div>
+        <div className="pb-4">
             <AllStats debts={debtsRow} receivables={creditRow} />
             <div >
                 <ChartAllAmount chartData={chartData} />

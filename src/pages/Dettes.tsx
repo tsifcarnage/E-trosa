@@ -47,7 +47,7 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
     }, []);
 
     return (
-        <div>
+        <div className="pb-4">
             {!filterCard && <DebtStats debts={debtsRow} nbrUsers="Créanciers" totalTitle="dettes" />}
             <TableAggrid sortDate={sortDescDate} filterAll={filterStatus} rowData={debtsRow} columnDefs={debtsCol} title={filterTitle ?? "dette"} userTitle="Créancier" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 

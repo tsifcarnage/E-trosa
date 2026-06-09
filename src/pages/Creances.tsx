@@ -43,7 +43,7 @@ function Creances({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilt
     }, []);
 
     return (
-        <div>
+        <div className="pb-4">
             {!filterCard && <DebtStats debts={debtsRow} nbrUsers="Débiteurs" totalTitle="créances" />}
             <TableAggrid sortDate={sortDescDate} rowData={debtsRow} filterAll={filterStatus} columnDefs={creditCol} title={filterTitle ?? "créance"} userTitle="Débiteur" onDelete={handleDelete} onOpenModal={handleOpenModal} onAddDebt={handleAddDebt} />
 

@@ -9,10 +9,10 @@ import type { IDebts } from "../../models/debts.interfaces";
 import { ChartDebtModal } from "../charts/ChartDebtModal";
 
 const themeAgGrid = themeQuartz.withParams({
-  backgroundColor: "#0f172a",
-  headerBackgroundColor: "#1e293b",
-  headerTextColor: "#f16900",
-  foregroundColor: "white",
+  backgroundColor: "var(--color-base-100)",
+  headerBackgroundColor: "var(--color-neutral)",
+  headerTextColor: "var(--color-orange-500)",
+  foregroundColor: "var(--color-base-content)",
   fontSize: 14,
   headerFontSize: 16,
   fontFamily: "Inter, sans-serif",
@@ -32,7 +32,7 @@ export default function TableAggrid({
   const statusContent = { filterType: 'text', type: 'equals', filter: 'Payé' }
   const dateFilterContent = {
     colId: 'dueDate',
-    sort: 'desc'
+    sort: 'asc'
   } as const;
   const [searchText, setSearchText] = useState("");
   const [openDebtForm, setOpenDebtForm] = useState(false);
