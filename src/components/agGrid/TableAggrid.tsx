@@ -11,7 +11,7 @@ import { ChartDebtModal } from "../charts/ChartDebtModal";
 const themeAgGrid = themeQuartz.withParams({
   backgroundColor: "var(--color-base-100)",
   headerBackgroundColor: "var(--color-neutral)",
-  headerTextColor: "var(--color-orange-500)",
+  headerTextColor: "var(--color-slate-400)",
   foregroundColor: "var(--color-base-content)",
   fontSize: 14,
   headerFontSize: 16,
