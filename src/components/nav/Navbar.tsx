@@ -23,10 +23,10 @@ export default function Navbar({ links }: ISidebarProps) {
                 {/* user logo */}
                 <div className="relative">
                     <button
-                        className="flex cursor-pointer gap-2 bg-neutral rounded-full p-2 text-[#c9cbd0] border-2 border-secondary"
+                        className="flex cursor-pointer gap-1 bg-neutral rounded-full px-3 py-2 text-[#c9cbd0] border border-secondary"
                         onClick={() => setIsSummaryOpen(!isSummaryOpen)}
                     >
-                        <FaRegUserCircle size={40} />
+                        <FaRegUserCircle size={25} className="self-center" />
                         <h3 className="self-center">User Name</h3>
                     </button>
 
