@@ -5,8 +5,8 @@ export default function Parametre() {
         <div className="p-6">
             <h2 className="mb-5">Profil</h2>
             <div className="flex flex-wrap gap-5 justify-between">
-                <section className="flex flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px]">
-                    <img src="" alt="" className="rounded-full bg-white h-30 w-30" />
+                <section className="flex flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px] items-center">
+                    <p className="rounded-full bg-white h-30 w-30" />
                     <div>
                         <h3>User name</h3>
                         <h3>Adresse@email.com</h3>
