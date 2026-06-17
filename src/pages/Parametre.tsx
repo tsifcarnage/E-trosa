@@ -5,7 +5,7 @@ export default function Parametre() {
     return (
         <div className="px-6">
             <h2 className="mb-5 text-base-content">Profil</h2>
-            <div className="flex flex-wrap gap-5 justify-between text-neutral-content">
+            <div className="flex flex-col md:flex-row gap-5 justify-between text-neutral-content">
                 <section className="flex flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px] items-center">
                     <p className="rounded-full bg-white h-30 w-30" />
                     <div>
@@ -26,7 +26,7 @@ export default function Parametre() {
                     </div>
                 </section>
             </div>
-            <div className="flex flex-wrap gap-5 justify-between my-5 text-neutral-content">
+            <div className="flex flex-wrap flex-col sm:flex-row gap-5 justify-between my-5 text-neutral-content">
                 <section className="flex flex-col flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px]">
                     <h3 className="text-white flex gap-1"> <span className="self-center text-primary"><FaRegUser size={20}/></span>Informations Personnelles</h3>
                     <form action="" className="flex flex-col gap-2">
