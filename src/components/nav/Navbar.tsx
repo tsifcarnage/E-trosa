@@ -26,7 +26,7 @@ export default function Navbar({ links }: ISidebarProps) {
 
         {/* connexion */}
         <div>
-          <button className="self-center cursor-pointer bg-secondary hover:bg-success rounded-full px-3 py-2.5 text-white font-medium transition-all duration-100 " onClick={() => setOpenLogin(true)}>
+          <button className="self-center cursor-pointer bg-secondary hover:bg-success rounded-full px-3 py-2.5 text-base-100 font-medium transition-all duration-100 " onClick={() => setOpenLogin(true)}>
             Se connecter
           </button>
           {openLogin && (
