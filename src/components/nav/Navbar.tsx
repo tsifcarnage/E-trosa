@@ -4,13 +4,15 @@ import type { ISidebarProps } from "../../models/ui.interfaces";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import { LoginModal } from "../modal/LoginModal";
+import { SignModal } from "../modal/SignModal";
 
 export default function Navbar({ links }: ISidebarProps) {
   const location = useLocation();
   const currentPath = location.pathname.split("/").pop();
   const currentLink = links.find((link) => link.to === currentPath);
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
-  const [openLogin, setOpenLogin] =useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
 
   const handleClick = () => {
     setIsSummaryOpen(false);
@@ -22,18 +24,37 @@ export default function Navbar({ links }: ISidebarProps) {
       <section className="ml-auto flex gap-2">
         <ThemeToggle />
 
-        <button className=" self-center cursor-pointer bg-secondary hover:bg-success rounded-full px-3 py-2.5 text-neutral font-medium transition-all duration-100 " onClick={()=>setOpenLogin(true)}>
-          Se connecter
-        </button>
-        {openLogin && (
-            <LoginModal onClose={() => setOpenLogin(false)}/>
-        )}
+        {/* connexion */}
+        <div>
+          <button className="self-center cursor-pointer bg-secondary hover:bg-success rounded-full px-3 py-2.5 text-white font-medium transition-all duration-100 " onClick={() => setOpenLogin(true)}>
+            Se connecter
+          </button>
+          {openLogin && (
+            <LoginModal
+              onClose={() => setOpenLogin(false)}
+              onSignUp={() => {
+                setOpenLogin(false);
+                setOpenSignUp(true);
+              }}
+            />
+          )}
+
+          {openSignUp && (
+            <SignModal
+              onClose={() => setOpenSignUp(false)}
+              onSuccess={() => {
+                setOpenSignUp(false);
+                setOpenLogin(true);
+              }}
+            />
+          )}
+        </div>
+
         {/* user logo */}
         <div className="relative">
           <button
-            className={`flex cursor-pointer gap-1 bg-neutral rounded-full px-3 py-2 text-neutral-content ${
-              isSummaryOpen ? "text-success" : "hover:text-success"
-            }`}
+            className={`flex cursor-pointer gap-1 bg-neutral rounded-full px-3 py-2 text-neutral-content ${isSummaryOpen ? "text-success" : "hover:text-success"
+              }`}
             onClick={() => setIsSummaryOpen(!isSummaryOpen)}
           >
             <FaRegUserCircle size={25} className="self-center" />
