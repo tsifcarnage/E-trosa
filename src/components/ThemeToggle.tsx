@@ -2,7 +2,7 @@
 function ThemeToggle() {
     return (
         <label className="swap swap-rotate">
-            <input type="checkbox" className="theme-controller" value="garden" />
+            <input type="checkbox" className="theme-controller" value="emerald" />
             {/* light icon */}
             <svg
                 className="swap-on h-8 w-8 fill-current text-amber-400"

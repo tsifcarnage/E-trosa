@@ -3,7 +3,7 @@ import type { ICallToActionProps } from "../models/ui.interfaces";
 
 export default function CallToAction({ ctActions = [] }: ICallToActionProps) {
     return (
-        <section className="flex justify-center gap-5 flex-wrap max-w-300 m-5">
+        <section className="flex justify-center gap-5 flex-wrap max-w-300 my-5">
             {ctActions.map((ctAction, index) => (
                 <Link to={ctAction.to} className=" z-0 flex gap-5 w-full max-w-125 p-8 bg-neutral shadow-md shadow-secondary rounded-lg scale-100 hover:scale-101" key={index}>
                     <span className="self-center text-secondary ">
