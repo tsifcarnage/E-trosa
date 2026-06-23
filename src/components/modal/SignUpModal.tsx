@@ -19,8 +19,6 @@ export const SignUpModal = ({
         e.preventDefault();
 setLoading(true);
         setErrorMsg(null);
-
-        // 3. Appel de l'API Supabase pour l'inscription
         const { error } = await supabase.auth.signUp({
             email: email,
             password: password,
@@ -31,7 +29,6 @@ setLoading(true);
         if (error) {
             setErrorMsg(error.message);
         } else {
-            // L'inscription a fonctionné ! On appelle ton callback de succès
             onSuccess();
         }
     };
