@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.18.7",
+    "@supabase/supabase-js": "^2.108.2",
     "@tailwindcss/vite": "^4.2.1",
     "ag-grid-react": "^35.2.1",
     "react": "^19.2.4",

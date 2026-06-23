@@ -4,7 +4,7 @@ import type { ISidebarProps } from "../../models/ui.interfaces";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import { LoginModal } from "../modal/LoginModal";
-import { SignModal } from "../modal/SignModal";
+import { SignUpModal } from "../modal/SignUpModal";
 
 export default function Navbar({ links }: ISidebarProps) {
   const location = useLocation();
@@ -40,7 +40,7 @@ export default function Navbar({ links }: ISidebarProps) {
           )}
 
           {openSignUp && (
-            <SignModal
+            <SignUpModal
               onClose={() => setOpenSignUp(false)}
               onSuccess={() => {
                 setOpenSignUp(false);
