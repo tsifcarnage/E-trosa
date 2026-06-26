@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { MOCK_DEBT } from "../data/debts.mock";
 import type { IDebts } from "../models/debts.interfaces";
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/agGrid/TableAggrid";
