@@ -9,6 +9,7 @@ export const createDebt = (
   paid: number,
   rate: number,
   dueDate: string,
+  existingId?: string,
 ): IDebts => {
   const today = new Date();
   const deadline = new Date(dueDate);
@@ -20,7 +21,7 @@ export const createDebt = (
   const interest = calc.calcInterestAmount(amount, finalRate);
   const remaining = calc.calcRemainingAmount(amount, finalRate, paid);
   return {
-    id: crypto.randomUUID(),
+    id: existingId ?? crypto.randomUUID(),
     creditor: creditor,
     debtAmount: amount,
     dueDate: dueDate,
@@ -48,11 +49,9 @@ export const addDebt = (
     formData.dueDate,
   );
 
-  const mutableDebts = [...MOCK_DEBT];
-  mutableDebts.push(newDebt);
+  // const mutableDebts = [...MOCK_DEBT];
+  // mutableDebts.push(newDebt);
   onDebtAdded(newDebt);
-  console.log("Nouvelle dette ajoutée :", newDebt);
-
   onClose();
 };
 
