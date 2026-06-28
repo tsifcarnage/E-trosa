@@ -98,7 +98,7 @@ export default function Navbar({ links }: ISidebarProps) {
                 </li>
               ) : (
                 <li
-                  className="py-2 cursor-pointer text-primary"
+                  className="py-2 cursor-pointer text-primary hover:scale-105"
                   onClick={() => { setOpenLogin(true); setIsSummaryOpen(false); }}
                 >
                   Se connecter

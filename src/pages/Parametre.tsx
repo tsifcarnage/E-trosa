@@ -1,7 +1,14 @@
+
 import { FaLock, FaRegUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../utils/supabaseClient";
 
 export default function Parametre() {
+    const navigate = useNavigate()
+    const handleLogout = async () => {
+        await supabase.auth.signOut()
+        navigate('/accueil')
+    }
     return (
         <div className="px-6">
             <h2 className="mb-5 text-base-content">Profil</h2>
@@ -22,29 +29,29 @@ export default function Parametre() {
                     </div>
                     <div className="flex flex-col gap-3">
                         <Link to={'/dashboard'} className="btn btn-info">Dashboard</Link>
-                        <button className="btn btn-error">Déconnexion</button>
+                        <button className="btn btn-error" onClick={handleLogout}>Déconnexion</button>
                     </div>
                 </section>
             </div>
             <div className="flex flex-wrap flex-col sm:flex-row gap-5 justify-between my-5 text-neutral-content">
                 <section className="flex flex-col flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px]">
-                    <h3 className="text-white flex gap-1"> <span className="self-center text-primary"><FaRegUser size={20}/></span>Informations Personnelles</h3>
+                    <h3 className="text-white flex gap-1"> <span className="self-center text-primary"><FaRegUser size={20} /></span>Informations Personnelles</h3>
                     <form action="" className="flex flex-col gap-2">
                         <label>Nom Complet</label>
-                        <input type="text" className="input input-sm input-primary bg-neutral w-full"/>
+                        <input type="text" className="input input-sm input-primary bg-neutral w-full" />
                         <label>Email</label>
-                        <input type="email" className="input input-sm input-primary bg-neutral w-full"/>
+                        <input type="email" className="input input-sm input-primary bg-neutral w-full" />
                         <button className="btn btn-primary mt-3">Sauvegarder les modifications</button>
                     </form>
                 </section>
 
                 <section className="flex flex-col flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px]">
-                    <h3 className="text-white flex gap-1"> <span className="self-center text-primary"><FaLock size={20}/></span>Informations Personnelles</h3>
+                    <h3 className="text-white flex gap-1"> <span className="self-center text-primary"><FaLock size={20} /></span>Informations Personnelles</h3>
                     <form action="" className="flex flex-col gap-2">
                         <label>Mot de passe actuel</label>
-                        <input type="password" className="input input-sm input-primary bg-neutral w-full"/>
+                        <input type="password" className="input input-sm input-primary bg-neutral w-full" />
                         <label>Nouveau mot de passe</label>
-                        <input type="password" className="input input-sm input-primary bg-neutral w-full"/>
+                        <input type="password" className="input input-sm input-primary bg-neutral w-full" />
                         <button className="btn btn-primary mt-3">Mettre à jour le mot de passe</button>
                     </form>
                 </section>
