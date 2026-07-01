@@ -17,18 +17,14 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
     const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDebt, setSelectedDebt] = useState<IDebts | null>(null);
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true); // Réactivé pour bloquer le flash à froid
     const [error, setError] = useState<string | null>(null);
 
+    // 1. Écoute unique de la session Supabase
     useEffect(() => {
-        fetchDebts()
-            .then(setDebtsRow)
-            .catch((err) => setError(err.message))
-        // .finally(() => setLoading(false))
-    }, [])
-    // Écoute la session
-    useEffect(() => {
-        supabase.auth.getUser().then(({ data }) => setUser(data.user));
+        supabase.auth.getUser().then(({ data }) => {
+            setUser(data.user);
+        });
 
         const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
@@ -37,17 +33,24 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
         return () => listener.subscription.unsubscribe();
     }, []);
 
-    // Recharge les dettes quand user change
+    // 2. Chargement des données lié à l'utilisateur
     useEffect(() => {
         if (!user) {
             setDebtsRow([]);
+            setLoading(false);
             return;
         }
-        // setLoading(true);
+
+        // Si on a déjà des données (ex: retour sur la page), on ne remet pas loading à true 
+        // pour éviter le gros flash blanc/gris du squelette
+        if (debtsRow.length === 0) {
+            setLoading(true);
+        }
+
         fetchDebts()
             .then(setDebtsRow)
             .catch((err) => setError(err.message))
-        // .finally(() => setLoading(false));
+            .finally(() => setLoading(false));
     }, [user]);
 
     const handleDelete = async (row: IDebts) => {
@@ -69,7 +72,6 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
         setSelectedDebt(null);
     };
 
-    //maj de la dette 
     const handleRepayDebt = async (updatedDebt: IDebts) => {
         try {
             await updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount);
@@ -81,7 +83,6 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
         }
     };
 
-    // maj nouvelle dette
     const handleAddDebt = async (newDebt: IDebts) => {
         try {
             const saved = await insertDebt({
@@ -95,16 +96,14 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
             setError(err.message);
         }
     };
-    // useEffect(() => {
-    //     setDebtsRow(MOCK_DEBT);
-    // }, []);
-    // if (loading) return (
-    //     <div className="pb-4 animate-pulse">
-    //         <div className="h-24 bg-base-300 rounded-xl mb-4" />
-    //         <div className="h-96 bg-base-300 rounded-xl" />
-    //     </div>
-    // );
+
     if (error) return <p className="text-red-500">Erreur : {error}</p>;
+    if (loading && debtsRow.length === 0) return (
+        <div className="pb-4 animate-pulse">
+            <div className="h-24 bg-base-300 rounded-xl mb-4" />
+            <div className="h-96 bg-base-300 rounded-xl" />
+        </div>
+    );
 
     return (
         <div className="pb-4">
