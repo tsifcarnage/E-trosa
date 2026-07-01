@@ -1,7 +1,7 @@
 import type { IDebts, INewDebt } from "../models/debts.interfaces";
 import { calcStatus } from "./debts.logic";
 import * as calc from "../utils/debts.calculation";
-import { MOCK_DEBT, MOCK_RECEIVABLES } from "../data/debts.mock";
+import { MOCK_RECEIVABLES } from "../data/debts.mock";
 
 export const createDebt = (
   creditor: string,
