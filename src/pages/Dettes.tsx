@@ -9,7 +9,7 @@ import type { IfilterProps } from "../models/ui.interfaces";
 import { deleteDebt, fetchDebts, insertDebt, updateDebtPayment } from "../utils/debts.service";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabaseClient";
-
+import { MOCK_DEBT } from "../data/debts.mock";
 
 function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: IfilterProps) {
     const queryClient = useQueryClient();
@@ -17,7 +17,9 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDebt, setSelectedDebt] = useState<IDebts | null>(null);
 
-    // authentification Supabase 
+    // Mode démo : état local
+    const [demoDebts, setDemoDebts] = useState<IDebts[]>(MOCK_DEBT);
+
     useEffect(() => {
         supabase.auth.getUser().then(({ data }) => setUser(data.user));
         const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -26,30 +28,28 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
         return () => listener.subscription.unsubscribe();
     }, []);
 
-    const { data: debtsRow = [], isLoading, error } = useQuery<IDebts[], Error>({
-        queryKey: ['debts', user?.id], // Cache lié à l'ID de l'utilisateur
-        queryFn: fetchDebts,           //fonction dans debts.service.ts
-        enabled: true,
-        staleTime: 1000 * 60 * 5,      // Les données restent "fraîches" 5 min, pas de re-fetch agressif au changement d'onglet
+    // Mode connecté : TanStack Query
+    const { data: supabaseDebts = [], isLoading, error } = useQuery<IDebts[], Error>({
+        queryKey: ['debts', user?.id],
+        queryFn: fetchDebts,
+        enabled: !!user, // seulement si connecté
+        staleTime: 1000 * 60 * 5,
     });
 
-    // Mutation pour Supprimer
+    // Source de données selon le mode
+    const debtsRow = user ? supabaseDebts : demoDebts;
+
+    // Mutations Supabase
     const deleteMutation = useMutation({
         mutationFn: (row: IDebts) => deleteDebt("debts", row.id),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['debts', user?.id] });
-        }
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['debts', user?.id] }),
     });
 
-    // Mutation pour Rembourser / Solder
     const repayMutation = useMutation({
         mutationFn: (updatedDebt: IDebts) => updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['debts', user?.id] });
-        }
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['debts', user?.id] }),
     });
 
-    // Mutation pour Ajouter une dette
     const addMutation = useMutation({
         mutationFn: (newDebt: IDebts) => insertDebt({
             creditor: newDebt.creditor,
@@ -57,15 +57,33 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
             interestRate: newDebt.interestRate,
             dueDate: newDebt.dueDate,
         }, "debts"),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['debts', user?.id] });
-        }
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['debts', user?.id] }),
     });
 
-    // Liens avec tableau Ag-Grid
-    const handleDelete = (row: IDebts) => deleteMutation.mutate(row);
-    const handleRepayDebt = (updatedDebt: IDebts) => repayMutation.mutate(updatedDebt);
-    const handleAddDebt = (newDebt: IDebts) => addMutation.mutate(newDebt);
+    const handleDelete = (row: IDebts) => {
+        if (!user) {
+            // Mode démo → état local
+            setDemoDebts(prev => prev.filter(d => d.id !== row.id));
+        } else {
+            deleteMutation.mutate(row);
+        }
+    };
+
+    const handleRepayDebt = (updatedDebt: IDebts) => {
+        if (!user) {
+            setDemoDebts(prev => prev.map(d => d.id === updatedDebt.id ? updatedDebt : d));
+        } else {
+            repayMutation.mutate(updatedDebt);
+        }
+    };
+
+    const handleAddDebt = (newDebt: IDebts) => {
+        if (!user) {
+            setDemoDebts(prev => [...prev, newDebt]);
+        } else {
+            addMutation.mutate(newDebt);
+        }
+    };
 
     const handleOpenModal = (debtData: IDebts) => {
         setSelectedDebt(debtData);
@@ -74,8 +92,6 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
 
     if (error) return <p className="text-red-500">Erreur : {error.message}</p>;
 
-    // LE SQUELETTE : Ne s'affiche QU'À FROID (première ouverture de l'app)
-    // Dès que les données sont en cache, isLoading passe à false directement au changement de page !
     if (isLoading && debtsRow.length === 0) return (
         <div className="pb-4 animate-pulse">
             <div className="h-24 bg-base-300 rounded-xl mb-4" />
@@ -97,7 +113,7 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
                 />
             )}
         </div>
-    )
+    );
 }
 
 export default Dettes;
