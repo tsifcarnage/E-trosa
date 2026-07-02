@@ -74,7 +74,7 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
 
     const handleRepayDebt = async (updatedDebt: IDebts) => {
         try {
-            await updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount);
+            await updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount, updatedDebt.interestRate);
             setDebtsRow(prev =>
                 prev.map(d => d.id === updatedDebt.id ? updatedDebt : d)
             );
