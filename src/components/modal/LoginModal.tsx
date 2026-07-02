@@ -1,34 +1,35 @@
 import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import { supabase } from "../../utils/supabaseClient";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 interface LoginModalProps {
     onClose: () => void;
     onSignUp: () => void;
 }
 export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] =useState("")
+    const [password, setPassword] = useState("")
+    const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-
-    const handleLogin = async (e:React.SubmitEvent)=>{
+    const handleLogin = async (e: React.SubmitEvent) => {
         e.preventDefault();
         setLoading(true);
         setErrorMsg(null);
 
-        const {error} = await supabase.auth.signInWithPassword({
-            email:email,
-            password:password,
+        const { error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
         });
 
         setLoading(false);
         if (error) {
             // Si l'email n'existe pas ou le MDP est faux, Supabase renvoie une erreur en anglais
             // (ex: "Invalid login credentials")
-            setErrorMsg(error.message); 
+            setErrorMsg(error.message);
         } else {
             // Si tout est bon, on ferme le modal !
-            onClose(); 
+            onClose();
         }
     }
     return (
@@ -38,16 +39,28 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
                 {/* On affiche le message d'erreur s'il y en a un */}
                 {errorMsg && (
                     <p className="text-error bg-error/10 p-2 rounded text-sm text-center">
-                        {errorMsg === "Invalid login credentials" 
-                            ? "Email ou mot de passe incorrect." 
+                        {errorMsg === "Invalid login credentials"
+                            ? "Email ou mot de passe incorrect."
                             : errorMsg}
                     </p>
                 )}
                 <label >Email</label>
-                <input type="email" className="input input-primary w-full" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                <input type="email" className="input input-primary w-full" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="exemple@mail.com" required />
                 <label >Mot de passe</label>
-                <input type="password" className="input input-primary w-full" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+
+                <div className="relative w-full">
+                    <input type={showPassword ? "text" : "password"} className="input input-primary w-full" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <button
+                        type="button"
+                        className="absolute inset-y-0 right-3 flex items-center "
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                    </button>
+                </div>
+
                 <button className="btn btn-primary mt-5" disabled={loading}>{loading ? "Connexion en cours..." : "Se connecter"}</button>
+
                 <small>Vous n'avez pas de compte? <button
                     type="button"
                     className="hover:link text-primary"

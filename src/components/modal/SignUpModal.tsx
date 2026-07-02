@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import { supabase } from "../../utils/supabaseClient";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface SignUpModalProps {
     onClose: () => void;
@@ -13,11 +14,12 @@ export const SignUpModal = ({
 }: SignUpModalProps) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
-setLoading(true);
+        setLoading(true);
         setErrorMsg(null);
         const { error } = await supabase.auth.signUp({
             email: email,
@@ -49,19 +51,27 @@ setLoading(true);
                     type="email"
                     className="input input-primary w-full"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)} 
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                 />
 
                 <label>Mot de passe</label>
-                <input
-                    type="password"
-                    className="input input-primary w-full"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-
+                <div className="relative w-full">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        className="input input-primary w-full"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <button
+                        type="button"
+                        className="absolute inset-y-0 right-3 flex items-center "
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                    </button>
+                </div>
                 <button
                     type="submit"
                     className="btn btn-primary mt-5"
