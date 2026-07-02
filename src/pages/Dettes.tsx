@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IDebts } from "../models/debts.interfaces";
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/agGrid/TableAggrid";
@@ -13,92 +14,71 @@ import { supabase } from "../utils/supabaseClient";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: IfilterProps) {
+    const queryClient = useQueryClient();
     const [user, setUser] = useState<User | null>(null);
-    const [debtsRow, setDebtsRow] = useState<IDebts[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDebt, setSelectedDebt] = useState<IDebts | null>(null);
-    const [loading, setLoading] = useState(true); // Réactivé pour bloquer le flash à froid
-    const [error, setError] = useState<string | null>(null);
 
-    // 1. Écoute unique de la session Supabase
+    // authentification Supabase 
     useEffect(() => {
-        supabase.auth.getUser().then(({ data }) => {
-            setUser(data.user);
-        });
-
+        supabase.auth.getUser().then(({ data }) => setUser(data.user));
         const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
         });
-
         return () => listener.subscription.unsubscribe();
     }, []);
 
-    // 2. Chargement des données lié à l'utilisateur
-    useEffect(() => {
-        if (!user) {
-            setDebtsRow([]);
-            setLoading(false);
-            return;
-        }
+    const { data: debtsRow = [], isLoading, error } = useQuery<IDebts[], Error>({
+        queryKey: ['debts', user?.id], // Cache lié à l'ID de l'utilisateur
+        queryFn: fetchDebts,           // Ta fonction dans debts.service.ts
+        enabled: !!user,               // Ne fetch PAS si l'user n'est pas connecté
+        staleTime: 1000 * 60 * 5,      // Les données restent "fraîches" 5 min, pas de re-fetch agressif au changement d'onglet
+    });
 
-        // Si on a déjà des données (ex: retour sur la page), on ne remet pas loading à true 
-        // pour éviter le gros flash blanc/gris du squelette
-        if (debtsRow.length === 0) {
-            setLoading(true);
+    // Mutation pour Supprimer
+    const deleteMutation = useMutation({
+        mutationFn: (row: IDebts) => deleteDebt("debts", row.id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['debts'] });
         }
+    });
 
-        fetchDebts()
-            .then(setDebtsRow)
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
-    }, [user]);
-
-    const handleDelete = async (row: IDebts) => {
-        try {
-            await deleteDebt("debts", row.id);
-            setDebtsRow(prev => prev.filter(r => r.id !== row.id));
-        } catch (err: any) {
-            setError(err.message);
+    // Mutation pour Rembourser / Solder
+    const repayMutation = useMutation({
+        mutationFn: (updatedDebt: IDebts) => updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['debts'] });
         }
-    };
+    });
+
+    // Mutation pour Ajouter une dette
+    const addMutation = useMutation({
+        mutationFn: (newDebt: IDebts) => insertDebt({
+            creditor: newDebt.creditor,
+            debtAmount: newDebt.debtAmount,
+            interestRate: newDebt.interestRate,
+            dueDate: newDebt.dueDate,
+        }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['debts'] });
+        }
+    });
+
+    // Liens avec tableau Ag-Grid
+    const handleDelete = (row: IDebts) => deleteMutation.mutate(row);
+    const handleRepayDebt = (updatedDebt: IDebts) => repayMutation.mutate(updatedDebt);
+    const handleAddDebt = (newDebt: IDebts) => addMutation.mutate(newDebt);
 
     const handleOpenModal = (debtData: IDebts) => {
         setSelectedDebt(debtData);
         setIsModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSelectedDebt(null);
-    };
+    if (error) return <p className="text-red-500">Erreur : {error.message}</p>;
 
-    const handleRepayDebt = async (updatedDebt: IDebts) => {
-        try {
-            await updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount, updatedDebt.interestRate);
-            setDebtsRow(prev =>
-                prev.map(d => d.id === updatedDebt.id ? updatedDebt : d)
-            );
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
-
-    const handleAddDebt = async (newDebt: IDebts) => {
-        try {
-            const saved = await insertDebt({
-                creditor: newDebt.creditor,
-                debtAmount: newDebt.debtAmount,
-                interestRate: newDebt.interestRate,
-                dueDate: newDebt.dueDate,
-            });
-            setDebtsRow(prev => [...prev, saved]);
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
-
-    if (error) return <p className="text-red-500">Erreur : {error}</p>;
-    if (loading && debtsRow.length === 0) return (
+    // LE SQUELETTE : Ne s'affiche QU'À FROID (première ouverture de l'app)
+    // Dès que les données sont en cache, isLoading passe à false directement au changement de page !
+    if (isLoading && debtsRow.length === 0) return (
         <div className="pb-4 animate-pulse">
             <div className="h-24 bg-base-300 rounded-xl mb-4" />
             <div className="h-96 bg-base-300 rounded-xl" />
@@ -113,7 +93,7 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
             {isModalOpen && selectedDebt && (
                 <RepayDebtModal
                     debt={selectedDebt}
-                    onClose={handleCloseModal}
+                    onClose={() => setIsModalOpen(false)}
                     onRepay={handleRepayDebt}
                     titleUsers="Dettes fournisseurs"
                 />
@@ -122,4 +102,4 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
     )
 }
 
-export default Dettes
+export default Dettes;
