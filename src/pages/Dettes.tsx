@@ -28,8 +28,8 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
 
     const { data: debtsRow = [], isLoading, error } = useQuery<IDebts[], Error>({
         queryKey: ['debts', user?.id], // Cache lié à l'ID de l'utilisateur
-        queryFn: fetchDebts,           // Ta fonction dans debts.service.ts
-        enabled: !!user,               // Ne fetch PAS si l'user n'est pas connecté
+        queryFn: fetchDebts,           //fonction dans debts.service.ts
+        enabled: true,
         staleTime: 1000 * 60 * 5,      // Les données restent "fraîches" 5 min, pas de re-fetch agressif au changement d'onglet
     });
 
@@ -37,7 +37,7 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
     const deleteMutation = useMutation({
         mutationFn: (row: IDebts) => deleteDebt("debts", row.id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['debts'] });
+            queryClient.invalidateQueries({ queryKey: ['debts', user?.id] });
         }
     });
 
@@ -45,7 +45,7 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
     const repayMutation = useMutation({
         mutationFn: (updatedDebt: IDebts) => updateDebtPayment("debts", updatedDebt.id, updatedDebt.paidAmount),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['debts'] });
+            queryClient.invalidateQueries({ queryKey: ['debts', user?.id] });
         }
     });
 
@@ -56,9 +56,9 @@ function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilter
             debtAmount: newDebt.debtAmount,
             interestRate: newDebt.interestRate,
             dueDate: newDebt.dueDate,
-        }),
+        }, "debts"),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['debts'] });
+            queryClient.invalidateQueries({ queryKey: ['debts', user?.id] });
         }
     });
 
