@@ -66,7 +66,7 @@ export const SignUpModal = ({
                     />
                     <button
                         type="button"
-                        className="absolute inset-y-0 right-3 flex items-center "
+                        className="btn btn-outline border-none p-0 hover:bg-transparent hover:scale-105 absolute inset-y-0 right-3 flex items-center "
                         onClick={() => setShowPassword(!showPassword)}
                     >
                         {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}

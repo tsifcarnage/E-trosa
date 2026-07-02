@@ -12,6 +12,7 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+
     const handleLogin = async (e: React.SubmitEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -52,7 +53,7 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
                     <input type={showPassword ? "text" : "password"} className="input input-primary w-full" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <button
                         type="button"
-                        className="absolute inset-y-0 right-3 flex items-center "
+                        className="btn btn-outline border-none p-0 hover:bg-transparent hover:scale-105 absolute inset-y-0 right-3 flex items-center "
                         onClick={() => setShowPassword(!showPassword)}
                     >
                         {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
