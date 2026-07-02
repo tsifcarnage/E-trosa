@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IDebts } from "../models/debts.interfaces";
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import TableAggrid from "../components/agGrid/TableAggrid";
 import DebtStats from "../components/cardHeader/CardMemo";
 import RepayDebtModal from "../components/modal/RepayDebtModal";
@@ -11,7 +10,6 @@ import { deleteDebt, fetchDebts, insertDebt, updateDebtPayment } from "../utils/
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabaseClient";
 
-ModuleRegistry.registerModules([AllCommunityModule]);
 
 function Dettes({ sortDescDate, filterStatus, filterCard, filterTitle }: IfilterProps) {
     const queryClient = useQueryClient();

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router.tsx';
-
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 // filtre resoudre animation erreur
 const originalError = console.error;
 console.error = (...args: unknown[]) => {
@@ -16,7 +16,7 @@ console.error = (...args: unknown[]) => {
   }
   originalError(...(args as Parameters<typeof console.error>));
 };
-
+ModuleRegistry.registerModules([AllCommunityModule]);
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RouterProvider router={router} />

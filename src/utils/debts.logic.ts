@@ -8,7 +8,10 @@ export const calcStatus = (
   const today = new Date();
   const deadline = new Date(dueDate);
 
-  if (remaining <= 0) {
+  // cleanRemaining= calcul centimetre pres
+  const cleanRemaining = Math.round(remaining * 100) / 100;
+
+  if (cleanRemaining <= 0) {
     return Status.PAID;
   }
 
