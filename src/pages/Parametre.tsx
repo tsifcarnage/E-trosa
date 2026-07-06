@@ -238,21 +238,21 @@ export default function Parametre() {
                         <label>Prénom</label>
                         <input
                             type="text"
-                            className="input input input-primary bg-neutral w-full"
+                            className="input input-primary bg-neutral w-full"
                             value={editForm.first_name}
                             onChange={(e) => setEditForm(p => ({ ...p, first_name: e.target.value }))}
                         />
                         <label>Nom</label>
                         <input
                             type="text"
-                            className="input input input-primary bg-neutral w-full"
+                            className="input input-primary bg-neutral w-full"
                             value={editForm.last_name}
                             onChange={(e) => setEditForm(p => ({ ...p, last_name: e.target.value }))}
                         />
                         <label>Email</label>
                         <input
                             type="email"
-                            className="input input input-primary bg-neutral w-full"
+                            className="input input-primary bg-neutral w-full"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
