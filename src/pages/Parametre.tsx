@@ -1,4 +1,4 @@
-import { FaCamera, FaLock, FaRegUser } from "react-icons/fa";
+import { FaCamera, FaEye, FaEyeSlash, FaLock, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
@@ -12,6 +12,8 @@ export default function Parametre() {
     // 1. On récupère l'user connecté directement via Supabase (synchrone/rapide pour le statut)
     const [user, setUser] = useState<any>(null);
     const [email, setEmail] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -130,19 +132,37 @@ export default function Parametre() {
 
     const handleUpdatePassword = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!user || !user.email) return;
+
         if (newPassword !== confirmPassword) {
-            setPasswordMsg("Les mots de passe ne correspondent pas.");
+            setPasswordMsg("Les nouveaux mots de passe ne correspondent pas.");
             return;
         }
         setLoadingPassword(true);
         setPasswordMsg(null);
 
-        const { error } = await supabase.auth.updateUser({ password: newPassword });
+        // Étape A : On vérifie le mot de passe actuel en tentant un "re-login" en arrière-plan
+        const { error: loginError } = await supabase.auth.signInWithPassword({
+            email: user.email,
+            password: currentPassword,
+        });
 
-        if (error) {
-            setPasswordMsg("Erreur : " + error.message);
+        if (loginError) {
+            setPasswordMsg("Le mot de passe actuel est incorrect.");
+            setLoadingPassword(false);
+            return;
+        }
+
+        // Étape B : Si le login réussit, le mot de passe actuel est valide, on le change !
+        const { error: updateError } = await supabase.auth.updateUser({
+            password: newPassword
+        });
+
+        if (updateError) {
+            setPasswordMsg("Erreur lors de la mise à jour : " + updateError.message);
         } else {
             setPasswordMsg("✓ Mot de passe mis à jour !");
+            setCurrentPassword("");
             setNewPassword("");
             setConfirmPassword("");
         }
@@ -218,21 +238,21 @@ export default function Parametre() {
                         <label>Prénom</label>
                         <input
                             type="text"
-                            className="input input-sm input-primary bg-neutral w-full"
+                            className="input input input-primary bg-neutral w-full"
                             value={editForm.first_name}
                             onChange={(e) => setEditForm(p => ({ ...p, first_name: e.target.value }))}
                         />
                         <label>Nom</label>
                         <input
                             type="text"
-                            className="input input-sm input-primary bg-neutral w-full"
+                            className="input input input-primary bg-neutral w-full"
                             value={editForm.last_name}
                             onChange={(e) => setEditForm(p => ({ ...p, last_name: e.target.value }))}
                         />
                         <label>Email</label>
                         <input
                             type="email"
-                            className="input input-sm input-primary bg-neutral w-full"
+                            className="input input input-primary bg-neutral w-full"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -254,10 +274,47 @@ export default function Parametre() {
                         </p>
                     )}
                     <form onSubmit={handleUpdatePassword} className="flex flex-col gap-2">
+                        {/* NOUVEAU CHAMP ICI */}
+                        <label>Mot de passe actuel</label>
+                        <div className="relative w-full">
+
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="input input-primary bg-neutral w-full"
+                                value={currentPassword}
+                                onChange={(e) => setCurrentPassword(e.target.value)}
+                                placeholder="Votre mot de passe actuel"
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-outline border-none p-0 hover:bg-transparent absolute inset-y-0 right-3 flex items-center"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                            </button>
+                        </div>
+
                         <label>Nouveau mot de passe</label>
-                        <input type="password" className="input input-sm input-primary bg-neutral w-full" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-                        <label>Confirmer le mot de passe</label>
-                        <input type="password" className="input input-sm input-primary bg-neutral w-full" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="input input-primary bg-neutral w-full"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            placeholder="Nouveau mot de passe"
+                            required
+                        />
+
+                        <label>Confirmer le nouveau mot de passe</label>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="input input-primary bg-neutral w-full"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="Confirmer le mot de passe"
+                            required
+                        />
+
                         <button className="btn btn-primary mt-3" disabled={loadingPassword}>
                             {loadingPassword ? "Mise à jour..." : "Mettre à jour le mot de passe"}
                         </button>
