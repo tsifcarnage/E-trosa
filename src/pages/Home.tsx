@@ -37,11 +37,6 @@ function Home() {
 
     return (
         <div className="flex flex-col justify-center items-center gap-4">
-            {/* Si connecté, affiche Nom/Prénom, sinon juste Bienvenue */}
-            <h1 className="purple text-center">
-                Bienvenue {profile ? `${profile.first_name} ${profile.last_name}` : ""}
-            </h1>
-
             {/* Affichage de l'avatar géré proprement */}
             {!isLoading && profile && (
                 <div className="my-2">
@@ -58,6 +53,12 @@ function Home() {
                     )}
                 </div>
             )}
+            {/* Si connecté, affiche Nom/Prénom, sinon juste Bienvenue */}
+            <h1 className="purple text-center">
+                Bienvenu(e) {profile ? `${profile.first_name} ${profile.last_name}` : ""}
+            </h1>
+
+
 
             <h3 className="text-center w-full px-2 max-w-2xl self-center">
                 Cette plateforme vous permet d'enregistrer et de gérer vos dettes et vos créances, ainsi que de suivre vos paiements et visualiser votre progression.
