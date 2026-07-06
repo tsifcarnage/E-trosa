@@ -3,14 +3,14 @@ import { calcStatus } from "./debts.logic";
 import * as calc from "../utils/debts.calculation";
 import { MOCK_RECEIVABLES } from "../data/debts.mock";
 
-export const createDebt = (
+export function createDebt(
   creditor: string,
   amount: number,
   paid: number,
   rate: number,
   dueDate: string,
   existingId?: string,
-): IDebts => {
+): IDebts {
   const today = new Date();
   const deadline = new Date(dueDate);
   let finalRate = rate;
@@ -20,6 +20,7 @@ export const createDebt = (
   }
   const interest = calc.calcInterestAmount(amount, finalRate);
   const remaining = calc.calcRemainingAmount(amount, finalRate, paid);
+
   return {
     id: existingId ?? crypto.randomUUID(),
     creditor: creditor,
@@ -31,10 +32,10 @@ export const createDebt = (
     remainingAmount: remaining,
     status: calcStatus(remaining, paid, dueDate),
   };
-};
+}
 
 export const addDebt = (
-  e: React.SubmitEvent,
+  e: React.FormEvent, // Petit fix au passage : FormEvent est plus standard que SubmitEvent dans certains environnements React
   formData: INewDebt,
   onClose: () => void,
   onDebtAdded: (d: IDebts) => void,
@@ -49,14 +50,12 @@ export const addDebt = (
     formData.dueDate,
   );
 
-  // const mutableDebts = [...MOCK_DEBT];
-  // mutableDebts.push(newDebt);
   onDebtAdded(newDebt);
   onClose();
 };
 
 export const addReceive = (
-  e: React.SubmitEvent,
+  e: React.FormEvent,
   formData: INewDebt,
   onClose: () => void,
   onDebtAdded: (d: IDebts) => void,
