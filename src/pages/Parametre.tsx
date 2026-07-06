@@ -296,24 +296,43 @@ export default function Parametre() {
                         </div>
 
                         <label>Nouveau mot de passe</label>
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            className="input input-primary bg-neutral w-full"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            placeholder="Nouveau mot de passe"
-                            required
-                        />
+                        <div className="relative w-full">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="input input-primary bg-neutral w-full"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                                placeholder="Nouveau mot de passe"
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-outline border-none p-0 hover:bg-transparent absolute inset-y-0 right-3 flex items-center"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                            </button>
+                        </div>
 
                         <label>Confirmer le nouveau mot de passe</label>
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            className="input input-primary bg-neutral w-full"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirmer le mot de passe"
-                            required
-                        />
+
+                        <div className="relative w-full">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="input input-primary bg-neutral w-full"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Confirmer le mot de passe"
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-outline border-none p-0 hover:bg-transparent absolute inset-y-0 right-3 flex items-center"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                            </button>
+                        </div>
 
                         <button className="btn btn-primary mt-3" disabled={loadingPassword}>
                             {loadingPassword ? "Mise à jour..." : "Mettre à jour le mot de passe"}
