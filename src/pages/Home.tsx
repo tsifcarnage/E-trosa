@@ -3,10 +3,11 @@ import CoinAnimation from "../components/CoinAnimation";
 import type { Ilink } from "../models/ui.interfaces";
 import CallToAction from "../components/CallToAction";
 import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
-import { FaRegUser } from "react-icons/fa"; // Icône par défaut si pas d'avatar
-import { useEffect, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query"; // Import de TanStack
 import { supabase } from "../utils/supabaseClient";
-import type { IProfile } from "../models/debts.interfaces";
+import { fetchUserProfile } from "../utils/debts.service";
 
 const ctActions: Ilink[] = [
     { title: "Dashboard", label: "Vue globale de l'application", icon: <RiDashboardHorizontalFill size={50} />, to: "/dashboard" },
@@ -16,40 +17,33 @@ const ctActions: Ilink[] = [
 ];
 
 function Home() {
-    const [profile, setProfile] = useState<IProfile | null>(null);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
+    // 1. Branchement TanStack Query
+    const { data: profile, isLoading } = useQuery({
+        queryKey: ["userProfile"],
+        queryFn: fetchUserProfile,
+        staleTime: 1000 * 60 * 10, // Cache de 10 minutes
+    });
+
+    // 2. Écouteur magique : Si la session change, on force le rafraîchissement global !
     useEffect(() => {
-        // 1. Récupère l'utilisateur connecté
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            if (user) {
-                // 2. Récupère son profil (Prénom, Nom, Avatar)
-                supabase
-                    .from("profiles")
-                    .select("first_name, last_name, avatar_url")
-                    .eq("id", user.id)
-                    .maybeSingle()
-                    .then(({ data: profileData }) => {
-                        if (profileData) {
-                            setProfile(profileData);
-                        }
-                        setLoading(false);
-                    });
-            } else {
-                setLoading(false);
-            }
+        const { data: listener } = supabase.auth.onAuthStateChange(() => {
+            queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+            queryClient.invalidateQueries({ queryKey: ["debts"] }); // Optionnel : bonus pour tes grilles de dettes !
         });
-    }, []);
+        return () => listener.subscription.unsubscribe();
+    }, [queryClient]);
 
     return (
         <div className="flex flex-col justify-center items-center gap-4">
-            {/* Titre Bienvenue personnalisé */}
-            <h1 className="purple text-center mb-0">
-                Bienvenue {profile?.first_name} {profile?.last_name}
+            {/* Si connecté, affiche Nom/Prénom, sinon juste Bienvenue */}
+            <h1 className="purple text-center">
+                Bienvenue {profile ? `${profile.first_name} ${profile.last_name}` : ""}
             </h1>
 
-            {/* Affichage de l'image de profil / Avatar récupéré depuis Parametre */}
-            {!loading && profile && (
+            {/* Affichage de l'avatar géré proprement */}
+            {!isLoading && profile && (
                 <div className="my-2">
                     {profile.avatar_url ? (
                         <img

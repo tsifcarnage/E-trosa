@@ -173,3 +173,19 @@ export const deleteDebt = async (
   const { error } = await supabase.from(table).delete().eq("id", id);
   if (error) throw error;
 };
+
+// Section profile
+export const fetchUserProfile = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) return null;
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("first_name, last_name, avatar_url")
+    .eq("id", session.user.id)
+    .maybeSingle();
+
+  return data || null;
+};
