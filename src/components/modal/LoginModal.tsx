@@ -2,6 +2,7 @@ import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import { supabase } from "../../utils/supabaseClient";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 interface LoginModalProps {
     onClose: () => void;
     onSignUp: () => void;
@@ -12,6 +13,7 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogin = async (e: React.SubmitEvent) => {
         e.preventDefault();
@@ -25,11 +27,9 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
 
         setLoading(false);
         if (error) {
-            // Si l'email n'existe pas ou le MDP est faux, Supabase renvoie une erreur en anglais
-            // (ex: "Invalid login credentials")
             setErrorMsg(error.message);
         } else {
-            // Si tout est bon, on ferme le modal !
+            navigate('/accueil')
             onClose();
         }
     }
