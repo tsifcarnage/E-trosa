@@ -122,8 +122,6 @@ export default function Parametre() {
             }
         }
 
-        // LE TRUC MAGIQUE : On dit à TanStack que le profil a changé.
-        // La Home et la Navbar vont instantanément se retélécharger en tâche de fond !
         await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
 
         setAvatarFile(null);
