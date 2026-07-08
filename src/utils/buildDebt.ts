@@ -35,7 +35,7 @@ export function createDebt(
 }
 
 export const addDebt = (
-  e: React.SubmitEvent, // Petit fix au passage : SubmitEvent est plus standard que SubmitEvent dans certains environnements React
+  e: React.SubmitEvent, 
   formData: INewDebt,
   onClose: () => void,
   onDebtAdded: (d: IDebts) => void,

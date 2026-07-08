@@ -1,4 +1,4 @@
-import { FaCamera, FaEye, FaEyeSlash, FaLock, FaRegUser } from "react-icons/fa";
+import { FaCamera, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
