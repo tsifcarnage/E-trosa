@@ -50,7 +50,7 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
                 <label >Mot de passe</label>
 
                 <div className="relative w-full">
-                    <input type={showPassword ? "text" : "password"} className="input input-primary w-full" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <input type={showPassword ? "text" : "password"} className="input input-primary w-full" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="******" required />
                     <button
                         type="button"
                         className="btn btn-outline border-none p-0 hover:bg-transparent hover:scale-105 absolute inset-y-0 right-3 flex items-center "
