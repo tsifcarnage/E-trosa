@@ -76,7 +76,7 @@ export default function Parametre() {
   };
 
   // 3. Sauvegarde simplifiée (qui invalide le cache à la fin)
-  const handleSaveProfile = async (e: React.FormEvent) => {
+  const handleSaveProfile = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!user) return;
     setLoadingProfile(true);
@@ -133,7 +133,7 @@ export default function Parametre() {
     setLoadingProfile(false);
   };
 
-  const handleUpdatePassword = async (e: React.FormEvent) => {
+  const handleUpdatePassword = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!user || !user.email) return;
 

@@ -11,7 +11,7 @@ export interface IProfileInfoFormProps {
     setEmail: (email: string) => void;
     profileMsg: string | null;
     loadingProfile: boolean;
-    onSubmit: (e: React.FormEvent) => void;
+    onSubmit: (e: React.SubmitEvent) => void;
 }
 
 export interface IPasswordFormProps {
@@ -25,5 +25,5 @@ export interface IPasswordFormProps {
     setShowPassword: (v: boolean) => void;
     passwordMsg: string | null;
     loadingPassword: boolean;
-    onSubmit: (e: React.FormEvent) => void;
+    onSubmit: (e: React.SubmitEvent) => void;
 }
