@@ -99,7 +99,7 @@ export default function Parametre() {
 
     setAvatarFile(null);
     setLoadingProfile(false);
-};
+  };
 
   const handleSaveProfile = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -132,7 +132,7 @@ export default function Parametre() {
     await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
     setProfileMsg("✓ Profil mis à jour !");
     setLoadingProfile(false);
-};
+  };
 
   const handleUpdatePassword = async (e: React.SubmitEvent) => {
     e.preventDefault();
