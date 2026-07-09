@@ -75,7 +75,7 @@ export default function Parametre() {
     setAvatarPreview(URL.createObjectURL(file));
   };
 
- const handleSaveAvatar = async () => {
+  const handleSaveAvatar = async () => {
     if (!user || !avatarFile) return;
     setLoadingProfile(true);
 
@@ -83,16 +83,18 @@ export default function Parametre() {
     const filePath = `${user.id}/avatar.${fileExt}`;
 
     const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(filePath, avatarFile, { upsert: true });
+      .from("avatars")
+      .upload(filePath, avatarFile, { upsert: true });
 
     if (uploadError) {
-        setLoadingProfile(false);
-        return;
+      setLoadingProfile(false);
+      return;
     }
 
-    const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(filePath);
-    const avatar_url = `${urlData.publicUrl}?t=${Date.now()}`; 
+    const { data: urlData } = supabase.storage
+      .from("avatars")
+      .getPublicUrl(filePath);
+    const avatar_url = `${urlData.publicUrl}?t=${Date.now()}`;
 
     await supabase.from("profiles").upsert({ id: user.id, avatar_url });
     await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
@@ -108,25 +110,25 @@ export default function Parametre() {
     setProfileMsg(null);
 
     const { error: profileError } = await supabase.from("profiles").upsert({
-        id: user.id,
-        first_name: editForm.first_name,
-        last_name: editForm.last_name,
-        avatar_url: profile?.avatar_url || null,
+      id: user.id,
+      first_name: editForm.first_name,
+      last_name: editForm.last_name,
+      avatar_url: profile?.avatar_url || null,
     });
 
     if (profileError) {
-        setProfileMsg("Erreur : " + profileError.message);
-        setLoadingProfile(false);
-        return;
+      setProfileMsg("Erreur : " + profileError.message);
+      setLoadingProfile(false);
+      return;
     }
 
     if (email !== user.email) {
-        const { error: emailError } = await supabase.auth.updateUser({ email });
-        if (emailError) {
-            setProfileMsg("Erreur email : " + emailError.message);
-            setLoadingProfile(false);
-            return;
-        }
+      const { error: emailError } = await supabase.auth.updateUser({ email });
+      if (emailError) {
+        setProfileMsg("Erreur email : " + emailError.message);
+        setLoadingProfile(false);
+        return;
+      }
     }
 
     await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
@@ -181,15 +183,15 @@ export default function Parametre() {
       <div className="flex flex-col md:flex-row gap-5 justify-between text-neutral-content">
         {/* Card profil */}
         <ProfileCard
-    avatarPreview={avatarPreview}
-    firstName={profile?.first_name ?? ""}
-    lastName={profile?.last_name ?? ""}
-    email={user.email ?? ""}
-    avatarFile={avatarFile}
-    loadingProfile={loadingProfile}
-    onAvatarChange={handleAvatarChange}
-    onSaveAvatar={handleSaveAvatar}
-/>
+          avatarPreview={avatarPreview}
+          firstName={profile?.first_name ?? ""}
+          lastName={profile?.last_name ?? ""}
+          email={user.email ?? ""}
+          avatarFile={avatarFile}
+          loadingProfile={loadingProfile}
+          onAvatarChange={handleAvatarChange}
+          onSaveAvatar={handleSaveAvatar}
+        />
 
         {/* Card stats */}
         <section className="flex-2 flex flex-wrap justify-between items-center bg-neutral p-5 rounded-[10px]">
