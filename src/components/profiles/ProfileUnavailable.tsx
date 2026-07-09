@@ -3,7 +3,7 @@ import { useState } from "react";
 import { LoginModal } from "../modal/LoginModal";
 import { SignUpModal } from "../modal/SignUpModal";
 
-export default function ProfilUnavailable() {
+export default function ProfileUnavailable() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
 

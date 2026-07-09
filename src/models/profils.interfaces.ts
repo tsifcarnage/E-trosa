@@ -27,3 +27,14 @@ export interface IPasswordFormProps {
     loadingPassword: boolean;
     onSubmit: (e: React.SubmitEvent) => void;
 }
+
+export interface IProfileCardProps {
+    avatarPreview: string | null;
+    firstName: string;
+    lastName: string;
+    email: string;
+    avatarFile: File | null;
+    loadingProfile: boolean;
+    onAvatarChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onSaveAvatar: () => void;
+}

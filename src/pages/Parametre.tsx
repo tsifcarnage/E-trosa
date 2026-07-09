@@ -1,12 +1,12 @@
-import { FaCamera, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchUserProfile } from "../utils/debts.service";
-import ProfilUnavailable from "../components/profiles/ProfilUnavailable";
+import ProfilUnavailable from "../components/profiles/ProfileUnavailable";
 import ProfileInfoForm from "../components/profiles/ProfileInfoForm";
 import PasswordForm from "../components/profiles/PasswordForm";
+import ProfileCard from "../components/profiles/ProfileCard";
 
 export default function Parametre() {
   const queryClient = useQueryClient();
@@ -75,63 +75,64 @@ export default function Parametre() {
     setAvatarPreview(URL.createObjectURL(file));
   };
 
-  // 3. Sauvegarde simplifiée (qui invalide le cache à la fin)
+ const handleSaveAvatar = async () => {
+    if (!user || !avatarFile) return;
+    setLoadingProfile(true);
+
+    const fileExt = avatarFile.name.split(".").pop();
+    const filePath = `${user.id}/avatar.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, avatarFile, { upsert: true });
+
+    if (uploadError) {
+        setLoadingProfile(false);
+        return;
+    }
+
+    const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(filePath);
+    const avatar_url = `${urlData.publicUrl}?t=${Date.now()}`; 
+
+    await supabase.from("profiles").upsert({ id: user.id, avatar_url });
+    await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+
+    setAvatarFile(null);
+    setLoadingProfile(false);
+};
+
   const handleSaveProfile = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!user) return;
     setLoadingProfile(true);
     setProfileMsg(null);
 
-    let avatar_url = profile?.avatar_url || null;
-
-    if (avatarFile) {
-      const fileExt = avatarFile.name.split(".").pop();
-      const filePath = `${user.id}/avatar.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(filePath, avatarFile, { upsert: true });
-
-      if (uploadError) {
-        setProfileMsg("Erreur upload photo : " + uploadError.message);
-        setLoadingProfile(false);
-        return;
-      }
-
-      const { data: urlData } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(filePath);
-      avatar_url = urlData.publicUrl;
-    }
-
     const { error: profileError } = await supabase.from("profiles").upsert({
-      id: user.id,
-      first_name: editForm.first_name,
-      last_name: editForm.last_name,
-      avatar_url,
+        id: user.id,
+        first_name: editForm.first_name,
+        last_name: editForm.last_name,
+        avatar_url: profile?.avatar_url || null,
     });
 
     if (profileError) {
-      setProfileMsg("Erreur : " + profileError.message);
-      setLoadingProfile(false);
-      return;
+        setProfileMsg("Erreur : " + profileError.message);
+        setLoadingProfile(false);
+        return;
     }
 
     if (email !== user.email) {
-      const { error: emailError } = await supabase.auth.updateUser({ email });
-      if (emailError) {
-        setProfileMsg("Erreur email : " + emailError.message);
-        setLoadingProfile(false);
-        return;
-      }
+        const { error: emailError } = await supabase.auth.updateUser({ email });
+        if (emailError) {
+            setProfileMsg("Erreur email : " + emailError.message);
+            setLoadingProfile(false);
+            return;
+        }
     }
 
     await queryClient.invalidateQueries({ queryKey: ["userProfile"] });
-
-    setAvatarFile(null);
     setProfileMsg("✓ Profil mis à jour !");
     setLoadingProfile(false);
-  };
+};
 
   const handleUpdatePassword = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -179,40 +180,16 @@ export default function Parametre() {
       <h2 className="mb-5 text-base-content">Profil</h2>
       <div className="flex flex-col md:flex-row gap-5 justify-between text-neutral-content">
         {/* Card profil */}
-        <section className="flex flex-wrap flex-1 gap-5 bg-neutral p-5 rounded-[10px] items-center">
-          <div className="flex flex-col items-center gap-2">
-            <div className="relative group">
-              {avatarPreview ? (
-                <img
-                  src={avatarPreview}
-                  className="rounded-full h-24 w-24 object-cover"
-                />
-              ) : (
-                <div className="rounded-full border-2 border-primary h-24 w-24 flex items-center justify-center">
-                  <FaRegUser size={40} className="opacity-30 text-white" />
-                </div>
-              )}
-              <label className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                <FaCamera size={20} className="text-white" />
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleAvatarChange}
-                />
-              </label>
-            </div>
-          </div>
-          <div>
-            <h3>
-              {profile?.first_name} {profile?.last_name}
-            </h3>
-            <h3>{user.email}</h3>
-            <p className="badge badge-outline badge-success my-3">
-              ✓ Compte vérifié
-            </p>
-          </div>
-        </section>
+        <ProfileCard
+    avatarPreview={avatarPreview}
+    firstName={profile?.first_name ?? ""}
+    lastName={profile?.last_name ?? ""}
+    email={user.email ?? ""}
+    avatarFile={avatarFile}
+    loadingProfile={loadingProfile}
+    onAvatarChange={handleAvatarChange}
+    onSaveAvatar={handleSaveAvatar}
+/>
 
         {/* Card stats */}
         <section className="flex-2 flex flex-wrap justify-between items-center bg-neutral p-5 rounded-[10px]">
