@@ -7,6 +7,7 @@ import ProfilUnavailable from "../components/profiles/ProfileUnavailable";
 import ProfileInfoForm from "../components/profiles/ProfileInfoForm";
 import PasswordForm from "../components/profiles/PasswordForm";
 import ProfileCard from "../components/profiles/ProfileCard";
+import ProfileStats from "../components/profiles/ProfileStats";
 
 export default function Parametre() {
   const queryClient = useQueryClient();
@@ -61,6 +62,11 @@ export default function Parametre() {
       if (profile.avatar_url) setAvatarPreview(profile.avatar_url);
     }
   }, [profile]);
+
+  const handleDeleteAccount = () => {
+    const modal = document.getElementById("delete_modal") as HTMLDialogElement;
+    modal?.showModal();
+};
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -192,21 +198,7 @@ export default function Parametre() {
         />
 
         {/* Card stats */}
-        <section className="flex-2 flex flex-wrap justify-between items-center bg-neutral p-5 rounded-[10px]">
-          <div>
-            <h3>Total dette: 1000€</h3>
-            <h3>Total créance: 2000€</h3>
-            <h3 className="text-success">Financièrement bon</h3>
-          </div>
-          <div className="flex flex-col gap-3">
-            <Link to={"/dashboard"} className="btn btn-info">
-              Dashboard
-            </Link>
-            <button className="btn btn-error" onClick={handleLogout}>
-              Déconnexion
-            </button>
-          </div>
-        </section>
+        <ProfileStats user={user} onDeleteAccount={handleDeleteAccount} onLogout={handleLogout}/>
       </div>
 
       <div className="flex flex-wrap flex-col sm:flex-row gap-5 justify-between my-5 text-neutral-content">

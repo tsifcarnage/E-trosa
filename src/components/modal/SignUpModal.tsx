@@ -2,6 +2,7 @@ import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import { supabase } from "../../utils/supabaseClient";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface SignUpModalProps {
     onClose: () => void;
@@ -16,13 +17,12 @@ export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate()
     const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
         setLoading(true);
         setErrorMsg(null);
 
-        // Appel direct à Supabase Auth
         const { error } = await supabase.auth.signUp({
             email,
             password,
@@ -41,6 +41,7 @@ export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
         }
 
         setLoading(false);
+        navigate('/accueil')
         onSuccess();
     };
 

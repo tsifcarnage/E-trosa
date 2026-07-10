@@ -1,3 +1,5 @@
+import type { User } from "@supabase/supabase-js";
+
 export interface IProfile {
   first_name: string;
   last_name: string;
@@ -37,4 +39,10 @@ export interface IProfileCardProps {
     loadingProfile: boolean;
     onAvatarChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onSaveAvatar: () => void;
+}
+
+export interface IProfileStatsProps {
+    user: User;
+    onLogout: () => void;
+    onDeleteAccount: () => void;
 }
