@@ -122,13 +122,11 @@ export default function Parametre() {
       return;
     }
 
-    if (email !== user.email) {
-      const { error: emailError } = await supabase.auth.updateUser({ email });
-      if (emailError) {
-        setProfileMsg("Erreur email : " + emailError.message);
-        setLoadingProfile(false);
-        return;
-      }
+    const { error: emailError } = await supabase.auth.updateUser({ email });
+    if (emailError) {
+      setProfileMsg("Erreur email : " + emailError.message);
+      setLoadingProfile(false);
+      return;
     }
 
     await queryClient.invalidateQueries({ queryKey: ["userProfile"] });

@@ -39,9 +39,10 @@ export default function ProfileInfoForm({
                 <label>Email</label>
                 <input
                     type="email"
-                    className="input input-primary bg-neutral w-full"
+                    className="input input-primary bg-neutral w-full disabled:text-gray-500 disabled:border-primary"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled
                 />
                 <button className="btn btn-primary mt-3" disabled={loadingProfile}>
                     {loadingProfile ? "Sauvegarde..." : "Sauvegarder les modifications"}
