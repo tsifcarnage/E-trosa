@@ -29,23 +29,23 @@ export default function ProfileStats({ user, onLogout, onDeleteAccount }: IProfi
     const totalCredit = credits.reduce((acc, d) => acc + (d.remainingAmount ?? 0), 0);
     const status = getFinancialStatus(totalDebt, totalCredit);
     const handleConfirmDelete = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) return;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
 
-    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-user`, {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${session.access_token}`,
-        },
-    });
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-user`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${session.access_token}`,
+            },
+        });
 
-    if (response.ok) {
-        await supabase.auth.signOut();
-    } else {
-        const msg = await response.text();
-        console.error("Erreur suppression :", msg);
-    }
-};
+        if (response.ok) {
+            await supabase.auth.signOut();
+        } else {
+            const msg = await response.text();
+            console.error("Erreur suppression :", msg);
+        }
+    };
     return (
         <section className="flex-2 flex flex-wrap justify-between items-center bg-neutral p-5 rounded-[10px]">
             <div>
@@ -64,10 +64,10 @@ export default function ProfileStats({ user, onLogout, onDeleteAccount }: IProfi
             <dialog id="delete_modal" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg text-error">Supprimer le compte</h3>
-                    <p className="py-4">Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                    <p className="py-4 text-base-content">Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
                     <div className="modal-action">
                         <form method="dialog">
-                            <button className="btn btn-ghost">Annuler</button>
+                            <button className="btn btn-ghost text-base-content">Annuler</button>
                         </form>
                         <button className="btn btn-error" onClick={handleConfirmDelete}>
                             Confirmer la suppression
