@@ -2,7 +2,7 @@ import type { IDebts, INewDebt } from "../models/debts.interfaces";
 import { calcStatus } from "./debts.logic";
 import * as calc from "../utils/debts.calculation";
 import { MOCK_RECEIVABLES } from "../data/debts.mock";
-
+// import { v4 as uuid } from "uuid";
 export function createDebt(
   creditor: string,
   amount: number,
@@ -22,7 +22,8 @@ export function createDebt(
   const remaining = calc.calcRemainingAmount(amount, finalRate, paid);
 
   return {
-    id: existingId ?? crypto.randomUUID(),
+    id:
+      existingId ?? `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
     creditor: creditor,
     debtAmount: amount,
     dueDate: dueDate,
@@ -35,7 +36,7 @@ export function createDebt(
 }
 
 export const addDebt = (
-  e: React.SubmitEvent, 
+  e: React.SubmitEvent,
   formData: INewDebt,
   onClose: () => void,
   onDebtAdded: (d: IDebts) => void,
