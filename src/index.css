@@ -31,20 +31,29 @@ h3 {
   font-size: 20px;
 }
 .red-card-grad {
-  background: linear-gradient(121deg, var(--color-neutral) 62%, #fd0707 177%);
-  box-shadow: 3px 3px 10px 0px rgba(255, 0, 0, 0.6);
+  background: linear-gradient(
+    121deg,
+    var(--color-neutral) 62%,
+    var(--color-error) 177%
+  );
+  /* box-shadow: 3px 3px 10px 0px var(--color-error); */
 }
 .green-card-grad {
-  background: linear-gradient(121deg, var(--color-neutral) 62%, #28e00b 177%);
-  box-shadow: 3px 3px 10px 0px #27e00b99;
+  background: linear-gradient(
+    121deg,
+    var(--color-neutral) 62%,
+    var(--color-success) 177%
+  );
 }
 .orange-card-grad {
   background: linear-gradient(121deg, var(--color-neutral) 62%, #d45f35 177%);
-  box-shadow: 3px 3px 10px 0px rgba(212, 95, 53, 0.6);
 }
 .blue-card-grad {
-  background: linear-gradient(121deg, var(--color-neutral) 62%, #69cdff 177%);
-  box-shadow: 3px 3px 10px 0px rgba(105, 205, 255, 0.6);
+  background: linear-gradient(
+    121deg,
+    var(--color-neutral) 62%,
+    var(--color-primary) 177%
+  );
 }
 .header-center .ag-header-cell-label {
   justify-content: center;

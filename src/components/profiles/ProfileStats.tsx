@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDebts, fetchCredits } from "../../utils/debts.service";
 import { Link } from "react-router-dom";
 import type { IProfileStatsProps } from "../../models/profils.interfaces";
 import { supabase } from "../../utils/supabaseClient";
+import ModalLayout from "../../layouts/ModalLayout";
 
 const getFinancialStatus = (totalDebt: number, totalCredit: number) => {
     if (totalCredit > totalDebt) return { label: "Financièrement bon", className: "text-success" };
@@ -10,7 +12,9 @@ const getFinancialStatus = (totalDebt: number, totalCredit: number) => {
     return { label: "Financièrement mauvais", className: "text-error" };
 };
 
-export default function ProfileStats({ user, onLogout, onDeleteAccount }: IProfileStatsProps) {
+export default function ProfileStats({ user, onLogout }: IProfileStatsProps) {
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
     const { data: debts = [] } = useQuery({
         queryKey: ['debts', user.id],
         queryFn: fetchDebts,
@@ -28,6 +32,7 @@ export default function ProfileStats({ user, onLogout, onDeleteAccount }: IProfi
     const totalDebt = debts.reduce((acc, d) => acc + (d.remainingAmount ?? 0), 0);
     const totalCredit = credits.reduce((acc, d) => acc + (d.remainingAmount ?? 0), 0);
     const status = getFinancialStatus(totalDebt, totalCredit);
+
     const handleConfirmDelete = async () => {
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
@@ -45,7 +50,9 @@ export default function ProfileStats({ user, onLogout, onDeleteAccount }: IProfi
             const msg = await response.text();
             console.error("Erreur suppression :", msg);
         }
+        setIsDeleteModalOpen(false);
     };
+
     return (
         <section className="flex-2 flex flex-wrap justify-between items-center bg-neutral p-5 rounded-[10px]">
             <div>
@@ -55,26 +62,26 @@ export default function ProfileStats({ user, onLogout, onDeleteAccount }: IProfi
             </div>
             <div className="flex flex-col gap-3">
                 <Link to={"/dashboard"} className="btn btn-info">Dashboard</Link>
-                <button className="btn btn-warning" onClick={onDeleteAccount}>
+                <button className="btn btn-warning" onClick={() => setIsDeleteModalOpen(true)}>
                     Supprimer le compte
                 </button>
                 <button className="btn btn-error" onClick={onLogout}>Déconnexion</button>
             </div>
 
-            <dialog id="delete_modal" className="modal">
-                <div className="modal-box">
+            {isDeleteModalOpen && (
+                <ModalLayout onClose={() => setIsDeleteModalOpen(false)}>
                     <h3 className="font-bold text-lg text-error">Supprimer le compte</h3>
                     <p className="py-4 text-base-content">Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
-                    <div className="modal-action">
-                        <form method="dialog">
-                            <button className="btn btn-ghost text-base-content">Annuler</button>
-                        </form>
+                    <div className="flex justify-end gap-2 mt-4">
+                        <button className="btn btn-ghost text-base-content" onClick={() => setIsDeleteModalOpen(false)}>
+                            Annuler
+                        </button>
                         <button className="btn btn-error" onClick={handleConfirmDelete}>
                             Confirmer la suppression
                         </button>
                     </div>
-                </div>
-            </dialog>
+                </ModalLayout>
+            )}
         </section>
     );
 }

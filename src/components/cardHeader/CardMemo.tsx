@@ -27,13 +27,13 @@ export default function DebtStats({ debts, totalTitle, nbrUsers }: Props) {
         {
             title: `Total ${totalTitle}`,
             label: stats.totalDebts,
-            color: "text-red-500",
+            color: "text-error",
             grad: "red-card-grad"
         },
         {
             title: "Montant déjà payé",
             label: stats.totalPaid,
-            color: "text-green-500",
+            color: "text-success",
             grad: "green-card-grad"
         },
         {
@@ -46,7 +46,7 @@ export default function DebtStats({ debts, totalTitle, nbrUsers }: Props) {
             title: nbrUsers,
             label: stats.creditors,
             unit: nbrUsers,
-            color: "text-blue-300",
+            color: "text-primary",
             grad: "blue-card-grad"
         }
     ], [stats]);

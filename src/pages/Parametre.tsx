@@ -12,8 +12,6 @@ import ProfileStats from "../components/profiles/ProfileStats";
 export default function Parametre() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
-  // 1. On récupère l'user connecté directement via Supabase (synchrone/rapide pour le statut)
   const [user, setUser] = useState<any>(null);
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +25,7 @@ export default function Parametre() {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [loadingPassword, setLoadingPassword] = useState(false);
 
-  // 2. TanStack Query s'occupe du profil (Prénom, Nom, Avatar)
+  //  TanStack Query profile
   const { data: profile } = useQuery({
     queryKey: ["userProfile"],
     queryFn: fetchUserProfile,
@@ -62,11 +60,6 @@ export default function Parametre() {
       if (profile.avatar_url) setAvatarPreview(profile.avatar_url);
     }
   }, [profile]);
-
-  const handleDeleteAccount = () => {
-    const modal = document.getElementById("delete_modal") as HTMLDialogElement;
-    modal?.showModal();
-};
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -198,7 +191,7 @@ export default function Parametre() {
         />
 
         {/* Card stats */}
-        <ProfileStats user={user} onDeleteAccount={handleDeleteAccount} onLogout={handleLogout}/>
+        <ProfileStats user={user} onLogout={handleLogout} />
       </div>
 
       <div className="flex flex-wrap flex-col sm:flex-row gap-5 justify-between my-5 text-neutral-content">
