@@ -65,10 +65,6 @@ export default function Navbar({ links }: ISidebarProps) {
             {openSignUp && (
               <SignUpModal
                 onClose={() => setOpenSignUp(false)}
-                onSuccess={() => {
-                  setOpenSignUp(false);
-                  setOpenLogin(true);
-                }}
               />
             )}
           </div>)}
@@ -81,7 +77,7 @@ export default function Navbar({ links }: ISidebarProps) {
             onClick={() => setIsSummaryOpen(!isSummaryOpen)}
           >
             <FaRegUserCircle size={25} className="self-center" />
-            <h3 className="self-center">{user ? user.email : "Anonymous"}</h3>
+            <h3 className="self-center truncate max-w-24 sm:max-w-48">{user ? user.email : "Anonymous"}</h3>
           </button>
 
           {isSummaryOpen && (

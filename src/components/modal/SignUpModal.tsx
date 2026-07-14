@@ -2,14 +2,13 @@ import { useState } from "react";
 import ModalLayout from "../../layouts/ModalLayout";
 import { supabase } from "../../utils/supabaseClient";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 interface SignUpModalProps {
     onClose: () => void;
-    onSuccess: () => void;
+    // onSuccess: () => void;
 }
 
-export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
+export const SignUpModal = ({ onClose }: SignUpModalProps) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -17,7 +16,7 @@ export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
+    const [successMsg, setSuccessMsg] = useState<string | null>(null);
     const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -41,8 +40,8 @@ export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
         }
 
         setLoading(false);
-        navigate('/accueil')
-        onSuccess();
+        setSuccessMsg("Un email de confirmation a été envoyé à " + email + ". Vérifiez votre boîte mail avant de vous connecter.");
+
     };
 
     return (
@@ -55,7 +54,11 @@ export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
                         {errorMsg}
                     </p>
                 )}
-
+                {successMsg && (
+                    <p className="text-success bg-success/10 p-2 rounded text-sm text-center">
+                        {successMsg}
+                    </p>
+                )}
                 <label className="text-sm font-medium">Prénom</label>
                 <input
                     type="text"
