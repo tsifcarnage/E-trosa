@@ -177,7 +177,7 @@ export default function Parametre() {
   return (
     <div className="px-6">
       <h2 className="mb-5 text-base-content">Profil</h2>
-      <div className="flex flex-col md:flex-row gap-5 justify-between text-neutral-content">
+      <div className="flex flex-col md:flex-row gap-5 justify-between text-neutral-content mb-5">
         {/* Card profil */}
         <ProfileCard
           avatarPreview={avatarPreview}
@@ -194,7 +194,7 @@ export default function Parametre() {
         <ProfileStats user={user} onLogout={handleLogout} />
       </div>
 
-      <div className="flex flex-wrap flex-col sm:flex-row gap-5 justify-between my-5 text-neutral-content">
+      <div className="flex flex-wrap flex-col sm:flex-row gap-5 justify-between md:my-5 mb-24 text-neutral-content ">
         {/* Infos personnelles */}
         <ProfileInfoForm
           editForm={editForm}

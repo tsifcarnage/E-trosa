@@ -58,9 +58,9 @@ export default function ProfileStats({ user, onLogout }: IProfileStatsProps) {
             <div>
                 <h3>Total dette: {totalDebt.toFixed(2)}€</h3>
                 <h3>Total créance: {totalCredit.toFixed(2)}€</h3>
-                <h3 className={status.className}>{status.label}</h3>
+                <h3 className={`${status.className} mb-2`}>{status.label}</h3>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 md:max-w-50 w-full">
                 <Link to={"/dashboard"} className="btn btn-info">Dashboard</Link>
                 <button className="btn btn-warning" onClick={() => setIsDeleteModalOpen(true)}>
                     Supprimer le compte
