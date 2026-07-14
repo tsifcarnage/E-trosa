@@ -39,7 +39,9 @@ export default function Navbar({ links }: ISidebarProps) {
 
   return (
     <nav className="flex justify-between p-6 sticky top-0 z-20 bg-base-100">
-      <h3 className="grow self-center">{currentLink?.label || ""}</h3>
+      <h3 className={`grow self-center ${!user ? "hidden md:flex" : ""}`}>
+        {currentLink?.label || ""}
+      </h3>
       <section className="ml-auto flex gap-2">
         <ThemeToggle />
 

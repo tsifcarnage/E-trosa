@@ -44,12 +44,18 @@ function Dashboard() {
     const chartData = useMemo(() => BuildChartData(debtsRow, creditRow), [debtsRow, creditRow]);
 
     return (
-        <div className="pb-4">
+        // 💡 Changement : On force la largeur max et on empêche le scroll horizontal global de la page
+        <div className="w-full max-w-full overflow-x-hidden pb-20 md:pb-4">
+
             <AllStats debts={debtsRow} receivables={creditRow} />
-            <div>
+
+            {/* 💡 Conseil : Assure-toi que ChartAllAmount possède la propriété responsive de Recharts (ResponsiveContainer) */}
+            <div className="w-full overflow-hidden">
                 <ChartAllAmount chartData={chartData} />
             </div>
-            <div className="m-6 p-6">
+
+            {/* 💡 Changement : m-4 p-4 sur mobile, passe à m-6 p-6 sur PC */}
+            <div className="m-4 p-4 sm:m-6 sm:p-6">
                 <div className="flex gap-2">
                     <span className="status status-error self-center"></span>
                     <p className="text-error"> Dettes à payer</p>
@@ -59,10 +65,15 @@ function Dashboard() {
                     <p className="text-success"> Créances à recevoir</p>
                 </div>
             </div>
-            <Dettes filterTitle="dettes proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
-            <Creances filterTitle="créances proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
+
+            {/* Conteneurs pour isoler les tableaux enfants */}
+            <div>
+                <Dettes filterTitle="dettes proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
+                <Creances filterTitle="créances proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
+            </div>
+
         </div>
     )
 }
 
-export default Dashboard
+export default Dashboard;

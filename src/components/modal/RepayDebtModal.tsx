@@ -54,7 +54,9 @@ const RepayDebtModal = ({ debt, onClose, onRepay, titleUsers }: { debt: IDebts, 
             ) : (
 
                 <div className="modal-action  flex-wrap">
-                    <RepaymentForm remainingToPay={remainingToPay} repaymentAmount={repaymentAmount} setRepaymentAmount={setRepaymentAmount} debt={debt} />
+                    <div className="w-full">
+                        <RepaymentForm remainingToPay={remainingToPay} repaymentAmount={repaymentAmount} setRepaymentAmount={setRepaymentAmount} debt={debt} />
+                    </div>
 
                     <div className="mt-4 flex gap-2">
                         <button className="btn btn-primary" onClick={handleRepayment}>

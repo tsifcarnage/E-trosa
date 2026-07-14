@@ -15,7 +15,7 @@ const links: Ilink[] = [
   { icon: <RiDashboardHorizontalFill size={25} />, to: "dashboard", label: "Vue global" },
   { icon: <RiMoneyEuroCircleLine size={25} />, to: "dettes", label: "Gestion des Dettes" },
   { icon: <RiUser2Fill size={25} />, to: "creances", label: "Gestion des Créances" },
-  { icon: <RiBankCard2Line size={25} />, to: "paiements", label: "Historique des paiements" },
+  { icon: <RiBankCard2Line size={25} />, to: "paiements", label: "Archives" },
 ];
 
 export default function DashboardLayout() {

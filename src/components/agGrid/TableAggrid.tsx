@@ -39,11 +39,9 @@ export default function TableAggrid({
   const [openChart, setOpenChart] = useState(false);
   return (
     <>
-      <div className="mt-10 mx-6 flex justify-between gap-2">
-        <h2 className=" self-center">Liste des {title}s</h2>
-        <div className="flex justify-center flex-wrap gap-5">
-
-          {/* filter for Graphique and add data */}
+      <div className="mt-10 mx-6 flex flex-col sm:flex-row justify-between gap-2">
+        <h2 className="self-center text-center sm:text-left">Liste des {title}s</h2>
+        <div className="flex justify-center flex-wrap gap-3 items-center">
           {!filterAll && !sortDate && (
             <>
               <h3
@@ -53,23 +51,25 @@ export default function TableAggrid({
                 <ImStatsDots size={25} className="self-center mx-2" />
                 Graphique
               </h3>
-
               {openChart && (
                 <ChartDebtModal
                   onClose={() => setOpenChart(false)}
                   rowData={rowData as IDebts[]}
                 />
               )}
-
-              <AddData
-                title={title ?? ""}
-                onClick={() => setOpenDebtForm(true)}
-              />
+              <AddData title={title ?? ""} onClick={() => setOpenDebtForm(true)} />
             </>
           )}
-          {openDebtForm && <AddDebtModal onClose={() => setOpenDebtForm(false)} onDebtAdded={onAddDebt} addTitle={title ?? ""} userTitleForm={userTitle ?? ""} />}
+          {openDebtForm && (
+            <AddDebtModal
+              onClose={() => setOpenDebtForm(false)}
+              onDebtAdded={onAddDebt}
+              addTitle={title ?? ""}
+              userTitleForm={userTitle ?? ""}
+            />
+          )}
           <input
-            className="px-2 border border-secondary rounded-xl"
+            className="p-2 border border-secondary rounded-md w-full sm:w-auto"
             type="text"
             placeholder="Rechercher..."
             value={searchText}
@@ -78,7 +78,7 @@ export default function TableAggrid({
         </div>
       </div>
 
-      <div className={`${height} text-center w-full my-5`}>
+      <div className={`${height} text-center w-full my-5 mb-24 md:mb-0`}>
         <AgGridReact
           theme={themeAgGrid}
           rowData={rowData}
@@ -103,7 +103,9 @@ export default function TableAggrid({
           defaultColDef={{
             sortable: true,
             filter: true,
-            resizable: true
+            resizable: true,
+            minWidth: 120,
+            flex: 1
           }}
         />
       </div>

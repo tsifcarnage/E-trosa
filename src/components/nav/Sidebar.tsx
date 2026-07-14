@@ -71,17 +71,17 @@ export default function Sidebar({ links = [] }: ISidebarProps) {
               <span className="text-[10px] capitalize">{link.to}</span>
             </NavLink>
           ))}
-          <div className="mt-auto p-3 hidden md:flex">
-            <NavLink
-              to={"parametre"}
-              className={({ isActive }) =>
-                `flex flex-col items-center gap-1 p-2 transition-colors hover:text-secondary ${isActive ? "text-secondary" : ""}`
-              }
-            >
-              <RiSettings3Fill size={25} />
-              <span className="text-[10px] capitalize">Parametre</span>
-            </NavLink>
-          </div>
+
+          <NavLink
+            to={"parametre"}
+            className={({ isActive }) =>
+              `flex flex-col items-center gap-1 p-2 transition-colors hover:text-secondary ${isActive ? "text-secondary" : ""}`
+            }
+          >
+            <RiSettings3Fill size={25} />
+            <span className="text-[10px] capitalize">Parametre</span>
+          </NavLink>
+
         </div>
       </nav>
     </>
