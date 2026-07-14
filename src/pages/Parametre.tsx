@@ -25,7 +25,6 @@ export default function Parametre() {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [loadingPassword, setLoadingPassword] = useState(false);
 
-  //  TanStack Query profile
   const { data: profile } = useQuery({
     queryKey: ["userProfile"],
     queryFn: fetchUserProfile,
@@ -144,7 +143,6 @@ export default function Parametre() {
     setLoadingPassword(true);
     setPasswordMsg(null);
 
-    // Étape A : On vérifie le mot de passe actuel en tentant un "re-login" en arrière-plan
     const { error: loginError } = await supabase.auth.signInWithPassword({
       email: user.email,
       password: currentPassword,
@@ -156,7 +154,6 @@ export default function Parametre() {
       return;
     }
 
-    // Étape B : Si le login réussit, le mot de passe actuel est valide, on le change !
     const { error: updateError } = await supabase.auth.updateUser({
       password: newPassword,
     });
