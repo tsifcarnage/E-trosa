@@ -30,14 +30,14 @@ function Home() {
     useEffect(() => {
         const { data: listener } = supabase.auth.onAuthStateChange(() => {
             queryClient.invalidateQueries({ queryKey: ["userProfile"] });
-            queryClient.invalidateQueries({ queryKey: ["debts"] }); // Optionnel : bonus pour tes grilles de dettes !
+            queryClient.invalidateQueries({ queryKey: ["debts"] });
         });
         return () => listener.subscription.unsubscribe();
     }, [queryClient]);
 
     return (
         <div className="flex flex-col justify-center items-center gap-4">
-            {/* Affichage de l'avatar géré proprement */}
+            {/* Affichage de l'avatar*/}
             {!isLoading && profile && (
                 <div className="my-2">
                     {profile.avatar_url ? (

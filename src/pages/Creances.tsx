@@ -62,7 +62,6 @@ function Creances({ sortDescDate, filterStatus, filterCard, filterTitle }: Ifilt
 
     const handleDelete = (row: IDebts) => {
         if (!user) {
-            // Mode démo → état local
             setDemoDebts(prev => prev.filter(d => d.id !== row.id));
         } else {
             deleteMutation.mutate(row);

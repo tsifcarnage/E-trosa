@@ -49,7 +49,6 @@ export default function Parametre() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Remplir les champs du formulaire quand les données du profil arrivent du cache
   useEffect(() => {
     if (profile) {
       setEditForm({
