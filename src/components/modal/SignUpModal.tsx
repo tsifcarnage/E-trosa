@@ -5,7 +5,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface SignUpModalProps {
     onClose: () => void;
-    // onSuccess: () => void;
 }
 
 export const SignUpModal = ({ onClose }: SignUpModalProps) => {

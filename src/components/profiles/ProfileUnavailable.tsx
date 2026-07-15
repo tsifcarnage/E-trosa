@@ -38,10 +38,6 @@ export default function ProfileUnavailable() {
       {openSignUp && (
         <SignUpModal
           onClose={() => setOpenSignUp(false)}
-          onSuccess={() => {
-            setOpenSignUp(false);
-            setOpenLogin(true);
-          }}
         />
       )}
     </div>
