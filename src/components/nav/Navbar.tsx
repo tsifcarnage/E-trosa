@@ -46,7 +46,6 @@ export default function Navbar({ links }: ISidebarProps) {
         <ThemeToggle />
 
         {/* connexion */}
-
         {!user && (
           <div>
             <button className="self-center cursor-pointer bg-secondary hover:bg-success rounded-full px-3 py-2.5 text-base-100 font-medium transition-all duration-100 " onClick={() => setOpenLogin(true)}>
