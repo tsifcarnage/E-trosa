@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
             { path: "accueil", element: <Home /> },
             { path: "dashboard", element: <Dashboard /> },
             { path: "dettes", element: <Dettes filterTitle="dette" filterCard={false} filterStatus={false} /> },
-            { path: "creances", element: <Creances filterTitle="créance" filterCard={false} filterStatus={false} /> },
+            { path: "créances", element: <Creances filterTitle="créance" filterCard={false} filterStatus={false} /> },
             { path: "paiements", element: <Paiements /> },
             { path: "parametre", element: <Parametre /> },
             { path: "*", element: <Error404 /> },
