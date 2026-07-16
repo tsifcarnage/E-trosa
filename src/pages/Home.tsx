@@ -61,7 +61,7 @@ function Home() {
             <h3 className="text-center w-full px-2 max-w-2xl self-center">
                 Cette plateforme vous permet d'enregistrer et de gérer vos dettes et vos créances, ainsi que de suivre vos paiements et visualiser votre progression.
             </h3>
-
+            <small className="mx-3 text-center">{!profile ? '(Ceci est en mode démo, les modifications que vous faites ne sera pas sauvegarder)' : ''}</small>
             <CoinAnimation />
             <CallToAction ctActions={ctActions} />
         </div>
