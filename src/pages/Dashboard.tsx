@@ -44,11 +44,11 @@ function Dashboard() {
     const chartData = useMemo(() => BuildChartData(debtsRow, creditRow), [debtsRow, creditRow]);
 
     return (
-        <div className="w-full max-w-full overflow-x-hidden pb-20 md:pb-4">
+        <div className="w-full pb-20 md:pb-4">
 
             <AllStats debts={debtsRow} receivables={creditRow} />
 
-            <div className="w-full overflow-hidden pb-5">
+            <div className="w-full pb-5">
                 <ChartAllAmount chartData={chartData} />
             </div>
 
@@ -63,10 +63,10 @@ function Dashboard() {
                 </div>
             </div>
 
-            <div>
-                <Dettes filterTitle="dettes proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
-                <Creances filterTitle="créances proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
-            </div>
+
+            <Dettes filterTitle="dettes proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
+            <Creances filterTitle="créances proches de l'échéance" filterStatus={false} sortDescDate={true} filterCard={true} />
+
 
         </div>
     )
