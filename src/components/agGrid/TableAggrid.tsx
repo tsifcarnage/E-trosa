@@ -38,6 +38,9 @@ export default function TableAggrid({
   const [searchText, setSearchText] = useState("");
   const [openDebtForm, setOpenDebtForm] = useState(false);
   const [openChart, setOpenChart] = useState(false);
+  const onGridReady = (params: any) => {
+    params.api.sizeColumnsToFit();
+  };
   return (
     <>
       <div className="mt-10 mx-6 flex flex-col sm:flex-row justify-between gap-2">
@@ -90,6 +93,7 @@ export default function TableAggrid({
           paginationPageSize={10}
           paginationPageSizeSelector={[10, 20]}
           context={{ onDelete, onOpenModal }}
+          onGridReady={onGridReady}
           initialState={{
             filter: {
               filterModel: {
