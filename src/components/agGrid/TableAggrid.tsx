@@ -7,6 +7,7 @@ import { ImStatsDots } from "react-icons/im";
 import AddDebtModal from "../modal/AddDebtModal";
 import type { IDebts } from "../../models/debts.interfaces";
 import { ChartDebtModal } from "../charts/ChartDebtModal";
+import { AG_GRID_LOCALE_FR } from "@ag-grid-community/locale";
 
 const themeAgGrid = themeQuartz.withParams({
   backgroundColor: "var(--color-base-100)",
@@ -80,6 +81,7 @@ export default function TableAggrid({
 
       <div className={`${height} text-center w-full my-5 mb-24 md:mb-0`}>
         <AgGridReact
+          localeText={AG_GRID_LOCALE_FR}
           theme={themeAgGrid}
           rowData={rowData}
           columnDefs={columnDefs}

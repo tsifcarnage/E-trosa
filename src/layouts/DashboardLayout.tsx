@@ -14,7 +14,7 @@ const links: Ilink[] = [
   { icon: <RiHome2Line size={25} />, to: "accueil", label: "Accueil" },
   { icon: <RiDashboardHorizontalFill size={25} />, to: "dashboard", label: "Vue global" },
   { icon: <RiMoneyEuroCircleLine size={25} />, to: "dettes", label: "Gestion des Dettes" },
-  { icon: <RiUser2Fill size={25} />, to: "creances", label: "Gestion des Créances" },
+  { icon: <RiUser2Fill size={25} />, to: "créances", label: "Gestion des Créances" },
   { icon: <RiBankCard2Line size={25} />, to: "paiements", label: "Archives" },
 ];
 

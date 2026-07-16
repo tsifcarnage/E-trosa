@@ -79,7 +79,7 @@ export default function Sidebar({ links = [] }: ISidebarProps) {
             }
           >
             <RiSettings3Fill size={25} />
-            <span className="text-[10px] capitalize">Parametre</span>
+            <span className="text-[10px] capitalize">Paramètre</span>
           </NavLink>
 
         </div>
