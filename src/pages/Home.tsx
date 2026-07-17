@@ -12,7 +12,7 @@ import { fetchUserProfile } from "../utils/debts.service";
 const ctActions: Ilink[] = [
     { title: "Dashboard", label: "Vue globale de l'application", icon: <RiDashboardHorizontalFill size={50} />, to: "/dashboard" },
     { title: "Dettes", label: "Liste et modification des dettes ", icon: <GiPayMoney size={50} />, to: "/dettes" },
-    { title: "Créances", label: "Liste et modification des créances", icon: <GiReceiveMoney size={50} />, to: "/creances" },
+    { title: "Créances", label: "Liste et modification des créances", icon: <GiReceiveMoney size={50} />, to: "/créances" },
     { title: "Paiements", label: "Historique de paiement effectué", icon: <GiTakeMyMoney size={50} />, to: "/paiements" },
 ];
 
