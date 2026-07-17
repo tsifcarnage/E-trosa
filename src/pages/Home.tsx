@@ -1,5 +1,5 @@
 import { RiDashboardHorizontalFill } from "react-icons/ri";
-import CoinAnimation from "../components/CoinAnimation";
+import CoinAnimation from "../components/animationLottie/CoinAnimation";
 import type { Ilink } from "../models/ui.interfaces";
 import CallToAction from "../components/CallToAction";
 import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
