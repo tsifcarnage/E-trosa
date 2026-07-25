@@ -125,7 +125,7 @@ src/
 ## 👨‍💻 Auteur
 
 **Tsiferana Randriamampianina**
-Apprenant en développement web front-end — IFAPME de Liège | Promotion X75
+Apprenant en développement web front-end — IFAPME de Liège 
 
 ---
 
