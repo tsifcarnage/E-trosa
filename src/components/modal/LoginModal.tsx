@@ -51,13 +51,13 @@ export const LoginModal = ({ onClose, onSignUp }: LoginModalProps) => {
 
                 <div className="relative w-full">
                     <input type={showPassword ? "text" : "password"} className="input input-primary w-full" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="******" required />
-                    <button
-                        type="button"
+                    <div
+                        role="button"
                         className="btn btn-outline border-none p-0 bg-transparent hover:scale-105 absolute inset-y-0 right-3 flex items-center "
                         onClick={() => setShowPassword(!showPassword)}
                     >
                         {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
-                    </button>
+                    </div>
                 </div>
 
                 <button className="btn btn-primary mt-5" disabled={loading}>{loading ? "Connexion en cours..." : "Se connecter"}</button>
