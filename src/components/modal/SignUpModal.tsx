@@ -98,13 +98,13 @@ export const SignUpModal = ({ onClose }: SignUpModalProps) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button
-                        type="button"
+                    <div
+                        role="button"
                         className="btn btn-outline border-none p-0 bg-transparent absolute inset-y-0 right-3 flex items-center"
                         onClick={() => setShowPassword(!showPassword)}
                     >
                         {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
-                    </button>
+                    </div>
                 </div>
 
                 <button type="submit" className="btn btn-primary mt-5" disabled={loading}>
