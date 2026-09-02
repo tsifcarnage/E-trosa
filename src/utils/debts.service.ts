@@ -1,9 +1,9 @@
 import type { IDebts, INewDebt } from "../models/debts.interfaces";
-import { createDebt } from "./buildDebt"; // Adapte le chemin si nécessaire
+import { createDebt } from "./buildDebt";
 import { supabase } from "./supabaseClient";
 import { MOCK_DEBT, MOCK_RECEIVABLES } from "../data/debts.mock";
 
-// Transforme les lignes de Supabase (snake_case) vers ton modèle d'interface
+// Transforme les lignes (snake_case)
 const mapRowToDebt = (row: any): IDebts => {
   return createDebt(
     row.creditor,
